@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnyf631o7isau"]
+
+[ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_nq667"]
+
+[node name="Character" instance=ExtResource("1_nq667")]
+maxhp = 100
+maxmp = 60
+atk = 20
+dfn = 10
+spd = 10.0

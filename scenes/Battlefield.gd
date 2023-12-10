@@ -11,9 +11,6 @@ var enemy_field				:Array[Array]
 var attack_cue				:Array[Character]
 var character_attacking		:bool
 
-var timer = 1.0
-var idle = true
-
 func _init():
 	character_attacking = false
 	return
@@ -36,15 +33,7 @@ func _ready():
 	$EnemyGrid.scale = Vector3(-1.0, 1.0, 1.0)
 	return
 	
-func _process(delta):
-	timer -= delta
-	if timer < 0:
-		if idle :
-			$Character/Sprite.play("idle")
-		else:
-			$Character/Sprite.play("attack")
-		idle = not idle
-		timer += 1.0
+func _process(_delta):
 	return
 	
 
