@@ -3,7 +3,7 @@ extends Control
 
 var cDisplay:PackedScene = preload("res://scenes/menu/characterDisplay.tscn")
 var characterDisplays:Array[CharacterDisplay] =[]
-var character = Character.new(99, 10, 6, 6, 10)
+var character = Character.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
