@@ -1,12 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4p83pan2i0yt"]
 
 [ext_resource type="Script" path="res://scenes/characters/Character.gd" id="1_srr3r"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bpqjk"]
+[ext_resource type="SpriteFrames" uid="uid://3pg5717b1xwl" path="res://resources/spriteFrames/dude.tres" id="2_yfpe4"]
 
 [node name="Character" type="Node3D"]
 script = ExtResource("1_srr3r")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-sprite_frames = SubResource("SpriteFrames_bpqjk")
-frame_progress = 0.00890323
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
+billboard = 2
+texture_filter = 0
+sprite_frames = ExtResource("2_yfpe4")
+animation = &"idle"
+
+[connection signal="animation_changed" from="Sprite" to="." method="update_character_y_offset"]
