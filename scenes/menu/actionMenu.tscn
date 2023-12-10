@@ -1,0 +1,112 @@
+[gd_scene load_steps=5 format=3 uid="uid://22fxpqk40s2a"]
+
+[ext_resource type="PackedScene" uid="uid://u8k1ume1gcgg" path="res://scenes/menu/characterDisplay.tscn" id="1_dc8ua"]
+[ext_resource type="PackedScene" uid="uid://bsr1gjomei63r" path="res://scenes/menu/fightOptionsMenu.tscn" id="2_1k4k4"]
+[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_7cp2m"]
+[ext_resource type="Texture2D" uid="uid://btu115cki1eui" path="res://assets/borders/panel-border-004.png" id="4_jkbyb"]
+
+[node name="actionMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(1, 1, 1, 0)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Border" type="NinePatchRect" parent="ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(535, 140)
+layout_mode = 2
+texture = ExtResource("4_jkbyb")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/Border"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -56.5
+offset_right = 232.0
+offset_bottom = 56.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="characterDisplay" parent="ColorRect/HBoxContainer/Border/VBoxContainer" instance=ExtResource("1_dc8ua")]
+layout_mode = 2
+
+[node name="characterDisplay2" parent="ColorRect/HBoxContainer/Border/VBoxContainer" instance=ExtResource("1_dc8ua")]
+layout_mode = 2
+
+[node name="characterDisplay3" parent="ColorRect/HBoxContainer/Border/VBoxContainer" instance=ExtResource("1_dc8ua")]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 12.0
+offset_right = 288.0
+offset_bottom = 52.0
+theme = ExtResource("3_7cp2m")
+text = "Health"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+offset_left = 288.0
+offset_top = 12.0
+offset_right = 394.0
+offset_bottom = 52.0
+theme = ExtResource("3_7cp2m")
+text = "Energy"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+offset_left = 394.0
+offset_top = 12.0
+offset_right = 500.0
+offset_bottom = 52.0
+theme = ExtResource("3_7cp2m")
+text = "Attack"
+
+[node name="Border2" type="NinePatchRect" parent="ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(180, 140)
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("4_jkbyb")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="fightOptionsMenu" parent="ColorRect/HBoxContainer/Border2" instance=ExtResource("2_1k4k4")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -70.0
+offset_right = 100.0
+offset_bottom = 70.0
