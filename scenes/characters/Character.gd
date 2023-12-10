@@ -5,14 +5,20 @@ signal attack_ready(Character)
 
 # Constants
 var ATTACK_READY_VALUE	:float	= 2.0
-var SPRITE_VELOCITY		:float	= 100.0
+var SPRITE_VELOCITY		:float	= 1.0
+
+# Nodes
+@onready var sprite		= $Sprite
 
 # Class variables
-@export var hp				:int	= 1
-@export var mp				:int	= 1
+@export var maxhp			:int	= 1
+@export var maxmp			:int	= 1
 @export var atk 			:int	= 1
 @export var dfn 			:int	= 1
 @export var spd 			:float	= 1
+@export var character_name	:String	= "Dummy"
+var hp				:int	= 1
+var mp				:int	= 1
 var attack_meter			:float	= 0.0
 var preparing_attack		:bool	= false
 var character_moving		:bool	= false
@@ -20,18 +26,16 @@ var grid_position			:Vector2i
 var target_position			:Vector3 
 
 
-func _init(h, m, a, d, s):
-	hp 	= h
-	mp 	= m
-	atk = a
-	dfn = d
-	spd = s
+func _init():
+	hp					= maxhp
+	mp 					= maxmp
 	attack_meter 		= 0.0
 	preparing_attack 	= false
 	character_moving 	= false
 
 func _ready():
-	target_position = position
+	target_position = global_position
+	update_character_y_offset()
 
 func _process(delta):
 	update_attack_meter(delta)
@@ -56,16 +60,19 @@ func update_character_position(delta):
 	if not character_moving:
 		return
 	
-	# Get distance to target position
-	var distance = position.distance_to(target_position)
+	var dist = global_position.distance_to(target_position)
 	
 	# Calculate movement
-	var velocity = position.direction_to(target_position) * SPRITE_VELOCITY * delta
-	velocity = max(velocity, target_position-position)
+	var velocity:Vector3 = global_position.direction_to(target_position) * SPRITE_VELOCITY * delta
 	
-	# Update position
-	position += velocity
-	if position.distance_to(target_position) < 1.0:
+	if velocity.length() > dist:
+		global_position = target_position
+		print("Llega")
+	else:
+		global_position += velocity
+		print("No llega")
+	
+	if global_position.distance_to(target_position) < 0.01:
 		character_moving = false
 	
 	return
@@ -85,3 +92,7 @@ func move_to_world_position(new_pos:Vector3):
 
 func reset_attack_meter():
 	attack_meter -= ATTACK_READY_VALUE
+
+func update_character_y_offset():
+	# Offset equals half sprite height
+	sprite.offset.y = sprite.get_item_rect().size.y/2
