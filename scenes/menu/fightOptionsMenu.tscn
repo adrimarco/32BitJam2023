@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsr1gjomei63r"]
+
+[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="1_j0owy"]
+
+[node name="fightOptionsMenu" type="Control"]
+custom_minimum_size = Vector2(200, 140)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -520.0
+offset_bottom = -436.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_right = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MoveOption" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("1_j0owy")
+text = "Move
+"
+scroll_active = false
+
+[node name="AttackOption" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("1_j0owy")
+text = "Attack
+"
+scroll_active = false
+
+[node name="AbilityOption" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("1_j0owy")
+text = "Ability
+"
+scroll_active = false
