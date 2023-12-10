@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://22fxpqk40s2a"]
+[gd_scene load_steps=7 format=3 uid="uid://22fxpqk40s2a"]
 
-[ext_resource type="PackedScene" uid="uid://u8k1ume1gcgg" path="res://scenes/menu/characterDisplay.tscn" id="1_dc8ua"]
+[ext_resource type="Script" path="res://scenes/menu/actionMenu.gd" id="1_hdtqw"]
 [ext_resource type="PackedScene" uid="uid://bsr1gjomei63r" path="res://scenes/menu/fightOptionsMenu.tscn" id="2_1k4k4"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_7cp2m"]
 [ext_resource type="Texture2D" uid="uid://btu115cki1eui" path="res://assets/borders/panel-border-004.png" id="4_jkbyb"]
+
+[sub_resource type="Gradient" id="Gradient_py2tg"]
+offsets = PackedFloat32Array(0, 0.4, 0.683871)
+colors = PackedColorArray(0.145098, 0.141176, 0.27451, 1, 0.12549, 0.207843, 0.384314, 1, 0.117647, 0.341176, 0.611765, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s6ymi"]
+gradient = SubResource("Gradient_py2tg")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [node name="actionMenu" type="Control"]
 layout_mode = 3
@@ -12,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hdtqw")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -41,6 +51,19 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
+[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/Border"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s6ymi")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/Border"]
 layout_mode = 1
 anchors_preset = 8
@@ -55,16 +78,7 @@ offset_bottom = 56.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="characterDisplay" parent="ColorRect/HBoxContainer/Border/VBoxContainer" instance=ExtResource("1_dc8ua")]
-layout_mode = 2
-
-[node name="characterDisplay2" parent="ColorRect/HBoxContainer/Border/VBoxContainer" instance=ExtResource("1_dc8ua")]
-layout_mode = 2
-
-[node name="characterDisplay3" parent="ColorRect/HBoxContainer/Border/VBoxContainer" instance=ExtResource("1_dc8ua")]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+[node name="HealthLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
 layout_mode = 0
 offset_left = 181.0
 offset_top = 12.0
@@ -73,7 +87,8 @@ offset_bottom = 52.0
 theme = ExtResource("3_7cp2m")
 text = "Health"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+[node name="EnergyLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+layout_mode = 0
 offset_left = 288.0
 offset_top = 12.0
 offset_right = 394.0
@@ -81,7 +96,8 @@ offset_bottom = 52.0
 theme = ExtResource("3_7cp2m")
 text = "Energy"
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+[node name="AttackLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+layout_mode = 0
 offset_left = 394.0
 offset_top = 12.0
 offset_right = 500.0
@@ -99,6 +115,19 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
+[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/Border2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s6ymi")
+
 [node name="fightOptionsMenu" parent="ColorRect/HBoxContainer/Border2" instance=ExtResource("2_1k4k4")]
 layout_mode = 1
 anchors_preset = 8
@@ -106,7 +135,7 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
+offset_left = -84.0
 offset_top = -70.0
-offset_right = 100.0
+offset_right = 116.0
 offset_bottom = 70.0
