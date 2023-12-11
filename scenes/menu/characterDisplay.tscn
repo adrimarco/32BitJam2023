@@ -1,8 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://u8k1ume1gcgg"]
+[gd_scene load_steps=16 format=3 uid="uid://u8k1ume1gcgg"]
 
 [ext_resource type="Script" path="res://scenes/menu/characterDisplay.gd" id="1_3l4es"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="1_nl6y8"]
 [ext_resource type="Texture2D" uid="uid://v36bljnf66pv" path="res://assets/menu/spritesMenu.png" id="2_b6gqr"]
+
+[sub_resource type="Gradient" id="Gradient_qsccv"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qt27g"]
+gradient = SubResource("Gradient_qsccv")
+width = 94
+height = 6
 
 [sub_resource type="Gradient" id="Gradient_neqtb"]
 colors = PackedColorArray(0.898039, 0.717647, 0, 1, 0.976471, 0.937255, 0, 1)
@@ -12,12 +21,30 @@ gradient = SubResource("Gradient_neqtb")
 width = 94
 height = 6
 
+[sub_resource type="Gradient" id="Gradient_w1hr3"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0fh67"]
+gradient = SubResource("Gradient_w1hr3")
+width = 96
+height = 2
+
 [sub_resource type="Gradient" id="Gradient_va6g4"]
 offsets = PackedFloat32Array(0, 0.993007)
 colors = PackedColorArray(0.391902, 0.0738928, 0.003538, 1, 0.751541, 0, 0.0853269, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_327gd"]
 gradient = SubResource("Gradient_va6g4")
+width = 96
+height = 2
+
+[sub_resource type="Gradient" id="Gradient_i58hi"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m1sg6"]
+gradient = SubResource("Gradient_i58hi")
 width = 96
 height = 2
 
@@ -76,9 +103,11 @@ offset_top = 3.0
 offset_right = 97.0
 offset_bottom = 9.0
 nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_qt27g")
 texture_progress = SubResource("GradientTexture2D_ndd8y")
 
 [node name="HPBar" type="NinePatchRect" parent="."]
+layout_mode = 0
 offset_left = 152.0
 offset_top = 17.5
 offset_right = 252.0
@@ -96,6 +125,7 @@ offset_left = 2.0
 offset_top = 2.0
 offset_right = 98.0
 offset_bottom = 4.0
+texture_under = SubResource("GradientTexture2D_0fh67")
 texture_progress = SubResource("GradientTexture2D_327gd")
 
 [node name="TextHP" type="RichTextLabel" parent="HPBar"]
@@ -113,6 +143,7 @@ text = "20/20"
 scroll_active = false
 
 [node name="MPBar" type="NinePatchRect" parent="."]
+layout_mode = 0
 offset_left = 258.0
 offset_top = 17.5
 offset_right = 358.0
@@ -130,6 +161,7 @@ offset_left = 2.0
 offset_top = 2.0
 offset_right = 98.0
 offset_bottom = 4.0
+texture_under = SubResource("GradientTexture2D_m1sg6")
 texture_progress = SubResource("GradientTexture2D_yf2qj")
 
 [node name="TextMP" type="RichTextLabel" parent="MPBar"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsr1gjomei63r"]
+[gd_scene load_steps=3 format=3 uid="uid://bsr1gjomei63r"]
 
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="1_j0owy"]
+[ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="2_dcj0u"]
 
 [node name="fightOptionsMenu" type="Control"]
 custom_minimum_size = Vector2(200, 140)
@@ -47,3 +48,6 @@ theme = ExtResource("1_j0owy")
 text = "Ability
 "
 scroll_active = false
+
+[node name="CursorNode" parent="." instance=ExtResource("2_dcj0u")]
+position = Vector2(8, 40)

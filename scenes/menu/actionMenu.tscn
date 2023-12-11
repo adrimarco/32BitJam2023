@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://22fxpqk40s2a"]
+[gd_scene load_steps=8 format=3 uid="uid://22fxpqk40s2a"]
 
 [ext_resource type="Script" path="res://scenes/menu/actionMenu.gd" id="1_hdtqw"]
 [ext_resource type="PackedScene" uid="uid://bsr1gjomei63r" path="res://scenes/menu/fightOptionsMenu.tscn" id="2_1k4k4"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_7cp2m"]
 [ext_resource type="Texture2D" uid="uid://btu115cki1eui" path="res://assets/borders/panel-border-004.png" id="4_jkbyb"]
+[ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_5kiqq"]
 
 [sub_resource type="Gradient" id="Gradient_py2tg"]
 offsets = PackedFloat32Array(0, 0.4, 0.683871)
@@ -34,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(1, 1, 1, 0)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect"]
+[node name="MainActionMenu" type="HBoxContainer" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +43,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Border" type="NinePatchRect" parent="ColorRect/HBoxContainer"]
+[node name="Border" type="NinePatchRect" parent="ColorRect/MainActionMenu"]
 custom_minimum_size = Vector2(535, 140)
 layout_mode = 2
 texture = ExtResource("4_jkbyb")
@@ -51,7 +52,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/Border"]
+[node name="TextureRect" type="TextureRect" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,7 +65,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_s6ymi")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/Border"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -78,7 +79,7 @@ offset_bottom = 56.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HealthLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+[node name="HealthLabel" type="RichTextLabel" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 0
 offset_left = 181.0
 offset_top = 12.0
@@ -87,7 +88,7 @@ offset_bottom = 52.0
 theme = ExtResource("3_7cp2m")
 text = "Health"
 
-[node name="EnergyLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+[node name="EnergyLabel" type="RichTextLabel" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 0
 offset_left = 288.0
 offset_top = 12.0
@@ -96,7 +97,7 @@ offset_bottom = 52.0
 theme = ExtResource("3_7cp2m")
 text = "Energy"
 
-[node name="AttackLabel" type="RichTextLabel" parent="ColorRect/HBoxContainer/Border"]
+[node name="AttackLabel" type="RichTextLabel" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 0
 offset_left = 394.0
 offset_top = 12.0
@@ -105,7 +106,7 @@ offset_bottom = 52.0
 theme = ExtResource("3_7cp2m")
 text = "Attack"
 
-[node name="Border2" type="NinePatchRect" parent="ColorRect/HBoxContainer"]
+[node name="Border2" type="NinePatchRect" parent="ColorRect/MainActionMenu"]
 custom_minimum_size = Vector2(180, 140)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -115,7 +116,7 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/Border2"]
+[node name="TextureRect" type="TextureRect" parent="ColorRect/MainActionMenu/Border2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,14 +129,142 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_s6ymi")
 
-[node name="fightOptionsMenu" parent="ColorRect/HBoxContainer/Border2" instance=ExtResource("2_1k4k4")]
+[node name="fightOptionsMenu" parent="ColorRect/MainActionMenu/Border2" instance=ExtResource("2_1k4k4")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -84.0
+offset_left = -57.0
 offset_top = -70.0
-offset_right = 116.0
+offset_right = 143.0
 offset_bottom = 70.0
+
+[node name="AbilityTab" type="HBoxContainer" parent="ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AbilityNameBorder" type="NinePatchRect" parent="ColorRect/AbilityTab"]
+custom_minimum_size = Vector2(250, 140)
+layout_mode = 2
+texture = ExtResource("4_jkbyb")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="AbilityNamesBg" type="TextureRect" parent="ColorRect/AbilityTab/AbilityNameBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s6ymi")
+
+[node name="HealthLabel" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 123.0
+offset_bottom = 52.0
+theme = ExtResource("3_7cp2m")
+text = "Abilities"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/AbilityTab/AbilityNameBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = 33.0
+offset_right = -16.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthLabel" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("3_7cp2m")
+text = "FIre punch"
+
+[node name="HealthLabel2" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("3_7cp2m")
+text = "Sword swipe"
+
+[node name="HealthLabel3" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("3_7cp2m")
+text = "Black spark"
+
+[node name="HealthLabel4" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("3_7cp2m")
+text = "Heal Pulse"
+
+[node name="HealthLabel5" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("3_7cp2m")
+text = "Heal Pulse"
+
+[node name="HealthLabel6" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme = ExtResource("3_7cp2m")
+text = "Heal Pulse"
+
+[node name="AbilityDescBorder" type="NinePatchRect" parent="ColorRect/AbilityTab"]
+custom_minimum_size = Vector2(465, 140)
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("4_jkbyb")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="AbilityDescBg" type="TextureRect" parent="ColorRect/AbilityTab/AbilityDescBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_s6ymi")
+
+[node name="AbilityDesc" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityDescBorder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = -17.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_7cp2m")
+text = "Lorem ipsum dolor sit quialiquip ex ea commodo consequat. Dui"
+
+[node name="CursorNode" parent="ColorRect/AbilityTab" instance=ExtResource("5_5kiqq")]
+position = Vector2(20, 36)
