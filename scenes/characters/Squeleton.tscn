@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwjjw3scf83m"]
+
+[ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_gieq1"]
+[ext_resource type="SpriteFrames" uid="uid://fguk6gjbh3lr" path="res://resources/spriteFrames/necromancer.tres" id="2_pjs1f"]
+
+[node name="Character" instance=ExtResource("1_gieq1")]
+maxhp = 80
+maxmp = 80
+atk = 25
+dfn = 8
+spd = 12.0
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_pjs1f")
+frame_progress = 0.151707

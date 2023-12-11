@@ -1,11 +1,11 @@
 class_name Character
 extends Node3D
 
-signal attack_ready(Character)
+signal attack_ready(ch:Character)
 
 # Constants
-var ATTACK_READY_VALUE	:float	= 2.0
-var SPRITE_VELOCITY		:float	= 1.0
+static var ATTACK_READY_VALUE	:float	= 10.0
+static var SPRITE_VELOCITY		:float	= 1.0
 
 # Nodes
 @onready var sprite		= $Sprite
@@ -35,6 +35,7 @@ func _init():
 
 func _ready():
 	target_position = global_position
+	grid_position = Vector2i(-1, -1)
 	update_character_y_offset()
 
 func _process(delta):
@@ -67,10 +68,8 @@ func update_character_position(delta):
 	
 	if velocity.length() > dist:
 		global_position = target_position
-		print("Llega")
 	else:
 		global_position += velocity
-		print("No llega")
 	
 	if global_position.distance_to(target_position) < 0.01:
 		character_moving = false
@@ -86,9 +85,13 @@ func prepare_attack():
 func set_grid_position(new_pos:Vector2i):
 	grid_position = new_pos
 
-func move_to_world_position(new_pos:Vector3):
+func move_to_world_position(new_pos:Vector3, teleport:bool = false):
 	target_position = new_pos
-	character_moving = true
+	if teleport:
+		global_position = new_pos
+	else:
+		character_moving = true
+	
 
 func reset_attack_meter():
 	attack_meter -= ATTACK_READY_VALUE
