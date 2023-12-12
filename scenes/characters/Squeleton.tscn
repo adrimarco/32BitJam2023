@@ -8,7 +8,7 @@ maxhp = 80
 maxmp = 80
 atk = 25
 dfn = 8
-spd = 12.0
+spd = 8.0
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_pjs1f")
