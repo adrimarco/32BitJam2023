@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://bcfnj7cnodi8b"]
+
+[ext_resource type="Texture2D" uid="uid://c4efcgjsnp7je" path="res://assets/abilities/Smear 01 Vertical 02.png" id="1_q5xc7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lg545"]
+atlas = ExtResource("1_q5xc7")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onwww"]
+atlas = ExtResource("1_q5xc7")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgpmf"]
+atlas = ExtResource("1_q5xc7")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3417"]
+atlas = ExtResource("1_q5xc7")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4eoju"]
+atlas = ExtResource("1_q5xc7")
+region = Rect2(192, 0, 48, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lg545")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onwww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgpmf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3417")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4eoju")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}]

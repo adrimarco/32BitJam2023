@@ -181,7 +181,7 @@ offset_bottom = 52.0
 theme = ExtResource("3_7cp2m")
 text = "Abilities"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/AbilityTab/AbilityNameBorder"]
+[node name="AbilityNameList" type="VBoxContainer" parent="ColorRect/AbilityTab/AbilityNameBorder"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -192,42 +192,6 @@ offset_right = -16.0
 offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="HealthLabel" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme = ExtResource("3_7cp2m")
-text = "FIre punch"
-
-[node name="HealthLabel2" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme = ExtResource("3_7cp2m")
-text = "Sword swipe"
-
-[node name="HealthLabel3" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme = ExtResource("3_7cp2m")
-text = "Black spark"
-
-[node name="HealthLabel4" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme = ExtResource("3_7cp2m")
-text = "Heal Pulse"
-
-[node name="HealthLabel5" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme = ExtResource("3_7cp2m")
-text = "Heal Pulse"
-
-[node name="HealthLabel6" type="RichTextLabel" parent="ColorRect/AbilityTab/AbilityNameBorder/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme = ExtResource("3_7cp2m")
-text = "Heal Pulse"
 
 [node name="AbilityDescBorder" type="NinePatchRect" parent="ColorRect/AbilityTab"]
 custom_minimum_size = Vector2(465, 140)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://crqfwnbibb4v5"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_csaul"]
+
+[node name="Ability" instance=ExtResource("1_csaul")]
+ability_name = "Slash"
+description = "The character strickes the enemy with a strong slash"
+dmg_multiplier = 1.0
+target_enemy_team = true
+target_type = 1

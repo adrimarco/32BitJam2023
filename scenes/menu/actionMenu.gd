@@ -11,16 +11,22 @@ var characterAttacking:bool = false
 var characterRefAttacking:Character
 @onready var characterList = $ColorRect/MainActionMenu/Border/VBoxContainer
 
-const MAX_ABILITIES:int = 7
-@onready var abilityTab = $ColorRect/AbilityTab
-var abilityTabActive:bool = false
-var abilitySelection:int = 0
-var cursorAbilityPosition:Vector2 = Vector2(8, 40)
-var characterAbilities = 3
-
 # Menu selection variables
 var selected:int 	= 0
 var cursorPosition:Vector2 = Vector2(8, 40)
+@onready var cursorActionMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode
+@onready var cursorAbilityMenu = $ColorRect/AbilityTab/CursorNode
+@onready var fightOptionsMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu
+
+@onready var abilityDescText = $ColorRect/AbilityTab/AbilityDescBorder/AbilityDesc
+@onready var abilityTab = $ColorRect/AbilityTab
+@onready var abilityNameList = $ColorRect/AbilityTab/AbilityNameBorder/AbilityNameList
+const MAX_ABILITIES:int = 7
+var characterAbilities:int = 0
+
+var abilityTabActive:bool = false
+var abilitySelection:int = 0
+var cursorAbilityPosition:Vector2 = Vector2(20, 36)
 
 # signals
 signal characterMove(ch:Character)
@@ -32,15 +38,15 @@ signal characterAttack(ch:Character, ability:int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	changeNodeVisibility(fightOptionsMenu, false)
 	
 
 func initCharacterList():
-	var cDaux:CharacterDisplay = cDisplay.instantiate()
 	playerCharacters = get_parent().getCharactersFromBattleField(true)
 	clearCharacterDisplays()
 	
 	for ch in playerCharacters:
+		var cDaux:CharacterDisplay = cDisplay.instantiate()
 		cDaux.initCharacterDisplay(ch)
 		characterDisplays.append(cDaux)
 		characterList.add_child(cDaux)
@@ -56,13 +62,14 @@ func clearCharacterDisplays():
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	# Update UI data
 	for index in range(characterDisplays.size()):
 		characterDisplays[index].updateAttackMeter(playerCharacters[index])
-
+	
 	# input
 	if characterRefAttacking != null && characterAttacking:
+		changeNodeVisibility(fightOptionsMenu, true)
 		# Move cursor
 		if !abilityTabActive:
 			if Input.is_action_just_pressed("move_down"):
@@ -71,9 +78,9 @@ func _process(delta):
 				selected = (selected - 1) % 3
 				if selected < 0:
 					selected += 3
-			$ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode.position = Vector2(cursorPosition.x, cursorPosition.y + 24*selected)
+			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + 24*selected)
 		else:
-			pass
+			changeNodeVisibility(fightOptionsMenu, false)
 		# Option selected
 		if Input.is_action_just_pressed("action_accept"):
 			optionSelected(abilityTabActive)
@@ -82,21 +89,37 @@ func _process(delta):
 			showAbilityMenu(false)
 
 
-func optionSelected(isAbilityMenu):
+func optionSelected(_isAbilityMenu):
 	if   selected == 0:
 		characterMove.emit(characterRefAttacking)
 	elif selected == 1:
 		pass
 	elif selected == 2:
 		showAbilityMenu(true)
+		printCharacterAbilities(characterRefAttacking)
 
-func printCharacterAbilities(ch:Character):
-	# TODO: Get all abilities name and create a rich text node
+func printCharacterAbilities(ch:Character) -> void:
 	# Store abilities count in characterAbilities
-	pass
+	characterAbilities = ch.abilities.size()
+	
+	# Get all abilities name and create a rich text node
+	for cAb in ch.abilities:
+		var label:RichTextLabel = RichTextLabel.new()
+		label.text = cAb.ability_name
+		label.custom_minimum_size = Vector2(0, 12)
+		label.scroll_active = false
+		label.theme = preload("res://resources/menuTheme.tres")
+		abilityNameList.add_child(label)
+		
 
-#func printCharacterAbilityDescription(ab:Ability):
-#	pass
+func getAbilityFromIndex(ch:Character, index:int) ->Ability:
+	for cAbIndex in ch.abilities.size():
+		if cAbIndex == index:
+			return ch.abilities[cAbIndex]
+	return null
+
+func printCharacterAbilityDescription(ab:Ability):
+	abilityDescText.text = ab.description
 
 func showAbilityMenu(_visible:bool):
 	$ColorRect/AbilityTab.visible = _visible
@@ -106,3 +129,6 @@ func showAbilityMenu(_visible:bool):
 func _storeCharacterAttacking(ch:Character) -> void:
 	characterAttacking = true
 	characterRefAttacking = ch
+	
+func changeNodeVisibility(node:Node, isVisible:bool):
+	node.visible = isVisible
