@@ -10,7 +10,7 @@ var ability_name		:String
 var description			:String
 var dmg_multiplier		:float
 var cost				:int
-var range				:Callable
+var ability_range		:Callable
 var target_enemy_team	:bool
 var target_type			:TargetTypes
 var priority_func		:Callable

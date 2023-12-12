@@ -31,7 +31,9 @@ func _init():
 	return
 	
 func _ready():
-	$EnemyGrid.scale = Vector3(-1.0, 1.0, 1.0)
+	enemy_grid.scale = Vector3(-1.0, 1.0, 1.0)
+	enemy_grid.set_mark_color(false)
+	player_grid.set_mark_color(true)
 	
 	# Create player_field matrix
 	player_field.resize(player_grid.rows)
@@ -129,6 +131,8 @@ func load_character(character_scene:PackedScene, player_character:bool) -> Chara
 	add_child(ch_data.character)
 	characters.append(ch_data)
 	ch_data.player_field = player_character
+	
+	# Bind signals
 	ch_data.character.connect("attack_ready", Callable(self, "character_ready_to_attack"))
 	connect("resume_preparing_attacks", Callable(ch_data.character, "prepare_attack"))
 	connect("stop_preparing_attacks", Callable(ch_data.character, "stop_preparing_attack"))
@@ -195,3 +199,34 @@ func getCharactersByType(isPlayer:bool) -> Array[Character]:
 		if ch.player_field == isPlayer:
 			chs.append(ch.character)
 	return chs
+
+func get_range_from_character_and_ability(ch:Character, ability:Ability) -> RangeFunctions.TileCollection:
+	var is_enemy_character 		:bool = not searchCharacterIsPlayer(ch)
+	var target_matrix 			:Array[Array]
+	var is_player_field_target	:bool
+	
+	# Get matrix affected by ability
+	if is_enemy_character == ability.target_enemy_team:
+		target_matrix 			= player_field
+		is_player_field_target 	= true
+	else:
+		target_matrix 			= enemy_field
+		is_player_field_target 	= false
+	
+	var ability_range :RangeFunctions.TileCollection = ability.ability_range.call(target_matrix, ch.grid_position)
+	
+	mark_ability_range(is_player_field_target, ability_range)
+	
+	return ability_range
+
+func mark_ability_range(is_player_grid:bool, tiles:RangeFunctions.TileCollection):
+	unmark_grid_tiles()
+	
+	if is_player_grid:
+		player_grid.mark_tiles(tiles.tiles)
+	else:
+		enemy_grid.mark_tiles(tiles.tiles)
+
+func unmark_grid_tiles():
+	player_grid.unmark_all_tiles()
+	enemy_grid.unmark_all_tiles()

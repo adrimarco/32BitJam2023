@@ -10,9 +10,9 @@ class TileCollection:
 func enemies_in_same_row(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
 	# Variables for easier programming
 	var row 	:= character_tile.y
-	var column	:= character_tile.x
+	var _column	:= character_tile.x
 	
-	var tiles:TileCollection
+	var tiles:TileCollection = TileCollection.new()
 	if grid != null and grid.size() > 0:
 		for i in grid.size():
 			# Add all tiles of same row
@@ -24,7 +24,7 @@ func able_to_move(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
 	var row 	:= character_tile.y
 	var column	:= character_tile.x
 	
-	var tiles:TileCollection
+	var tiles:TileCollection = TileCollection.new()
 	if grid != null and column < grid.size() and row < grid[column].size():
 		# Check surrounding tiles
 		if row > 0 and grid[column][row-1] == null:
