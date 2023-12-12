@@ -1,16 +1,17 @@
 class_name BattlefieldGrid
 extends Node3D
 
-static var TILE_SIZE			:float = 0.56
-static var TILE_PADDING			:float = 0.04
+static var TILE_SIZE			:float = 0.6
 static var UNMARK_COLOR			:Color = Color(1.0, 1.0, 1.0)
 static var PLAYER_MARK_COLOR	:Color = Color(0.0, 0.5, 1.0)
 static var ENEMY_MARK_COLOR		:Color = Color(1.0, 0.25, 0.0)
-static var SELECT_COLOR			:Color = Color(0.0, 1.0, 0.0)
+static var SELECT_COLOR			:Color = PLAYER_MARK_COLOR#Color(1.0, 0.96, 0.23)
 
 @export var rows 		:int = 3
 @export var columns		:int = 3
+@export var invert		:bool = false
 var grid_tiles			:Array[Array]
+var grid_sprites		:Array[Array]
 var mark_color			:Color = ENEMY_MARK_COLOR
 
 func _ready():
@@ -23,22 +24,26 @@ func _ready():
 	rows = maxi(rows, 1)
 	columns = maxi(columns, 1)
 	
-	var tile_texture:Texture2D = load("res://assets/environment/GridBasic.png")
+	var sprite_frame:Resource = load("res://resources/spriteFrames/tile.tres")
 	
+	grid_sprites.resize(rows)
 	grid_tiles.resize(rows)
 	for r in rows:
+		grid_sprites[r].resize(columns)
 		grid_tiles[r].resize(columns)
+		
 		for c in columns:
 			# Create tile
-			var tile = Sprite3D.new()
-			tile.position = Vector3(r * (TILE_SIZE + TILE_PADDING), 0, c * (TILE_SIZE + TILE_PADDING))
+			var tile = AnimatedSprite3D.new()
+			tile.sprite_frames = sprite_frame
+			tile.animation = "normal"
 			
-			tile.rotate_x(PI/2)
-			tile.texture = tile_texture
-			tile.centered = false
+			var grid_dir = -1.0 if invert else 1.0
+			tile.position = Vector3(r * TILE_SIZE * grid_dir, 0, c * TILE_SIZE)
+			tile.rotate_x(-PI/2)
 			
 			add_child(tile)
-			grid_tiles[r][c] = tile
+			grid_sprites[r][c] = tile
 		
 	
 
@@ -50,18 +55,18 @@ func set_mark_color(player_color:bool):
 	
 
 func get_tile_position(r, c) -> Vector3:
-	var offset = Vector3(r * (TILE_SIZE + TILE_PADDING) + TILE_SIZE/2, 0.01, c * (TILE_SIZE + TILE_PADDING) + TILE_SIZE/2)
+	if r < 0 or r >= rows or c < 0 or c >= columns:
+		return global_position
 	
-	offset = offset.rotated(Vector3(0.0, 1.0, 0.0), rotation.y)
-	offset *= scale
-
-	return global_position + offset
+	return grid_sprites[r][c].global_position
 
 func unmark_all_tiles():
-	for row in grid_tiles:
+	for row in grid_sprites:
 		for tile in row:
 			tile.position.y = 0.0
 			tile.modulate = UNMARK_COLOR
+			tile.stop()
+			
 		
 
 func mark_tiles(tiles_to_mark:Array[Vector2i]):
@@ -69,26 +74,26 @@ func mark_tiles(tiles_to_mark:Array[Vector2i]):
 		mark_tile(t.x, t.y)
 
 func mark_tile(r:int, c:int):
-	if r < 0 or c < 0 or r >= grid_tiles.size() or c >= grid_tiles[r].size():
+	if r < 0 or c < 0 or r >= grid_sprites.size() or c >= grid_sprites[r].size():
 		return
 	
-	if grid_tiles[r][c] != null:
-		grid_tiles[r][c].modulate = mark_color
+	if grid_sprites[r][c] != null:
+		grid_sprites[r][c].modulate = mark_color
 		
 	return
 
 func select_tile(r:int, c:int):
-	if r < 0 or c < 0 or r >= grid_tiles.size() or c >= grid_tiles[r].size():
+	if r < 0 or c < 0 or r >= grid_sprites.size() or c >= grid_sprites[r].size():
 		return
 	
-	if grid_tiles[r][c] != null:
-		grid_tiles[r][c].modulate = SELECT_COLOR
-		grid_tiles[r][c].position.y = 0.1
+	if grid_sprites[r][c] != null:
+		#grid_sprites[r][c].modulate = SELECT_COLOR
+		grid_sprites[r][c].play()
 
 func unselect_tile(r:int, c:int):
-	if r < 0 or c < 0 or r >= grid_tiles.size() or c >= grid_tiles[r].size():
+	if r < 0 or c < 0 or r >= grid_sprites.size() or c >= grid_sprites[r].size():
 		return
 	
-	if grid_tiles[r][c] != null:
-		grid_tiles[r][c].modulate = mark_color
-		grid_tiles[r][c].position.y = 0.0
+	if grid_sprites[r][c] != null:
+		#grid_sprites[r][c].modulate = mark_color
+		grid_sprites[r][c].stop()

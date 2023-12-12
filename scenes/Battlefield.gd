@@ -18,8 +18,6 @@ class CharacterData:
 
 # Class variables
 var characters 				:Array[CharacterData]
-var player_field			:Array[Array]
-var enemy_field				:Array[Array]
 var attack_cue				:Array[Character]
 var character_attacking		:bool
 
@@ -31,19 +29,8 @@ func _init():
 	return
 	
 func _ready():
-	enemy_grid.scale = Vector3(-1.0, 1.0, 1.0)
 	enemy_grid.set_mark_color(false)
 	player_grid.set_mark_color(true)
-	
-	# Create player_field matrix
-	player_field.resize(player_grid.rows)
-	for i in player_grid.rows:
-		player_field[i].resize(player_grid.columns)
-	
-	# Create enemy_field matrix
-	enemy_field.resize(enemy_grid.rows)
-	for i in enemy_grid.rows:
-		enemy_field[i].resize(enemy_grid.columns)
 	
 	# Load characters
 	var player = load_character(preload("res://scenes/characters/Knight.tscn"), true)
@@ -170,23 +157,16 @@ func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bo
 	if r < 0 or r >= grid.rows or c < 0 or c >= grid.columns:
 		return false
 	
-	# Get field matrix
-	var matrix
-	if grid == player_grid:
-		matrix = player_field
-	else:
-		matrix = enemy_field
-	
 	# Check the indexes are correct and tile is empty
-	if matrix == null or matrix[r] == null or matrix[r][c] != null:
+	if grid.grid_tiles[r] == null or grid.grid_tiles[r][c] != null:
 		return false
 	
 	# Free previous tile
 	if ch.grid_position.x >= 0 and ch.grid_position.y >= 0:
-		matrix[ch.grid_position.x][ch.grid_position.y] = null
+		grid.grid_tiles[ch.grid_position.x][ch.grid_position.y] = null
 	
 	# Move character
-	matrix[r][c] = ch
+	grid.grid_tiles[r][c] = ch
 	ch.move_to_world_position(get_tile_position_in_character_battlefield(ch, r, c), teleport)
 	ch.grid_position = Vector2i(r, c)
 	
@@ -202,18 +182,18 @@ func getCharactersByType(isPlayer:bool) -> Array[Character]:
 
 func get_range_from_character_and_ability(ch:Character, ability:Ability) -> RangeFunctions.TileCollection:
 	var is_enemy_character 		:bool = not searchCharacterIsPlayer(ch)
-	var target_matrix 			:Array[Array]
+	var target_field 			:BattlefieldGrid
 	var is_player_field_target	:bool
 	
 	# Get matrix affected by ability
 	if is_enemy_character == ability.target_enemy_team:
-		target_matrix 			= player_field
+		target_field 			= player_grid
 		is_player_field_target 	= true
 	else:
-		target_matrix 			= enemy_field
+		target_field 			= enemy_grid
 		is_player_field_target 	= false
 	
-	var ability_range :RangeFunctions.TileCollection = ability.ability_range.call(target_matrix, ch.grid_position)
+	var ability_range :RangeFunctions.TileCollection = ability.ability_range.call(target_field.grid_tiles, ch.grid_position)
 	
 	mark_ability_range(is_player_field_target, ability_range)
 	
