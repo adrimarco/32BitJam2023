@@ -22,7 +22,8 @@ var cursorPosition:Vector2 = Vector2(8, 40)
 @onready var abilityTab = $ColorRect/AbilityTab
 @onready var abilityNameList = $ColorRect/AbilityTab/AbilityNameBorder/AbilityNameList
 const MAX_ABILITIES:int = 7
-var characterAbilities:int = 0
+var characterAbilitiesCount:int = 0
+var characterAbilitiesTextOffset:int = 16
 
 var abilityTabActive:bool = false
 var abilitySelection:int = 0
@@ -81,6 +82,7 @@ func _process(_delta):
 			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + 24*selected)
 		else:
 			changeNodeVisibility(fightOptionsMenu, false)
+			checkAbilityTabInput()
 		# Option selected
 		if Input.is_action_just_pressed("action_accept"):
 			optionSelected(abilityTabActive)
@@ -88,6 +90,26 @@ func _process(_delta):
 		if Input.is_action_just_pressed("action_back") && abilityTabActive:
 			showAbilityMenu(false)
 
+func checkAbilityTabInput():
+	if Input.is_action_just_pressed("move_down"):
+		abilitySelection = (abilitySelection + 1) % characterAbilitiesCount
+		hoverAbility()
+	if Input.is_action_just_pressed("move_up"):
+		abilitySelection = (abilitySelection - 1) % characterAbilitiesCount
+		if abilitySelection < 0:
+			abilitySelection += characterAbilitiesCount
+		hoverAbility()
+	
+
+func hoverAbility():
+	# Update cursor position
+	cursorAbilityMenu.position = Vector2(cursorAbilityPosition.x, cursorAbilityPosition.y + characterAbilitiesTextOffset*abilitySelection)
+	
+	# Show ability info
+	var selectedAbility: Ability = getAbilityFromIndex(characterRefAttacking, abilitySelection)
+	printCharacterAbilityDescription(selectedAbility)
+	# TODO: Show ability range
+	
 
 func optionSelected(_isAbilityMenu):
 	if   selected == 0:
@@ -96,11 +118,11 @@ func optionSelected(_isAbilityMenu):
 		pass
 	elif selected == 2:
 		showAbilityMenu(true)
-		printCharacterAbilities(characterRefAttacking)
+		
 
-func printCharacterAbilities(ch:Character) -> void:
-	# Store abilities count in characterAbilities
-	characterAbilities = ch.abilities.size()
+func printcharacterAbilities(ch:Character) -> void:
+	# Store abilities count in characterAbilitiesCount
+	characterAbilitiesCount = ch.abilities.size()
 	
 	# Get all abilities name and create a rich text node
 	for cAb in ch.abilities:
@@ -129,6 +151,9 @@ func showAbilityMenu(_visible:bool):
 func _storeCharacterAttacking(ch:Character) -> void:
 	characterAttacking = true
 	characterRefAttacking = ch
+	abilitySelection = 0
+	printcharacterAbilities(characterRefAttacking)
+	printCharacterAbilityDescription(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
 func changeNodeVisibility(node:Node, isVisible:bool):
 	node.visible = isVisible

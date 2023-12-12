@@ -4,7 +4,7 @@
 
 [node name="Ability" instance=ExtResource("1_csaul")]
 ability_name = "Slash"
-description = "The character strickes the enemy with a strong slash"
+description = "The character strikes the enemy with a strong slash"
 dmg_multiplier = 1.0
 target_enemy_team = true
 target_type = 1
