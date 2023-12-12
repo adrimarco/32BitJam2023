@@ -4,6 +4,7 @@ extends Control
 var cDisplay:PackedScene = preload("res://scenes/menu/characterDisplay.tscn")
 var characterScene = preload("res://scenes/characters/Character.tscn")
 
+var playerCharacters:Array = []
 var characterDisplays:Array[CharacterDisplay] =[]
 var characterAttacking:bool = true
 var characterRefAttacking:Character
@@ -18,8 +19,6 @@ var characterAbilities = 3
 # Menu selection variables
 var selected:int 	= 0
 var cursorPosition:Vector2 = Vector2(8, 40)
-# Erase
-var character:Character
 
 # signals
 signal characterMove(ch:Character)
@@ -31,34 +30,29 @@ signal characterAttack(ch:Character, ability:int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	character = characterScene.instantiate()
-	characterRefAttacking = character
-	character.hp = 99
-	character.maxhp = 99
-	character.mp = 20
-	character.maxmp = 20
-	character.spd = 10
-	add_child(character)
-	character.prepare_attack()
-	var cDaux:CharacterDisplay = cDisplay.instantiate()
-	cDaux.initCharacterDisplay(character)
-	characterDisplays.append(cDaux)
-	$ColorRect/MainActionMenu/Border/VBoxContainer.add_child(cDaux)
+	pass
 	
+	
+
+func initCharacterList():
+	var cDaux:CharacterDisplay = cDisplay.instantiate()
+	playerCharacters = get_parent().getCharactersFromBattleField(true)
+	for ch in playerCharacters:
+		cDaux.initCharacterDisplay(ch)
+		characterDisplays.append(cDaux)
+		
 	# Connect battlefield signal
 	# When a playable character is ready to attack -> emit signal
 	#connect("character_attack_turn", Callable(self, "_storeCharacterAttacking"))
-
-
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Update UI data
-	for display in characterDisplays:
-		display.updateValuesCharacterDisplay(character)
-		
+	for index in range(characterDisplays.size()):
+		characterDisplays[index].updateValuesCharacterDisplay(playerCharacters[index])
+
 	# input
 	if characterRefAttacking != null && characterAttacking:
-		
 		# Move cursor
 		if !abilityTabActive:
 			if Input.is_action_just_pressed("move_down"):
@@ -94,10 +88,10 @@ func printCharacterAbilities(ch:Character):
 #func printCharacterAbilityDescription(ab:Ability):
 #	pass
 
-func showAbilityMenu(visible:bool):
-	$ColorRect/AbilityTab.visible = visible
-	$ColorRect/MainActionMenu.visible = !visible
-	abilityTabActive = visible
+func showAbilityMenu(_visible:bool):
+	$ColorRect/AbilityTab.visible = _visible
+	$ColorRect/MainActionMenu.visible = !_visible
+	abilityTabActive = _visible
 
 func _storeCharacterAttacking(ch:Character) -> void:
 	characterAttacking = true

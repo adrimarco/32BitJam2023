@@ -174,3 +174,11 @@ func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bo
 	ch.grid_position = Vector2i(r, c)
 	
 	return true
+	
+	
+func getCharactersByType(isPlayer:bool) -> Array[Character]:
+	var chs:Array[Character] = []
+	for ch in characters:
+		if ch.player_field == isPlayer:
+			chs.append(ch.character)
+	return chs
