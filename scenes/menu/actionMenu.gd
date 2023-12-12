@@ -1,13 +1,15 @@
-extends Control
+class_name ActionMenu
 
+extends Control
 
 var cDisplay:PackedScene = preload("res://scenes/menu/characterDisplay.tscn")
 var characterScene = preload("res://scenes/characters/Character.tscn")
 
 var playerCharacters:Array = []
 var characterDisplays:Array[CharacterDisplay] =[]
-var characterAttacking:bool = true
+var characterAttacking:bool = false
 var characterRefAttacking:Character
+@onready var characterList = $ColorRect/MainActionMenu/Border/VBoxContainer
 
 const MAX_ABILITIES:int = 7
 @onready var abilityTab = $ColorRect/AbilityTab
@@ -32,24 +34,32 @@ signal characterAttack(ch:Character, ability:int)
 func _ready():
 	pass
 	
-	
 
 func initCharacterList():
 	var cDaux:CharacterDisplay = cDisplay.instantiate()
 	playerCharacters = get_parent().getCharactersFromBattleField(true)
+	clearCharacterDisplays()
+	
 	for ch in playerCharacters:
 		cDaux.initCharacterDisplay(ch)
 		characterDisplays.append(cDaux)
+		characterList.add_child(cDaux)
 		
-	# Connect battlefield signal
-	# When a playable character is ready to attack -> emit signal
-	#connect("character_attack_turn", Callable(self, "_storeCharacterAttacking"))
+	for index in range(characterDisplays.size()):
+		characterDisplays[index].updateHealthValues(playerCharacters[index])
+		characterDisplays[index].updateAbilityValues(playerCharacters[index])
 		
+func clearCharacterDisplays():
+	for ch in characterDisplays:
+		ch.queue_free()
+	characterDisplays.clear()
+	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Update UI data
 	for index in range(characterDisplays.size()):
-		characterDisplays[index].updateValuesCharacterDisplay(playerCharacters[index])
+		characterDisplays[index].updateAttackMeter(playerCharacters[index])
 
 	# input
 	if characterRefAttacking != null && characterAttacking:

@@ -3,7 +3,8 @@ extends Node3D
 
 signal stop_preparing_attacks
 signal resume_preparing_attacks
-signal character_attack_turn(ch:Character)
+signal player_attack_turn(ch:Character)
+signal enemy_attack_turn(ch:Character)
 
 class CharacterData:
 	var character		:Character
@@ -96,10 +97,22 @@ func check_attack_cue():
 		var attacking_character = attack_cue.back()
 		
 		attacking_character.reset_attack_meter()
-		character_attack_turn.emit(attacking_character)
+
+		# Check if character is player or not and emit attack turn signal
+		if searchCharacterIsPlayer(attacking_character):
+			player_attack_turn.emit(attacking_character)
+		else:
+			enemy_attack_turn.emit(attacking_character)
+			
 		attack_cue.pop_back()
 	return
 
+# Returns if a character is from player o an enemy
+func searchCharacterIsPlayer(ch:Character) -> bool:
+	for cIndex in characters:
+		if cIndex.character == ch:
+			return true
+	return false
 
 func attack_finished():
 	character_attacking = false

@@ -25,15 +25,14 @@ var character_moving		:bool	= false
 var grid_position			:Vector2i
 var target_position			:Vector3 
 
-
-func _init():
+func _ready():
+	# Init character values
 	hp					= maxhp
 	mp 					= maxmp
 	attack_meter 		= 0.0
 	preparing_attack 	= false
 	character_moving 	= false
-
-func _ready():
+	
 	target_position = global_position
 	grid_position = Vector2i(-1, -1)
 	update_character_y_offset()
