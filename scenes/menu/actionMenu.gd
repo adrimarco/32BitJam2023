@@ -29,6 +29,8 @@ var abilityTabActive:bool = false
 var abilitySelection:int = 0
 var cursorAbilityPosition:Vector2 = Vector2(20, 36)
 
+var input_enabled:bool = false
+
 # signals
 signal characterMove(ch:Character)
 signal characterAttack(ch:Character, ability:int)
@@ -69,6 +71,9 @@ func _process(_delta):
 		characterDisplays[index].updateAttackMeter(playerCharacters[index])
 	
 	# input
+	if not input_enabled:
+		return 
+	
 	if characterRefAttacking != null && characterAttacking:
 		changeNodeVisibility(fightOptionsMenu, true)
 		# Move cursor
@@ -114,6 +119,7 @@ func hoverAbility():
 func optionSelected(_isAbilityMenu):
 	if   selected == 0:
 		characterMove.emit(characterRefAttacking)
+		disable_input()
 	elif selected == 1:
 		pass
 	elif selected == 2:
@@ -155,5 +161,15 @@ func _storeCharacterAttacking(ch:Character) -> void:
 	printcharacterAbilities(characterRefAttacking)
 	printCharacterAbilityDescription(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
+	set_input_enabled()
+
 func changeNodeVisibility(node:Node, isVisible:bool):
 	node.visible = isVisible
+
+func set_input_enabled():
+	input_enabled = true
+	changeNodeVisibility(cursorActionMenu, true)
+
+func disable_input():
+	input_enabled = false
+	changeNodeVisibility(cursorActionMenu, false)

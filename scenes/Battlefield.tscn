@@ -13,3 +13,4 @@ transform = Transform3D(1, 0, 0, 0, 0.852138, 0.523317, 0, -0.523317, 0.852138, 
 
 [node name="EnemyGrid" parent="." instance=ExtResource("2_5j7ok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
+invert = true
