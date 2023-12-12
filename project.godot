@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 RangeFunctions="*res://scenes/RangeFunctions.gd"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
 [display]
 
@@ -25,6 +27,10 @@ window/size/viewport_width=720
 window/size/viewport_height=576
 window/size/resizable=false
 window/canvas_textures/default_texture_filter=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg")
 
 [input]
 

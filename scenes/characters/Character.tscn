@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4p83pan2i0yt"]
+[gd_scene load_steps=6 format=3 uid="uid://b4p83pan2i0yt"]
 
 [ext_resource type="Script" path="res://scenes/characters/Character.gd" id="1_srr3r"]
 [ext_resource type="PackedScene" uid="uid://vxoqqfq8yu4y" path="res://scenes/abilities/FireballAttack.tscn" id="2_hsgi4"]
 [ext_resource type="SpriteFrames" uid="uid://3pg5717b1xwl" path="res://resources/spriteFrames/dude.tres" id="2_yfpe4"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="4_15rmt"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="5_3hqlp"]
 
 [node name="Character" type="Node3D"]
 script = ExtResource("1_srr3r")
@@ -15,5 +17,13 @@ texture_filter = 0
 sprite_frames = ExtResource("2_yfpe4")
 animation = &"idle"
 autoplay = "idle"
+
+[node name="BeheviourTree" type="Node" parent="." node_paths=PackedStringArray("blackboard")]
+script = ExtResource("4_15rmt")
+enabled = false
+blackboard = NodePath("../Blackboard")
+
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("5_3hqlp")
 
 [connection signal="animation_changed" from="Sprite" to="." method="update_character_y_offset"]
