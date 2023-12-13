@@ -2,6 +2,7 @@ class_name TileSelector
 extends Node3D
 
 signal selection_canceled
+signal movement_confirmed(Vector2i)
 
 @onready var timer			:= $SelectionTime
 
@@ -11,12 +12,15 @@ var selected_ability		:Ability
 var active_grid				:BattlefieldGrid
 var tiles_available			:RangeFunctions.TileCollection
 var current_selection		:Array[Vector2i]
+var selected_action			:BattleManager.CharacterAction
 
 func _ready():
 	selector_enabled = false
+	selected_action = BattleManager.CharacterAction.None
 
 # Enable tile selection for an ability and return if there is at least one valid target
-func enable_tile_selector(grid:BattlefieldGrid, tiles:RangeFunctions.TileCollection, ability:Ability, is_player_field:bool) -> bool:
+func enable_tile_selector(grid:BattlefieldGrid, tiles:RangeFunctions.TileCollection, ability:Ability, is_player_field:bool, a:BattleManager.CharacterAction) -> bool:
+	selected_action 	= a
 	player_field_active	= is_player_field
 	active_grid 		= grid
 	selected_ability 	= ability
@@ -100,7 +104,11 @@ func _process(_delta):
 		selection_canceled.emit()
 		
 	elif Input.is_action_just_pressed("action_accept"):
-		selector_enabled = false
+		if not current_selection.is_empty() and current_selection[0].x > -1:
+			selector_enabled = false
+			active_grid.unmark_all_tiles()
+			if selected_action == BattleManager.CharacterAction.Move:
+				movement_confirmed.emit(current_selection[0])
 
 
 func select_next_tile_up():

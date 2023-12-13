@@ -106,6 +106,9 @@ func checkAbilityTabInput():
 		hoverAbility()
 	
 
+func hideActionMenu():
+	changeNodeVisibility(fightOptionsMenu, false)
+
 func hoverAbility():
 	# Update cursor position
 	cursorAbilityMenu.position = Vector2(cursorAbilityPosition.x, cursorAbilityPosition.y + characterAbilitiesTextOffset*abilitySelection)
