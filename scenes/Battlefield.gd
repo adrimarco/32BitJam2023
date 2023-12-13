@@ -100,7 +100,7 @@ func check_attack_cue():
 func searchCharacterIsPlayer(ch:Character) -> bool:
 	for cIndex in characters:
 		if cIndex.character == ch:
-			return true
+			return cIndex.player_field
 	return false
 
 func attack_finished():

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfiu1i7gfyx6m"]
+[gd_scene load_steps=6 format=3 uid="uid://dfiu1i7gfyx6m"]
 
 [ext_resource type="Script" path="res://scenes/BattleManager.gd" id="1_em4oq"]
 [ext_resource type="PackedScene" uid="uid://c71nvbb5j0pfu" path="res://scenes/Battlefield.tscn" id="2_sd8bj"]
 [ext_resource type="PackedScene" uid="uid://22fxpqk40s2a" path="res://scenes/menu/actionMenu.tscn" id="3_f4lmw"]
 [ext_resource type="PackedScene" uid="uid://berkrmqhgdyoy" path="res://scenes/TileSelector.tscn" id="4_hfu7f"]
+[ext_resource type="PackedScene" uid="uid://c40laoe5fb5x3" path="res://scenes/aiManager.tscn" id="5_3sa0g"]
 
 [node name="BattleManager" type="Node3D"]
 script = ExtResource("1_em4oq")
@@ -13,3 +14,5 @@ script = ExtResource("1_em4oq")
 [node name="actionMenu" parent="." instance=ExtResource("3_f4lmw")]
 
 [node name="TileSelector" parent="." instance=ExtResource("4_hfu7f")]
+
+[node name="aiManager" parent="." instance=ExtResource("5_3sa0g")]

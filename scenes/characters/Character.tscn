@@ -19,6 +19,7 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="BeheviourTree" type="Node" parent="." node_paths=PackedStringArray("blackboard")]
+unique_name_in_owner = true
 script = ExtResource("4_15rmt")
 enabled = false
 blackboard = NodePath("../Blackboard")

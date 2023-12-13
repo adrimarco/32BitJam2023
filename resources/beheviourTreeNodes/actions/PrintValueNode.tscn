@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcrtfwldl4hor"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/actions/PrintValueNode.gd" id="1_4fg0m"]
+
+[node name="PrintValueNode" type="Node"]
+script = ExtResource("1_4fg0m")

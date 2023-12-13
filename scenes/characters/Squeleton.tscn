@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwjjw3scf83m"]
+[gd_scene load_steps=4 format=3 uid="uid://dwjjw3scf83m"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_gieq1"]
 [ext_resource type="SpriteFrames" uid="uid://fguk6gjbh3lr" path="res://resources/spriteFrames/necromancer.tres" id="2_pjs1f"]
+[ext_resource type="PackedScene" uid="uid://bcrtfwldl4hor" path="res://resources/beheviourTreeNodes/actions/PrintValueNode.tscn" id="3_olf0s"]
 
 [node name="Character" instance=ExtResource("1_gieq1")]
 maxhp = 80
@@ -13,3 +14,5 @@ spd = 8.0
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_pjs1f")
 frame_progress = 0.151707
+
+[node name="PrintValueNode" parent="BeheviourTree" index="0" instance=ExtResource("3_olf0s")]

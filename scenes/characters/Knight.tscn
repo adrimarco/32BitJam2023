@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnyf631o7isau"]
+[gd_scene load_steps=5 format=3 uid="uid://bnyf631o7isau"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_nq667"]
 [ext_resource type="PackedScene" uid="uid://vxoqqfq8yu4y" path="res://scenes/abilities/FireballAttack.tscn" id="2_sihyd"]
 [ext_resource type="PackedScene" uid="uid://crqfwnbibb4v5" path="res://scenes/abilities/SlashAttack.tscn" id="3_h77pj"]
+[ext_resource type="PackedScene" uid="uid://bcrtfwldl4hor" path="res://resources/beheviourTreeNodes/actions/PrintValueNode.tscn" id="4_uxf8t"]
 
 [node name="Character" instance=ExtResource("1_nq667")]
 maxhp = 100
@@ -11,3 +12,5 @@ atk = 20
 dfn = 10
 spd = 10.0
 abilitiesScene = Array[PackedScene]([ExtResource("2_sihyd"), ExtResource("3_h77pj")])
+
+[node name="PrintValueNode" parent="BeheviourTree" index="0" instance=ExtResource("4_uxf8t")]

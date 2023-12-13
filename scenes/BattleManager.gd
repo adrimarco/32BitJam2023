@@ -4,17 +4,20 @@ extends Node3D
 @onready var battlefield:Battlefield	= $Battlefield
 @onready var actionMenu:ActionMenu		= $actionMenu
 @onready var tileSelector:TileSelector	= $TileSelector
+@onready var aiManager:AIManager		= $aiManager
 
 func _ready():
 	# Connect battlefield signal
 	# When a playable character is ready to attack -> emit signal
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
+	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range"))
 	
 	tileSelector.connect("selection_canceled", Callable(actionMenu, "set_input_enabled"))
 	
 	actionMenu.initCharacterList()
+	aiManager.initCharacterList()
 
 	
 func getCharactersFromBattleField(isPlayer:bool) -> Array[Character]:
