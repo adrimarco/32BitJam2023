@@ -11,6 +11,11 @@ func _ready():
 	
 func initCharacterList():
 	enemyCharacters = get_parent().getCharactersFromBattleField(false)
+
+func endAITurn():
+	if characterRefAttacking:
+		characterRefAttacking.get_node("%BeheviourTree").enabled = false
+	characterAttacking = false
 	
 func _storeCharacterAttacking(ch:Character) -> void:
 	print("Attacking" + ch.character_name)

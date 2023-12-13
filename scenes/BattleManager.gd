@@ -6,6 +6,8 @@ enum CharacterAction {None, Move, Attack}
 @onready var battlefield:Battlefield	= $Battlefield
 @onready var actionMenu:ActionMenu		= $actionMenu
 @onready var tileSelector:TileSelector	= $TileSelector
+@onready var aiManager:AIManager		= $aiManager
+
 var attacking_character	:Character
 var actions_remaining :int
 
@@ -17,6 +19,7 @@ func _ready():
 	# Connect battlefield signal
 	# When a playable character is ready to attack -> emit signal
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
+	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))
 	actionMenu.connect("characterAttack", Callable(self, "request_attack_range_for_player"))
@@ -26,6 +29,7 @@ func _ready():
 	tileSelector.connect("attack_confirmed", Callable(self, "do_action_attack"))
 	
 	actionMenu.initCharacterList()
+	aiManager.initCharacterList()
 	
 	###### TEMPORAL ? ##########
 	movement_ability = Ability.new()
@@ -82,6 +86,7 @@ func check_remaining_actions(actions_consumed:int):
 	if actions_remaining <= 0:
 		# Resume turns
 		attacking_character = null
+		aiManager.endAITurn()
 		actionMenu.hideActionMenu()
 		battlefield.attack_finished()
 	else:
