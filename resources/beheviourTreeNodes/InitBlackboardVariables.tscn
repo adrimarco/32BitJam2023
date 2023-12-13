@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://co6rcv1yu0vag"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.gd" id="1_lp7xm"]
+
+[node name="InitBlackboardVariables" type="Node"]
+script = ExtResource("1_lp7xm")

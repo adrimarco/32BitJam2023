@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdwtptkluxrq6"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/conditions/HasMovedNode.gd" id="1_r63qf"]
+
+[node name="HasMovedNode" type="Node"]
+script = ExtResource("1_r63qf")

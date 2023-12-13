@@ -18,7 +18,7 @@ func endAITurn():
 	characterAttacking = false
 	
 func _storeCharacterAttacking(ch:Character) -> void:
-	print("Attacking" + ch.character_name)
+	print("Attacking " + ch.character_name)
 	characterAttacking = true
 	characterRefAttacking = ch
 	characterRefAttacking.get_node("%BeheviourTree").enabled = true
