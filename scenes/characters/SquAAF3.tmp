@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_gieq1"]
 [ext_resource type="SpriteFrames" uid="uid://fguk6gjbh3lr" path="res://resources/spriteFrames/necromancer.tres" id="2_pjs1f"]
 [ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="3_asd7b"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="3_coqj3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="3_sydgq"]
 [ext_resource type="PackedScene" uid="uid://w5j01qxis6fw" path="res://resources/beheviourTreeNodes/actions/DoActionMovementNode.tscn" id="5_6m1qq"]
 
 [node name="Character" instance=ExtResource("1_gieq1")]
@@ -18,12 +18,9 @@ character_name = "SQ"
 sprite_frames = ExtResource("2_pjs1f")
 frame_progress = 0.151707
 
-[node name="BeheviourTree" parent="." index="1"]
-custom_monitor = true
+[node name="SequenceComposite" type="Node" parent="BeheviourTree" index="0"]
+script = ExtResource("3_sydgq")
 
-[node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
-script = ExtResource("3_coqj3")
+[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceComposite" index="0" instance=ExtResource("3_asd7b")]
 
-[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceStarComposite" index="0" instance=ExtResource("3_asd7b")]
-
-[node name="DoActionMovementNode" parent="BeheviourTree/SequenceStarComposite" index="1" instance=ExtResource("5_6m1qq")]
+[node name="DoActionMovementNode" parent="BeheviourTree/SequenceComposite" index="1" instance=ExtResource("5_6m1qq")]
