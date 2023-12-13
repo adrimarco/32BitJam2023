@@ -18,16 +18,16 @@ static var SPRITE_VELOCITY		:float	= 1.0
 @export var spd 			:float	= 1
 @export var character_name	:String	= "Dummy"
 @export var basicAttackScene:PackedScene = preload("res://scenes/abilities/SlashAttack.tscn")
-@export var abilitiesScene:Array[PackedScene] = []
-var hp				:int	= 1
-var mp				:int	= 1
+@export var abilitiesScene	:Array[PackedScene] = []
+var hp						:int	= 1
+var mp						:int	= 1
 var attack_meter			:float	= 0.0
 var preparing_attack		:bool	= false
 var character_moving		:bool	= false
 var grid_position			:Vector2i
 var target_position			:Vector3 
-var basicAttack:Ability
-var abilities:Array[Ability]
+var basic_attack			:Ability
+var abilities				:Array[Ability]
 
 
 func _ready():
@@ -109,8 +109,9 @@ func update_character_y_offset():
 func initializeCharacterAbilities():
 	# Instantiate basic ability
 	if basicAttackScene:
-		basicAttack = basicAttackScene.instantiate()
-		
+		basic_attack = basicAttackScene.instantiate()
+		add_child(basic_attack)
+	
 	# Instantiate special abilities
 	clearAbilitiesArray()
 	if abilitiesScene.size() == 0:
@@ -118,9 +119,13 @@ func initializeCharacterAbilities():
 	for ab in abilitiesScene:
 		if ab:
 			abilities.append(ab.instantiate())
+			add_child(abilities.back())
 
 func clearAbilitiesArray():
 	for ab in abilities:
 		if ab:
 			ab.queue_free()
 	abilities.clear()
+
+func damaged(attacker:Character, abl:Ability):
+	print("Dolor")

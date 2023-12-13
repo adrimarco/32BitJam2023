@@ -41,6 +41,14 @@ func _ready():
 	if enemy != null:
 		set_character_tile(enemy, 1, 1, true)	
 	
+	var enemy1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
+	if enemy1 != null:
+		set_character_tile(enemy1, 0, 1, true)	
+	
+	var enemy2 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
+	if enemy2 != null:
+		set_character_tile(enemy2, 2, 1, true)	
+		
 	resume_preparing_attacks.emit()
 	
 	return
@@ -90,8 +98,10 @@ func check_attack_cue():
 		# Check if character is player or not and emit attack turn signal
 		if searchCharacterIsPlayer(attacking_character):
 			player_attack_turn.emit(attacking_character)
+			print("Player attacking")
 		else:
 			enemy_attack_turn.emit(attacking_character)
+			print("Enemy attacking")			
 			
 		attack_cue.pop_back()
 	return
@@ -104,6 +114,7 @@ func searchCharacterIsPlayer(ch:Character) -> bool:
 	return false
 
 func attack_finished():
+	print("Character finished turn")
 	character_attacking = false
 	check_attack_cue()
 	
@@ -127,13 +138,13 @@ func load_character(character_scene:PackedScene, player_character:bool) -> Chara
 	return ch_data.character
 
 func get_tile_position_in_character_battlefield(ch:Character, r:int, c:int) -> Vector3:
-	var grid = get_character_grid(ch)
+	var grid = get_character_grid_from_character(ch)
 	var pos = grid.get_tile_position(r, c)
 	
 	return pos
 	
 
-func get_character_grid(ch:Character) -> BattlefieldGrid:
+func get_character_grid_from_character(ch:Character) -> BattlefieldGrid:
 	var grid:BattlefieldGrid
 	for i in characters.size():
 		if characters[i].character == ch:
@@ -147,9 +158,21 @@ func get_character_grid(ch:Character) -> BattlefieldGrid:
 		
 	return grid
 
+func get_enemy_grid_from_character(ch:Character) -> BattlefieldGrid:
+	var grid:BattlefieldGrid = get_character_grid_from_character(ch)
+	
+	if grid != null:
+		# Check character's grid and return its enemy grid
+		if grid == enemy_grid:
+			grid = player_grid
+		else:
+			grid = enemy_grid
+		
+	return grid
+
 func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bool:
 	# Get character grid
-	var grid = get_character_grid(ch)
+	var grid = get_character_grid_from_character(ch)
 	if grid == null:
 		return false
 	

@@ -6,9 +6,8 @@ enum CharacterAction {None, Move, Attack}
 @onready var battlefield:Battlefield	= $Battlefield
 @onready var actionMenu:ActionMenu		= $actionMenu
 @onready var tileSelector:TileSelector	= $TileSelector
-@onready var aiManager:AIManager		= $aiManager
-var selected_action 	:CharacterAction
 var attacking_character	:Character
+var actions_remaining :int
 
 ##### TEMPORAL ? ########
 var movement_ability :Ability
@@ -18,15 +17,15 @@ func _ready():
 	# Connect battlefield signal
 	# When a playable character is ready to attack -> emit signal
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
-	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))
+	actionMenu.connect("characterAttack", Callable(self, "request_attack_range_for_player"))
 	
 	tileSelector.connect("selection_canceled", Callable(actionMenu, "set_input_enabled"))
 	tileSelector.connect("movement_confirmed", Callable(self, "do_action_movement"))
+	tileSelector.connect("attack_confirmed", Callable(self, "do_action_attack"))
 	
 	actionMenu.initCharacterList()
-	aiManager.initCharacterList()
 	
 	###### TEMPORAL ? ##########
 	movement_ability = Ability.new()
@@ -41,24 +40,72 @@ func getCharactersFromBattleField(isPlayer:bool) -> Array[Character]:
 	return battlefield.getCharactersByType(isPlayer)
 
 func request_movement_range_for_enemy(ch:Character) -> RangeFunctions.TileCollection:
-	selected_action = CharacterAction.Move
-	attacking_character = ch
+	set_attacking_character(ch)
 	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, movement_ability, false, true)
 	
 	return affected_tiles
 
 func request_movement_range_for_player(ch:Character):
-	selected_action = CharacterAction.Move
-	attacking_character = ch
+	set_attacking_character(ch)
 	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, movement_ability, true, true)
 	
-	tileSelector.enable_tile_selector(battlefield.get_character_grid(ch), affected_tiles, movement_ability, true, CharacterAction.Move)
+	tileSelector.enable_tile_selector(battlefield.get_character_grid_from_character(ch), affected_tiles, movement_ability, true, CharacterAction.Move)
+
+func request_attack_range_for_player(ch:Character):
+	set_attacking_character(ch)
+	
+	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, ch.basic_attack, true, true)
+	
+	tileSelector.enable_tile_selector(battlefield.get_enemy_grid_from_character(ch), affected_tiles, ch.basic_attack, false, CharacterAction.Attack)
 
 func do_action_movement(tiles_affected:Vector2i):
+	if attacking_character == null:
+		return
+	print("Character moving to tile (" + str(tiles_affected.x) + ", " + str(tiles_affected.y) + ")")
 	battlefield.set_character_tile(attacking_character, tiles_affected.x, tiles_affected.y)
+	
+	check_remaining_actions(1)
+
+func do_action_attack(tiles_affected:Array[Vector2i]):
+	if attacking_character == null:
+		return
+	print("Character attacking with basic attack (" + str(tiles_affected.size()) + " targets)")
+	character_use_ability(attacking_character, attacking_character.basic_attack, tiles_affected)
+	
+	check_remaining_actions(2)
+
+func check_remaining_actions(actions_consumed:int):
+	actions_remaining -= actions_consumed
+	
+	if actions_remaining <= 0:
+		# Resume turns
+		attacking_character = null
+		actionMenu.hideActionMenu()
+		battlefield.attack_finished()
+	else:
+		actionMenu._storeCharacterAttacking(attacking_character)
+
+
+func set_attacking_character(ch:Character):
+	if attacking_character == null or attacking_character != ch:
+		actions_remaining = 2
+	
+	attacking_character = ch
+
+func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i]):
+	if caster == null or abl == null:
+		return
+	
+	var grid:BattlefieldGrid
+	# Get target grid
+	if abl.target_enemy_team:
+		grid = battlefield.get_enemy_grid_from_character(caster)
+	else:
+		grid = battlefield.get_character_grid_from_character(caster)
+	
+	for target in targets:
+		if grid.grid_tiles[target.x][target.y] != null:
+			grid.grid_tiles[target.x][target.y].damaged(caster, abl)
 		
-	# Resume turns
-	battlefield.attack_finished()
-	actionMenu.hideActionMenu()

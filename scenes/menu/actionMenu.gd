@@ -33,11 +33,8 @@ var input_enabled:bool = false
 
 # signals
 signal characterMove(ch:Character)
-signal characterAttack(ch:Character, ability:int)
-
-# TODO: Add tiles class to exchange hability range to the battlefield and character movement
-#signal characterMove(ch:Character, mov:Tiles)
-#signal characterAttack(ch:Character, ability:Ability, range:Tiles)
+signal characterAttack(ch:Character)
+signal characterAbility(ch:Character, abl:Ability)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -124,7 +121,8 @@ func optionSelected(_isAbilityMenu):
 		characterMove.emit(characterRefAttacking)
 		disable_input()
 	elif selected == 1:
-		pass
+		characterAttack.emit(characterRefAttacking)
+		disable_input()
 	elif selected == 2:
 		showAbilityMenu(true)
 		
