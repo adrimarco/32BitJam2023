@@ -25,6 +25,7 @@ enabled = false
 blackboard = NodePath("../Blackboard")
 
 [node name="Blackboard" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("5_3hqlp")
 
 [connection signal="animation_changed" from="Sprite" to="." method="update_character_y_offset"]

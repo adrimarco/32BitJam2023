@@ -15,6 +15,7 @@ func initCharacterList():
 func endAITurn():
 	if characterRefAttacking:
 		characterRefAttacking.get_node("%BeheviourTree").enabled = false
+		characterRefAttacking.get_node("%Blackboard").set_value("enemyMoved", false)
 	characterAttacking = false
 	
 func _storeCharacterAttacking(ch:Character) -> void:
