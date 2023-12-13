@@ -180,7 +180,7 @@ func getCharactersByType(isPlayer:bool) -> Array[Character]:
 			chs.append(ch.character)
 	return chs
 
-func get_range_from_character_and_ability(ch:Character, ability:Ability) -> RangeFunctions.TileCollection:
+func get_range_from_character_and_ability(ch:Character, ability:Ability, mark_range:bool = true, only_valid:bool = false) -> RangeFunctions.TileCollection:
 	var is_enemy_character 		:bool = not searchCharacterIsPlayer(ch)
 	var target_field 			:BattlefieldGrid
 	var is_player_field_target	:bool
@@ -195,8 +195,26 @@ func get_range_from_character_and_ability(ch:Character, ability:Ability) -> Rang
 	
 	var ability_range :RangeFunctions.TileCollection = ability.ability_range.call(target_field.grid_tiles, ch.grid_position)
 	
-	mark_ability_range(is_player_field_target, ability_range)
+	if mark_range:
+		mark_ability_range(is_player_field_target, ability_range)
 	
+	# Check what tiles are valid inside the range
+	if only_valid:
+		if ability.target_type == Ability.TargetTypes.Priority:
+			# In priority abilities, priority functions returns valid targets
+			ability_range.tiles = ability.priority_func.call(target_field.grid_tiles, ability_range.tiles)
+		else:
+			# Check if each tile in range is valid
+			var i :int = 0
+			while i < ability_range.tiles.size():
+				if ability.priority_func.call(target_field.grid_tiles, ability_range.tiles[i]):
+					# Valid tile
+					i += 1
+				else:
+					# Invalid tile, remove from list
+					ability_range.tiles.remove_at(i)
+				
+		
 	return ability_range
 
 func mark_ability_range(is_player_grid:bool, tiles:RangeFunctions.TileCollection):
