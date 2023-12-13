@@ -10,9 +10,15 @@ enum TargetTypes {Area, Selection, Priority}
 @export var description			:String
 @export var dmg_multiplier		:float
 @export var cost				:int
-@export var ability_range		:Callable
 @export var target_enemy_team	:bool
 @export var target_type			:TargetTypes
-@export var priority_func		:Callable
+@export var ability_range_name	:StringName
+@export var priority_func_name	:StringName
+var ability_range		:Callable
+var priority_func		:Callable
 #var effects_caster		:Array
 #var effects_target		:Array
+
+func _ready():
+	ability_range = Callable(RangeFunctions, ability_range_name)
+	priority_func = Callable(RangeFunctions, priority_func_name)

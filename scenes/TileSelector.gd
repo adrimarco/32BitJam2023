@@ -2,7 +2,8 @@ class_name TileSelector
 extends Node3D
 
 signal selection_canceled
-signal movement_confirmed(Vector2i)
+signal movement_confirmed(tile:Vector2i)
+signal attack_confirmed(tiles:Array[Vector2i])
 
 @onready var timer			:= $SelectionTime
 
@@ -107,8 +108,11 @@ func _process(_delta):
 		if not current_selection.is_empty() and current_selection[0].x > -1:
 			selector_enabled = false
 			active_grid.unmark_all_tiles()
+			
 			if selected_action == BattleManager.CharacterAction.Move:
 				movement_confirmed.emit(current_selection[0])
+			elif selected_action == BattleManager.CharacterAction.Attack:
+				attack_confirmed.emit(current_selection)
 
 
 func select_next_tile_up():
