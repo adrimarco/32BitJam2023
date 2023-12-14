@@ -2,6 +2,8 @@ class_name Character
 extends Node3D
 
 signal attack_ready(ch:Character)
+signal health_changed(new_health:int)
+signal energy_changed(new_energy:int)
 
 # Constants
 static var ATTACK_READY_VALUE	:float	= 10.0
@@ -22,8 +24,6 @@ static var CRITICAL_MULTIPLIER	:float	= 0.5
 @export var character_name	:String	= "Dummy"
 @export var basicAttackScene:PackedScene = preload("res://scenes/abilities/SlashAttack.tscn")
 @export var abilitiesScene	:Array[PackedScene] = []
-var hp						:int	= 1
-var mp						:int	= 1
 var attack_meter			:float	= 0.0
 var preparing_attack		:bool	= false
 var character_moving		:bool	= false
@@ -31,6 +31,14 @@ var grid_position			:Vector2i
 var target_position			:Vector3 
 var basic_attack			:Ability
 var abilities				:Array[Ability]
+var hp						:int	= 1:
+	set(new_value):
+		hp = new_value
+		health_changed.emit(hp)
+var mp						:int	= 1:
+	set(new_value):
+		mp = new_value
+		energy_changed.emit(mp)
 
 
 func _ready():
