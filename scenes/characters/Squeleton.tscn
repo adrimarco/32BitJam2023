@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwjjw3scf83m"]
+[gd_scene load_steps=13 format=3 uid="uid://dwjjw3scf83m"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_gieq1"]
 [ext_resource type="SpriteFrames" uid="uid://fguk6gjbh3lr" path="res://resources/spriteFrames/necromancer.tres" id="2_pjs1f"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="3_0f4um"]
+[ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="4_ho3sf"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="4_tuq6x"]
 [ext_resource type="PackedScene" uid="uid://cdwtptkluxrq6" path="res://resources/beheviourTreeNodes/conditions/HasMovedNode.tscn" id="5_rsfbh"]
 [ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="6_3k2bv"]
@@ -10,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cpmw2px1fg1ep" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.tscn" id="8_blcs8"]
 [ext_resource type="PackedScene" uid="uid://vevv4ft07q1r" path="res://resources/beheviourTreeNodes/actions/DoActionAttackNode.tscn" id="9_icocp"]
 [ext_resource type="PackedScene" uid="uid://cc5trpnx04etb" path="res://resources/beheviourTreeNodes/conditions/HasAttackedNode.tscn" id="10_efkbe"]
+[ext_resource type="PackedScene" uid="uid://rdonwj73ufb6" path="res://resources/beheviourTreeNodes/actions/DoAIDecision.tscn" id="12_6wk0m"]
 
 [node name="Character" instance=ExtResource("1_gieq1")]
 maxhp = 80
@@ -22,33 +24,40 @@ spd = 8.0
 sprite_frames = ExtResource("2_pjs1f")
 frame_progress = 0.151707
 
-[node name="SelectorComposite" type="Node" parent="BeheviourTree" index="0"]
+[node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
+script = ExtResource("4_tuq6x")
+
+[node name="InitBlackboardVariables" parent="BeheviourTree/SequenceStarComposite" index="0" instance=ExtResource("4_ho3sf")]
+
+[node name="SelectorComposite" type="Node" parent="BeheviourTree/SequenceStarComposite" index="1"]
 script = ExtResource("3_0f4um")
 
-[node name="SequenceStarComposite" type="Node" parent="BeheviourTree/SelectorComposite" index="0"]
+[node name="SequenceStarComposite" type="Node" parent="BeheviourTree/SequenceStarComposite/SelectorComposite" index="0"]
 script = ExtResource("4_tuq6x")
 
-[node name="HasMovedNode" parent="BeheviourTree/SelectorComposite/SequenceStarComposite" index="0" instance=ExtResource("5_rsfbh")]
+[node name="HasMovedNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SequenceStarComposite" index="0" instance=ExtResource("5_rsfbh")]
 
-[node name="RequestMovementRangeNode" parent="BeheviourTree/SelectorComposite/SequenceStarComposite" index="1" instance=ExtResource("6_3k2bv")]
+[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SequenceStarComposite" index="1" instance=ExtResource("6_3k2bv")]
 
-[node name="DoActionMovementNode" parent="BeheviourTree/SelectorComposite/SequenceStarComposite" index="2" instance=ExtResource("7_fnw7g")]
+[node name="DoActionMovementNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SequenceStarComposite" index="2" instance=ExtResource("7_fnw7g")]
 
-[node name="SelectorComposite" type="Node" parent="BeheviourTree/SelectorComposite" index="1"]
+[node name="SelectorComposite" type="Node" parent="BeheviourTree/SequenceStarComposite/SelectorComposite" index="1"]
 script = ExtResource("3_0f4um")
 
-[node name="SequenceStarComposite2" type="Node" parent="BeheviourTree/SelectorComposite/SelectorComposite" index="0"]
+[node name="SequenceStarComposite2" type="Node" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite" index="0"]
 script = ExtResource("4_tuq6x")
 
-[node name="RequestAttackRangeNode" parent="BeheviourTree/SelectorComposite/SelectorComposite/SequenceStarComposite2" index="0" instance=ExtResource("8_blcs8")]
+[node name="RequestAttackRangeNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite/SequenceStarComposite2" index="0" instance=ExtResource("8_blcs8")]
 
-[node name="DoActionAttackNode" parent="BeheviourTree/SelectorComposite/SelectorComposite/SequenceStarComposite2" index="1" instance=ExtResource("9_icocp")]
+[node name="DoActionAttackNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite/SequenceStarComposite2" index="1" instance=ExtResource("9_icocp")]
 
-[node name="SequenceStarComposite" type="Node" parent="BeheviourTree/SelectorComposite/SelectorComposite" index="1"]
+[node name="SequenceStarComposite" type="Node" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite" index="1"]
 script = ExtResource("4_tuq6x")
 
-[node name="HasAttackedNode" parent="BeheviourTree/SelectorComposite/SelectorComposite/SequenceStarComposite" index="0" instance=ExtResource("10_efkbe")]
+[node name="HasAttackedNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite/SequenceStarComposite" index="0" instance=ExtResource("10_efkbe")]
 
-[node name="RequestMovementRangeNode" parent="BeheviourTree/SelectorComposite/SelectorComposite/SequenceStarComposite" index="1" instance=ExtResource("6_3k2bv")]
+[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite/SequenceStarComposite" index="1" instance=ExtResource("6_3k2bv")]
 
-[node name="DoActionMovementNode" parent="BeheviourTree/SelectorComposite/SelectorComposite/SequenceStarComposite" index="2" instance=ExtResource("7_fnw7g")]
+[node name="DoActionMovementNode" parent="BeheviourTree/SequenceStarComposite/SelectorComposite/SelectorComposite/SequenceStarComposite" index="2" instance=ExtResource("7_fnw7g")]
+
+[node name="DoAIDecision" parent="BeheviourTree/SequenceStarComposite" index="2" instance=ExtResource("12_6wk0m")]
