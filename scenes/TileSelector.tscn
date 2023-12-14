@@ -6,7 +6,7 @@
 script = ExtResource("1_nmw86")
 
 [node name="SelectionTime" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.1
 one_shot = true
 
 [connection signal="timeout" from="SelectionTime" to="." method="enable_selection"]

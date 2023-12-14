@@ -3,7 +3,7 @@ extends Node3D
 
 signal selection_canceled
 signal movement_confirmed(tile:Vector2i)
-signal attack_confirmed(tiles:Array[Vector2i])
+signal attack_confirmed(tiles:Array[Vector2i], abl:Ability)
 
 @onready var timer			:= $SelectionTime
 
@@ -112,7 +112,7 @@ func _process(_delta):
 			if selected_action == BattleManager.CharacterAction.Move:
 				movement_confirmed.emit(current_selection[0])
 			elif selected_action == BattleManager.CharacterAction.Attack:
-				attack_confirmed.emit(current_selection)
+				attack_confirmed.emit(current_selection, selected_ability)
 
 
 func select_next_tile_up():

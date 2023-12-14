@@ -9,7 +9,8 @@ enum CharacterAction {None, Move, Attack}
 @onready var aiManager:AIManager		= $aiManager
 
 var attacking_character	:Character
-var actions_remaining :int
+var player_character	:bool
+var actions_remaining 	:int
 
 ##### TEMPORAL ? ########
 var movement_ability :Ability
@@ -23,10 +24,14 @@ func _ready():
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))
 	actionMenu.connect("characterAttack", Callable(self, "request_attack_range_for_player"))
+	actionMenu.connect("requestAbilityRange", Callable(self, "mark_ability_range"))
+	actionMenu.connect("requestUnmarkRange", Callable(battlefield, "unmark_grid_tiles"))
+	actionMenu.connect("characterAbility", Callable(self, "request_ability_range_for_player"))
 	
 	tileSelector.connect("selection_canceled", Callable(actionMenu, "set_input_enabled"))
 	tileSelector.connect("movement_confirmed", Callable(self, "do_action_movement"))
 	tileSelector.connect("attack_confirmed", Callable(self, "do_action_attack"))
+	tileSelector.connect("selection_canceled", Callable(actionMenu, "hoverAbility"))
 	
 	actionMenu.initCharacterList()
 	aiManager.initCharacterList()
@@ -57,7 +62,6 @@ func request_attack_range_for_enemy(ch:Character) -> RangeFunctions.TileCollecti
 	
 	return affected_tiles
 
-
 func request_movement_range_for_player(ch:Character):
 	set_attacking_character(ch)
 	
@@ -72,6 +76,19 @@ func request_attack_range_for_player(ch:Character):
 	
 	tileSelector.enable_tile_selector(battlefield.get_enemy_grid_from_character(ch), affected_tiles, ch.basic_attack, false, CharacterAction.Attack)
 
+func mark_ability_range(ch:Character, abl:Ability):
+	set_attacking_character(ch)
+	
+	# Only show tiles in range
+	battlefield.get_range_from_character_and_ability(ch, abl, true, false)
+
+func request_ability_range_for_player(ch:Character, abl:Ability):
+	set_attacking_character(ch)
+	
+	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, abl, false, true)
+	
+	tileSelector.enable_tile_selector(battlefield.get_grid_affected_by_ability(ch, abl), affected_tiles, abl, false, CharacterAction.Attack)
+
 func do_action_movement(tiles_affected:Vector2i):
 	if attacking_character == null:
 		return
@@ -80,11 +97,11 @@ func do_action_movement(tiles_affected:Vector2i):
 	
 	check_remaining_actions(1)
 
-func do_action_attack(tiles_affected:Array[Vector2i]):
+func do_action_attack(tiles_affected:Array[Vector2i], casted_ability:Ability):
 	if attacking_character == null:
 		return
 	print("Character attacking with basic attack (" + str(tiles_affected.size()) + " targets)")
-	character_use_ability(attacking_character, attacking_character.basic_attack, tiles_affected)
+	character_use_ability(attacking_character, casted_ability, tiles_affected)
 	
 	check_remaining_actions(2)
 
@@ -94,16 +111,23 @@ func check_remaining_actions(actions_consumed:int):
 	if actions_remaining <= 0:
 		# Resume turns
 		attacking_character = null
-		aiManager.endAITurn()
-		actionMenu.hideActionMenu()
+		if player_character:
+			actionMenu.showAbilityMenu(false)
+			actionMenu.hideActionMenu()
+		else:
+			aiManager.endAITurn()
+			
 		battlefield.attack_finished()
 	else:
-		actionMenu._storeCharacterAttacking(attacking_character)
+		if player_character:
+			actionMenu._storeCharacterAttacking(attacking_character)
 
 
 func set_attacking_character(ch:Character):
 	if attacking_character == null or attacking_character != ch:
 		actions_remaining = 2
+		if ch != null:
+			player_character = battlefield.searchCharacterIsPlayer(ch)
 	
 	attacking_character = ch
 

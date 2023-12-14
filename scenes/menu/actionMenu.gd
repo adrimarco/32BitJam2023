@@ -35,6 +35,8 @@ var input_enabled:bool = false
 signal characterMove(ch:Character)
 signal characterAttack(ch:Character)
 signal characterAbility(ch:Character, abl:Ability)
+signal requestAbilityRange(ch:Character, abl:Ability)
+signal requestUnmarkRange
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -68,55 +70,61 @@ func _process(_delta):
 		characterDisplays[index].updateAttackMeter(playerCharacters[index])
 	
 	# input
-	if not input_enabled:
+	if not input_enabled or not Input.is_anything_pressed():
 		return 
 	
 	if characterRefAttacking != null && characterAttacking:
-		changeNodeVisibility(fightOptionsMenu, true)
 		# Move cursor
 		if !abilityTabActive:
 			if Input.is_action_just_pressed("move_down"):
 				selected = (selected + 1) % 3
-			if Input.is_action_just_pressed("move_up"):
+			elif Input.is_action_just_pressed("move_up"):
 				selected = (selected - 1) % 3
 				if selected < 0:
 					selected += 3
 			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + 24*selected)
+			# Option selected
+			if Input.is_action_just_pressed("action_accept"):
+				optionSelected()
 		else:
-			changeNodeVisibility(fightOptionsMenu, false)
 			checkAbilityTabInput()
-		# Option selected
-		if Input.is_action_just_pressed("action_accept"):
-			optionSelected(abilityTabActive)
 		
-		if Input.is_action_just_pressed("action_back") && abilityTabActive:
-			showAbilityMenu(false)
 
 func checkAbilityTabInput():
 	if Input.is_action_just_pressed("move_down"):
 		abilitySelection = (abilitySelection + 1) % characterAbilitiesCount
 		hoverAbility()
-	if Input.is_action_just_pressed("move_up"):
+	elif Input.is_action_just_pressed("move_up"):
 		abilitySelection = (abilitySelection - 1) % characterAbilitiesCount
 		if abilitySelection < 0:
 			abilitySelection += characterAbilitiesCount
 		hoverAbility()
+	elif Input.is_action_just_pressed("action_back"):
+			showAbilityMenu(false)
+			requestUnmarkRange.emit()
+	elif Input.is_action_just_pressed("action_accept"):
+		characterAbility.emit(characterRefAttacking, getAbilityFromIndex(characterRefAttacking, abilitySelection))
+		disable_input()
 	
 
 func hideActionMenu():
 	changeNodeVisibility(fightOptionsMenu, false)
 
 func hoverAbility():
+	if not abilityTabActive:
+		return
+	
 	# Update cursor position
 	cursorAbilityMenu.position = Vector2(cursorAbilityPosition.x, cursorAbilityPosition.y + characterAbilitiesTextOffset*abilitySelection)
 	
 	# Show ability info
 	var selectedAbility: Ability = getAbilityFromIndex(characterRefAttacking, abilitySelection)
 	printCharacterAbilityDescription(selectedAbility)
-	# TODO: Show ability range
 	
+	# Show ability range
+	requestAbilityRange.emit(characterRefAttacking, selectedAbility)
 
-func optionSelected(_isAbilityMenu):
+func optionSelected():
 	if   selected == 0:
 		characterMove.emit(characterRefAttacking)
 		disable_input()
@@ -125,11 +133,14 @@ func optionSelected(_isAbilityMenu):
 		disable_input()
 	elif selected == 2:
 		showAbilityMenu(true)
+		hoverAbility()
 		
 
 func printcharacterAbilities(ch:Character) -> void:
 	# Store abilities count in characterAbilitiesCount
 	characterAbilitiesCount = ch.abilities.size()
+	
+	clearAbilityList()
 	
 	# Get all abilities name and create a rich text node
 	for cAb in ch.abilities:
@@ -141,6 +152,11 @@ func printcharacterAbilities(ch:Character) -> void:
 		abilityNameList.add_child(label)
 		
 
+func clearAbilityList():
+	for child in abilityNameList.get_children():
+		child.queue_free()
+	
+
 func getAbilityFromIndex(ch:Character, index:int) ->Ability:
 	for cAbIndex in ch.abilities.size():
 		if cAbIndex == index:
@@ -150,10 +166,11 @@ func getAbilityFromIndex(ch:Character, index:int) ->Ability:
 func printCharacterAbilityDescription(ab:Ability):
 	abilityDescText.text = ab.description
 
-func showAbilityMenu(_visible:bool):
-	$ColorRect/AbilityTab.visible = _visible
-	$ColorRect/MainActionMenu.visible = !_visible
-	abilityTabActive = _visible
+func showAbilityMenu(newVisibility:bool):
+	$ColorRect/AbilityTab.visible = newVisibility
+	$ColorRect/MainActionMenu.visible = not newVisibility
+	abilityTabActive = newVisibility
+	changeNodeVisibility(fightOptionsMenu, not newVisibility)
 
 func _storeCharacterAttacking(ch:Character) -> void:
 	characterAttacking = true
@@ -163,6 +180,7 @@ func _storeCharacterAttacking(ch:Character) -> void:
 	printCharacterAbilityDescription(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
 	set_input_enabled()
+	showAbilityMenu(false)
 
 func changeNodeVisibility(node:Node, isVisible:bool):
 	node.visible = isVisible
