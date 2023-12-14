@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://5s4sj0uacjei"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_u0lmb"]
+
+[node name="Ability" instance=ExtResource("1_u0lmb")]
+ability_name = "Lance of light"
+description = "Summon a lance of sacred light that pierces through all enemies in your row"
+dmg_multiplier = 1.3
+cost = 35
+target_enemy_team = true

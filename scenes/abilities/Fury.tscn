@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk1ieouok45af"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_jbwss"]
+
+[node name="Ability" instance=ExtResource("1_jbwss")]
+ability_name = "Fury"
+description = "Hits an enemy in the back column and push them forward."
+dmg_multiplier = 1.0
+cost = 15
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"only_back_column"

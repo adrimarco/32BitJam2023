@@ -1,16 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnyf631o7isau"]
+[gd_scene load_steps=8 format=3 uid="uid://bnyf631o7isau"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_nq667"]
-[ext_resource type="PackedScene" uid="uid://vxoqqfq8yu4y" path="res://scenes/abilities/FireballAttack.tscn" id="2_sihyd"]
+[ext_resource type="PackedScene" uid="uid://qp0jsmgmgjdf" path="res://scenes/abilities/Basic_Sword.tscn" id="2_qv7a4"]
 [ext_resource type="PackedScene" uid="uid://crqfwnbibb4v5" path="res://scenes/abilities/SlashAttack.tscn" id="3_h77pj"]
+[ext_resource type="PackedScene" uid="uid://ccg4i48fln326" path="res://scenes/abilities/JusticeSword.tscn" id="3_re11g"]
+[ext_resource type="PackedScene" uid="uid://bk1ieouok45af" path="res://scenes/abilities/Fury.tscn" id="4_dts82"]
 [ext_resource type="PackedScene" uid="uid://bcrtfwldl4hor" path="res://resources/beheviourTreeNodes/actions/PrintValueNode.tscn" id="4_uxf8t"]
+[ext_resource type="PackedScene" uid="uid://5s4sj0uacjei" path="res://scenes/abilities/LightLance.tscn" id="6_avyr8"]
 
 [node name="Character" instance=ExtResource("1_nq667")]
-maxhp = 100
-maxmp = 60
-atk = 20
-dfn = 10
+maxhp = 200
+maxmp = 120
+atk = 30
+dfn = 20
 spd = 10.0
-abilitiesScene = Array[PackedScene]([ExtResource("2_sihyd"), ExtResource("3_h77pj")])
+character_name = "RED KNIGHT"
+basicAttackScene = ExtResource("2_qv7a4")
+abilitiesScene = Array[PackedScene]([ExtResource("3_re11g"), ExtResource("4_dts82"), ExtResource("3_h77pj"), ExtResource("6_avyr8")])
 
 [node name="PrintValueNode" parent="BeheviourTree" index="0" instance=ExtResource("4_uxf8t")]
