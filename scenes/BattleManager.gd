@@ -99,6 +99,13 @@ func check_remaining_actions(actions_consumed:int):
 		battlefield.attack_finished()
 	else:
 		actionMenu._storeCharacterAttacking(attacking_character)
+		
+		################################################
+		# Temporal: Deactivate bt to show first action
+		if attacking_character.get_node("%BeheviourTree").enabled:
+			attacking_character.get_node("%BeheviourTree").enabled = false
+			await get_tree().create_timer(1.0).timeout
+			attacking_character.get_node("%BeheviourTree").enabled = true
 
 
 func set_attacking_character(ch:Character):
