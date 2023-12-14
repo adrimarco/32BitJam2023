@@ -170,6 +170,20 @@ func get_enemy_grid_from_character(ch:Character) -> BattlefieldGrid:
 		
 	return grid
 
+func get_grid_affected_by_ability(ch:Character, ability:Ability) -> BattlefieldGrid:
+	if ch == null or ability == null:
+		return null
+	
+	var is_enemy_character 		:bool = not searchCharacterIsPlayer(ch)
+	var grid :BattlefieldGrid
+	# Get grid affected by ability
+	if is_enemy_character == ability.target_enemy_team:
+		grid = player_grid
+	else:
+		grid = enemy_grid
+	
+	return grid
+
 func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bool:
 	# Get character grid
 	var grid = get_character_grid_from_character(ch)
@@ -203,20 +217,17 @@ func getCharactersByType(isPlayer:bool) -> Array[Character]:
 			chs.append(ch.character)
 	return chs
 
-func get_range_from_character_and_ability(ch:Character, ability:Ability, mark_range:bool = true, only_valid:bool = false) -> RangeFunctions.TileCollection:
-	var is_enemy_character 		:bool = not searchCharacterIsPlayer(ch)
-	var target_field 			:BattlefieldGrid
+func get_ability_range_from_position(ch:Character, ability:Ability, cast_tile:Vector2i, mark_range:bool = true, only_valid:bool = false) -> RangeFunctions.TileCollection:
+	var target_field := get_grid_affected_by_ability(ch, ability)
 	var is_player_field_target	:bool
 	
 	# Get matrix affected by ability
-	if is_enemy_character == ability.target_enemy_team:
-		target_field 			= player_grid
+	if target_field == player_grid:
 		is_player_field_target 	= true
 	else:
-		target_field 			= enemy_grid
 		is_player_field_target 	= false
 	
-	var ability_range :RangeFunctions.TileCollection = ability.ability_range.call(target_field.grid_tiles, ch.grid_position)
+	var ability_range :RangeFunctions.TileCollection = ability.ability_range.call(target_field.grid_tiles, cast_tile)
 	
 	if mark_range:
 		mark_ability_range(is_player_field_target, ability_range)
@@ -239,6 +250,12 @@ func get_range_from_character_and_ability(ch:Character, ability:Ability, mark_ra
 				
 		
 	return ability_range
+
+func get_range_from_character_and_ability(ch:Character, ability:Ability, mark_range:bool = true, only_valid:bool = false) -> RangeFunctions.TileCollection:
+	if ch == null or ability == null:
+		return null
+	
+	return get_ability_range_from_position(ch, ability, ch.grid_position, mark_range, only_valid)
 
 func mark_ability_range(is_player_grid:bool, tiles:RangeFunctions.TileCollection):
 	unmark_grid_tiles()
