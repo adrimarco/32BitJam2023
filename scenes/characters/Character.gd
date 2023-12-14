@@ -8,6 +8,7 @@ static var ATTACK_READY_VALUE	:float	= 10.0
 static var SPRITE_VELOCITY		:float	= 1.0
 static var ATTACK_INC_PER_TILE	:float	= 0.15
 static var DEFENSE_DEC_PER_TILE	:float	= 0.1
+static var CRITICAL_MULTIPLIER	:float	= 0.5
 
 # Nodes
 @onready var sprite		= $Sprite
@@ -135,8 +136,9 @@ func damaged(attacker:Character, abl:Ability):
 	
 	# Calculate damage from ability and attacker's attack power
 	var attack_power :float = attacker.atk * abl.dmg_multiplier
-	# Apply tile attack increment
+	# Apply tile attack increment and critical bonus (randomly)
 	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
+	attack_power += add_critical_damage(attack_power)
 	
 	# Calculate target defense
 	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x)
@@ -145,3 +147,11 @@ func damaged(attacker:Character, abl:Ability):
 	hp -= damage
 	
 	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
+
+func add_critical_damage(damage:float) -> float:
+	var random_value := randi() % 1000
+	
+	if random_value <= 50:
+		return damage * CRITICAL_MULTIPLIER
+	
+	return 0.0

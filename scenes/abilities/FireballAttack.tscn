@@ -9,7 +9,8 @@ description = "Invoque a fireball"
 dmg_multiplier = 1.5
 cost = 10
 target_enemy_team = true
-ability_range_name = &"able_to_move"
+target_type = 1
+ability_range_name = &"tiles_in_same_row"
 priority_func_name = &"character_in_tile"
 
 [node name="Sprite" parent="." index="0"]

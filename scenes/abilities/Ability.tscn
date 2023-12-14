@@ -5,6 +5,8 @@
 
 [node name="Ability" type="Node3D"]
 script = ExtResource("1_h2wkf")
+ability_range_name = &"tiles_in_same_row"
+priority_func_name = &"character_in_tile"
 
 [node name="Sprite" type="AnimatedSprite3D" parent="."]
 visible = false
