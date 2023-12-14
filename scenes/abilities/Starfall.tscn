@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctrevgx5ryle6"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_ufawm"]
+[ext_resource type="SpriteFrames" uid="uid://bcfnj7cnodi8b" path="res://resources/spriteFrames/abilitiesFrames/fireballAttack.tres" id="2_1rt8u"]
+
+[node name="Ability" instance=ExtResource("1_ufawm")]
+ability_name = "Starfall"
+description = "Summon a rain of stars that fall on all enemies in the front column"
+dmg_multiplier = 1.3
+cost = 40
+target_enemy_team = true
+ability_range_name = &"only_front_column"
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_1rt8u")
+frame = 0
+frame_progress = 0.0

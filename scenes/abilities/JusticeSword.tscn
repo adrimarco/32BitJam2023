@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccg4i48fln326"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_fthsv"]
+
+[node name="Ability" instance=ExtResource("1_fthsv")]
+ability_name = "Sword of Justice"
+description = "Attack a close enemy with your sword. Attack slows target."
+dmg_multiplier = 1.2
+cost = 25
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"tiles_at_two_or_less"

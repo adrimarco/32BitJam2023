@@ -5,13 +5,11 @@
 
 [node name="Ability" instance=ExtResource("1_2vcex")]
 ability_name = "Fireball"
-description = "Invoque a fireball"
+description = "Launch a ball of fire that hits an enemy in your same row"
 dmg_multiplier = 1.5
-cost = 10
+cost = 30
 target_enemy_team = true
 target_type = 1
-ability_range_name = &"tiles_in_same_row"
-priority_func_name = &"character_in_tile"
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_sc8sx")
