@@ -2,7 +2,7 @@ class_name BattlefieldGrid
 extends Node3D
 
 static var TILE_SIZE			:float = 0.6
-static var UNMARK_COLOR			:Color = Color(1.0, 1.0, 1.0)
+static var UNMARK_COLOR			:Color = Color(0.0, 0.0, 0.0)
 static var PLAYER_MARK_COLOR	:Color = Color(0.0, 0.5, 1.0)
 static var ENEMY_MARK_COLOR		:Color = Color(1.0, 0.25, 0.0)
 static var SELECT_COLOR			:Color = PLAYER_MARK_COLOR#Color(1.0, 0.96, 0.23)
@@ -36,6 +36,7 @@ func _ready():
 			# Create tile
 			var tile = AnimatedSprite3D.new()
 			tile.sprite_frames = sprite_frame
+			tile.modulate = UNMARK_COLOR
 			tile.animation = "normal"
 			
 			var grid_dir = -1.0 if invert else 1.0

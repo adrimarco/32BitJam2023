@@ -12,7 +12,9 @@ abilitiesScene = Array[PackedScene]([ExtResource("2_hsgi4")])
 
 [node name="Sprite" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+layers = 3
 billboard = 2
+alpha_cut = 1
 texture_filter = 0
 sprite_frames = ExtResource("2_yfpe4")
 animation = &"idle"
