@@ -6,6 +6,8 @@ signal attack_ready(ch:Character)
 # Constants
 static var ATTACK_READY_VALUE	:float	= 10.0
 static var SPRITE_VELOCITY		:float	= 1.0
+static var ATTACK_INC_PER_TILE	:float	= 0.15
+static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 
 # Nodes
 @onready var sprite		= $Sprite
@@ -128,4 +130,18 @@ func clearAbilitiesArray():
 	abilities.clear()
 
 func damaged(attacker:Character, abl:Ability):
-	print("Dolor")
+	if abl.dmg_multiplier <= 0.001:
+		return
+	
+	# Calculate damage from ability and attacker's attack power
+	var attack_power :float = attacker.atk * abl.dmg_multiplier
+	# Apply tile attack increment
+	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
+	
+	# Calculate target defense
+	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x)
+	
+	var damage :int = maxi(1, floori(attack_power - defense_power))
+	hp -= damage
+	
+	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
