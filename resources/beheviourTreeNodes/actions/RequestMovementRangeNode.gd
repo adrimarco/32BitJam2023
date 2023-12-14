@@ -7,5 +7,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 	blackboard.set_value("battleManager", battleManager)
 	var tiles:RangeFunctions.TileCollection = battleManager.request_movement_range_for_enemy(actor)
 	blackboard.set_value("tiles", tiles)
+	if tiles.tiles.size() <= 0:
+		return FAILURE
 	return SUCCESS
 

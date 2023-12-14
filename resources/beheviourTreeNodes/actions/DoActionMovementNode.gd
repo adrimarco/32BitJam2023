@@ -1,7 +1,7 @@
 extends ActionLeaf
 
 
-func tick(actor: Node, blackboard: Blackboard) -> int:
+func tick(_actor: Node, blackboard: Blackboard) -> int:
 	var battleManager:BattleManager = blackboard.get_value("battleManager")
 	var a = blackboard.get_value("tiles").tiles[0]
 	print("Moving to (" + str(a.x) + ", " + str(a.y) + ")")

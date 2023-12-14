@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc5trpnx04etb"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/conditions/HasAttackedNode.gd" id="1_0d4oo"]
+
+[node name="HasAttackedNode" type="Node"]
+script = ExtResource("1_0d4oo")

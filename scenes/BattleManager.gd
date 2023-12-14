@@ -50,6 +50,14 @@ func request_movement_range_for_enemy(ch:Character) -> RangeFunctions.TileCollec
 	
 	return affected_tiles
 
+func request_attack_range_for_enemy(ch:Character) -> RangeFunctions.TileCollection:
+	set_attacking_character(ch)
+	
+	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, ch.basic_attack, false, true)
+	
+	return affected_tiles
+
+
 func request_movement_range_for_player(ch:Character):
 	set_attacking_character(ch)
 	

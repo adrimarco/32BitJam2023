@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://vevv4ft07q1r"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/actions/DoActionAttackNode.gd" id="1_f8ck3"]
+
+[node name="DoActionAttackNode" type="Node"]
+script = ExtResource("1_f8ck3")

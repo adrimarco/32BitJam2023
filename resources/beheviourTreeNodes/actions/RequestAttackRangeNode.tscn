@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpmw2px1fg1ep"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.gd" id="1_kn01h"]
+
+[node name="RequestAttackRangeNode" type="Node"]
+script = ExtResource("1_kn01h")
