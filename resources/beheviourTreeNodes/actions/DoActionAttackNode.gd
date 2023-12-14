@@ -1,4 +1,6 @@
 extends ActionLeaf
+# Do action attack node
+
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
 	var battleManager:BattleManager = blackboard.get_value("battleManager")

@@ -1,10 +1,11 @@
 extends ActionLeaf
+# Do action movement node
 
-
-func tick(_actor: Node, blackboard: Blackboard) -> int:
+func tick(actor: Node, blackboard: Blackboard) -> int:
 	var battleManager:BattleManager = blackboard.get_value("battleManager")
-	var a = blackboard.get_value("tiles").tiles[0]
-	print("Moving to (" + str(a.x) + ", " + str(a.y) + ")")
-	#battleManager.do_action_movement(blackboard.get_value("tiles").tiles[0])
+	var moveTiles = blackboard.get_value("tilesMovement").tiles
+	var decisionWeightsMovement:Array = blackboard.get_value("decisionWeightsMovement")
+	battleManager.do_action_movement(decisionWeightsMovement[0])
 	blackboard.set_value("enemyMoved", true)
+	
 	return SUCCESS

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b848vs0dv2bqe"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/actions/DecideMovementNode.gd" id="1_aax72"]
+
+[node name="DecideMovementNode" type="Node"]
+script = ExtResource("1_aax72")

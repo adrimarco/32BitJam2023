@@ -21,6 +21,7 @@ static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 @export var character_name	:String	= "Dummy"
 @export var basicAttackScene:PackedScene = preload("res://scenes/abilities/SlashAttack.tscn")
 @export var abilitiesScene	:Array[PackedScene] = []
+@export_range (0, 100) var aggressivity:int = 0
 var hp						:int	= 1
 var mp						:int	= 1
 var attack_meter			:float	= 0.0
