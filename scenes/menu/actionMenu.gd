@@ -52,10 +52,12 @@ func initCharacterList():
 		cDaux.initCharacterDisplay(ch)
 		characterDisplays.append(cDaux)
 		characterList.add_child(cDaux)
+		ch.connect("health_changed", Callable(cDaux, "updateHealthValues"))
+		ch.connect("energy_changed", Callable(cDaux, "updateAbilityValues"))
 		
 	for index in range(characterDisplays.size()):
-		characterDisplays[index].updateHealthValues(playerCharacters[index])
-		characterDisplays[index].updateAbilityValues(playerCharacters[index])
+		characterDisplays[index].updateHealthValues(playerCharacters[index].hp)
+		characterDisplays[index].updateAbilityValues(playerCharacters[index].mp)
 		
 func clearCharacterDisplays():
 	for ch in characterDisplays:

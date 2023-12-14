@@ -2,12 +2,15 @@ class_name Character
 extends Node3D
 
 signal attack_ready(ch:Character)
+signal health_changed(new_health:int)
+signal energy_changed(new_energy:int)
 
 # Constants
 static var ATTACK_READY_VALUE	:float	= 10.0
 static var SPRITE_VELOCITY		:float	= 1.0
 static var ATTACK_INC_PER_TILE	:float	= 0.15
 static var DEFENSE_DEC_PER_TILE	:float	= 0.1
+static var CRITICAL_MULTIPLIER	:float	= 0.5
 
 # Nodes
 @onready var sprite		= $Sprite
@@ -22,8 +25,6 @@ static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 @export var basicAttackScene:PackedScene = preload("res://scenes/abilities/SlashAttack.tscn")
 @export var abilitiesScene	:Array[PackedScene] = []
 @export_range (0, 100) var aggressivity:int = 0
-var hp						:int	= 1
-var mp						:int	= 1
 var attack_meter			:float	= 0.0
 var preparing_attack		:bool	= false
 var character_moving		:bool	= false
@@ -31,6 +32,14 @@ var grid_position			:Vector2i
 var target_position			:Vector3 
 var basic_attack			:Ability
 var abilities				:Array[Ability]
+var hp						:int	= 1:
+	set(new_value):
+		hp = new_value
+		health_changed.emit(hp)
+var mp						:int	= 1:
+	set(new_value):
+		mp = new_value
+		energy_changed.emit(mp)
 
 
 func _ready():
@@ -136,8 +145,9 @@ func damaged(attacker:Character, abl:Ability):
 	
 	# Calculate damage from ability and attacker's attack power
 	var attack_power :float = attacker.atk * abl.dmg_multiplier
-	# Apply tile attack increment
+	# Apply tile attack increment and critical bonus (randomly)
 	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
+	attack_power += add_critical_damage(attack_power)
 	
 	# Calculate target defense
 	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x)
@@ -146,3 +156,11 @@ func damaged(attacker:Character, abl:Ability):
 	hp -= damage
 	
 	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
+
+func add_critical_damage(damage:float) -> float:
+	var random_value := randi() % 1000
+	
+	if random_value <= 50:
+		return damage * CRITICAL_MULTIPLIER
+	
+	return 0.0

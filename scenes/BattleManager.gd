@@ -83,6 +83,10 @@ func mark_ability_range(ch:Character, abl:Ability):
 	battlefield.get_range_from_character_and_ability(ch, abl, true, false)
 
 func request_ability_range_for_player(ch:Character, abl:Ability):
+	# Check character has enough energy to cast ability
+	if ch.mp < abl.cost:
+		return
+	
 	set_attacking_character(ch)
 	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, abl, false, true)
@@ -100,7 +104,7 @@ func do_action_movement(tiles_affected:Vector2i):
 func do_action_attack(tiles_affected:Array[Vector2i], casted_ability:Ability):
 	if attacking_character == null:
 		return
-	print("Character attacking with basic attack (" + str(tiles_affected.size()) + " targets)")
+	
 	character_use_ability(attacking_character, casted_ability, tiles_affected)
 	
 	check_remaining_actions(2)
@@ -139,7 +143,7 @@ func set_attacking_character(ch:Character):
 	attacking_character = ch
 
 func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i]):
-	if caster == null or abl == null:
+	if caster == null or abl == null or caster.mp < abl.cost:
 		return
 	
 	var grid:BattlefieldGrid
@@ -149,7 +153,11 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	else:
 		grid = battlefield.get_character_grid_from_character(caster)
 	
-	for target in targets:
-		if grid.grid_tiles[target.x][target.y] != null:
-			grid.grid_tiles[target.x][target.y].damaged(caster, abl)
-		
+	if abl.dmg_multiplier > 0.001:
+		# Damage all targets
+		for target in targets:
+			if grid.grid_tiles[target.x][target.y] != null:
+				grid.grid_tiles[target.x][target.y].damaged(caster, abl)
+	print("Character attacking with basic attack (" + str(targets.size()) + " targets)")
+	# Reduce energy cost
+	caster.mp -= abl.cost
