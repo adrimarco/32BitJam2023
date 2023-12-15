@@ -34,6 +34,7 @@ var input_enabled:bool = false
 # signals
 signal characterMove(ch:Character)
 signal characterAttack(ch:Character)
+signal characterRest
 signal characterAbility(ch:Character, abl:Ability)
 signal requestAbilityRange(ch:Character, abl:Ability)
 signal requestUnmarkRange

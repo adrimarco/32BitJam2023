@@ -1,7 +1,7 @@
 class_name BattleManager
 extends Node3D
 
-enum CharacterAction {None, Move, Attack}
+enum CharacterAction {None, Move, Attack, Rest}
 
 @onready var battlefield:Battlefield	= $Battlefield
 @onready var actionMenu:ActionMenu		= $actionMenu
@@ -22,10 +22,13 @@ func _ready():
 	# Connect battlefield signal
 	# When a playable character is ready to attack -> emit signal
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
+	battlefield.connect("player_attack_turn", Callable(self, "set_attacking_character"))
 	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
+	battlefield.connect("enemy_attack_turn", Callable(self, "set_attacking_character"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))
 	actionMenu.connect("characterAttack", Callable(self, "request_attack_range_for_player"))
+	actionMenu.connect("characterRest", Callable(self, "do_action_rest"))
 	actionMenu.connect("requestAbilityRange", Callable(self, "mark_ability_range"))
 	actionMenu.connect("requestUnmarkRange", Callable(battlefield, "unmark_grid_tiles"))
 	actionMenu.connect("characterAbility", Callable(self, "request_ability_range_for_player"))
@@ -59,36 +62,26 @@ func getCharactersFromBattleField(isPlayer:bool) -> Array[Character]:
 	return battlefield.getCharactersByType(isPlayer)
 
 func request_movement_range_for_enemy(ch:Character) -> RangeFunctions.TileCollection:
-	set_attacking_character(ch)
-	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, movement_ability, false, true)
 	
 	return affected_tiles
 
 func request_attack_range_for_enemy(ch:Character) -> RangeFunctions.TileCollection:
-	set_attacking_character(ch)
-	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, ch.basic_attack, false, true)
 	
 	return affected_tiles
 
 func request_movement_range_for_player(ch:Character):
-	set_attacking_character(ch)
-	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, movement_ability, true, true)
 	
 	tileSelector.enable_tile_selector(battlefield.get_character_grid_from_character(ch), affected_tiles, movement_ability, true, CharacterAction.Move)
 
 func request_attack_range_for_player(ch:Character):
-	set_attacking_character(ch)
-	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, ch.basic_attack, true, true)
 	
 	tileSelector.enable_tile_selector(battlefield.get_enemy_grid_from_character(ch), affected_tiles, ch.basic_attack, false, CharacterAction.Attack)
 
 func mark_ability_range(ch:Character, abl:Ability):
-	set_attacking_character(ch)
-	
 	# Only show tiles in range
 	battlefield.get_range_from_character_and_ability(ch, abl, true, false)
 
@@ -97,8 +90,6 @@ func request_ability_range_for_player(ch:Character, abl:Ability):
 	if ch.mp < abl.cost:
 		actionMenu.set_input_enabled()
 		return
-	
-	set_attacking_character(ch)
 	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, abl, false, true)
 	
@@ -117,6 +108,14 @@ func do_action_attack(tiles_affected:Array[Vector2i], casted_ability:Ability):
 		return
 	
 	character_use_ability(attacking_character, casted_ability, tiles_affected)
+	
+	check_remaining_actions(2)
+
+func do_action_rest():
+	if attacking_character == null:
+		return
+	
+	attacking_character.recover_extra_energy()
 	
 	check_remaining_actions(2)
 

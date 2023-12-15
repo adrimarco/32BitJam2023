@@ -13,7 +13,8 @@ static var SPRITE_VELOCITY		:float	= 1.0
 static var ATTACK_INC_PER_TILE	:float	= 0.15
 static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 static var CRITICAL_MULTIPLIER	:float	= 0.5
-static var MP_RECOVER_INTERVAL	:float	= 0.1
+static var MP_RECOVER_INTERVAL	:float	= 0.3
+static var MP_RECOVER_AT_REST	:int	= 20
 
 # Scenes
 var damage_counter_scene 		:= preload("res://scenes/battle/DamageCounter.tscn")
@@ -168,6 +169,10 @@ func clearAbilitiesArray():
 			ab.queue_free()
 	abilities.clear()
 
+func recover_extra_energy():
+	mp = min(mp + MP_RECOVER_AT_REST, maxmp)
+	play_attack_animation()
+	
 func damaged(attacker:Character, abl:Ability):
 	if abl.dmg_multiplier <= 0.001:
 		return
