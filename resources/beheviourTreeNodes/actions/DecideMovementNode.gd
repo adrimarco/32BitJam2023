@@ -1,5 +1,6 @@
 extends ActionLeaf
 # Decide movement node
+
 var rng = RandomNumberGenerator.new()
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
@@ -12,20 +13,36 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 	if actor.aggressivity >= 50:
 		if movementRandom < actor.aggressivity && movementRandom >= actor.aggressivity/2:
 			# no change line
-			decisionWeightsMovement.append(moveSameLine(moveTiles, actor)) 
+			var tilePos = moveSameLine(moveTiles, actor)
+			if !tilePos:
+				return FAILURE
+			decisionWeightsMovement.append(tilePos)
+			print("no change line " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 			return SUCCESS
 	else:
 		if movementRandom > actor.aggressivity && movementRandom <= actor.aggressivity*1.5:
 			# no change line
-			decisionWeightsMovement.append(moveSameLine(moveTiles, actor)) 
+			var tilePos = moveSameLine(moveTiles, actor)
+			if !tilePos:
+				return FAILURE
+			decisionWeightsMovement.append(tilePos)
+			print("no change line " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 			return SUCCESS
 	if movementRandom <= actor.aggressivity:
 		# Go forward if possible
-		decisionWeightsMovement.append(getForwardTile(moveTiles, actor)) 
+		var tilePos = getForwardTile(moveTiles, actor)
+		if !tilePos:
+			return FAILURE
+		decisionWeightsMovement.append(tilePos)
+		print("Go forward " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 		return SUCCESS
 	else:
 		# Go back if possible
-		decisionWeightsMovement.append(getBackwardTile(moveTiles, actor)) 
+		var tilePos = getBackwardTile(moveTiles, actor)
+		if !tilePos:
+			return FAILURE
+		decisionWeightsMovement.append(tilePos) 
+		print("Go back " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 		return SUCCESS
 	return FAILURE
 
@@ -40,13 +57,13 @@ func getSidewaysTile(moveTiles, actor) ->Array:
 
 func getForwardTile(moveTiles, actor):
 	for t in moveTiles:
-		if  actor.grid_position.x < 2 && actor.grid_position.x < t.x:
+		if  actor.grid_position.x <= 2 && actor.grid_position.x <= t.x:
 			return t
 	return
 	
 func getBackwardTile(moveTiles, actor):
 	for t in moveTiles:
-		if  actor.grid_position.x > 0 && actor.grid_position.x > t.x:
+		if  actor.grid_position.x >= 0 && actor.grid_position.x >= t.x:
 			return t
 	return
 	

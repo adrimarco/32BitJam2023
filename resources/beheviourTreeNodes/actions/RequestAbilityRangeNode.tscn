@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj36arykxxnji"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/actions/RequestAbilityRangeNode.gd" id="1_eau1t"]
+
+[node name="RequestAbilityRangeNode" type="Node"]
+script = ExtResource("1_eau1t")

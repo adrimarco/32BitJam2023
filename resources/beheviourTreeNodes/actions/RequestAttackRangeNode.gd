@@ -11,7 +11,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		print("Moving to (" + str(movTile.x) + ", " + str(movTile.y) + ")")
 		var attackTiles = battleManager.request_attack_range_for_enemy(actor, movTile)
 		blackboard.set_value("tiles", attackTiles)
-		decisionWeightsAttack.append(attackTiles.tiles.size())
+		decisionWeightsAttack.append([actor.basic_attack, attackTiles.tiles.size(), movTile])
 		#Print
 		print("Targets: " + str(attackTiles.tiles.size()))
 		var sAtkT =""
