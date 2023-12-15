@@ -2,6 +2,9 @@ class_name ActionMenu
 
 extends Control
 
+static var NORMAL_COLOR			:Color = Color(1.0, 1.0, 1.0)
+static var DEAD_COLOR			:Color = Color(0.3, 0.3, 0.3)
+
 var cDisplay:PackedScene = preload("res://scenes/menu/characterDisplay.tscn")
 var characterScene = preload("res://scenes/characters/Character.tscn")
 
@@ -13,7 +16,8 @@ var characterRefAttacking:Character
 
 # Menu selection variables
 var selected:int 	= 0
-var cursorPosition:Vector2 = Vector2(8, 40)
+var cursorPosition:Vector2 = Vector2(8, 27)
+var fightOptionsCount:int = 4
 @onready var cursorActionMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode
 @onready var cursorAbilityMenu = $ColorRect/AbilityTab/CursorNode
 @onready var fightOptionsMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu
@@ -57,6 +61,7 @@ func initCharacterList():
 		ch.connect("energy_changed", Callable(cDaux, "updateAbilityValues"))
 		
 	for index in range(characterDisplays.size()):
+		characterDisplays[index].modulate = NORMAL_COLOR
 		characterDisplays[index].updateHealthValues(playerCharacters[index].hp)
 		characterDisplays[index].updateAbilityValues(playerCharacters[index].mp)
 		
@@ -80,11 +85,11 @@ func _process(_delta):
 		# Move cursor
 		if !abilityTabActive:
 			if Input.is_action_just_pressed("move_down"):
-				selected = (selected + 1) % 3
+				selected = (selected + 1) % fightOptionsCount
 			elif Input.is_action_just_pressed("move_up"):
-				selected = (selected - 1) % 3
+				selected = (selected - 1) % fightOptionsCount
 				if selected < 0:
-					selected += 3
+					selected += fightOptionsCount
 			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + 24*selected)
 			# Option selected
 			if Input.is_action_just_pressed("action_accept"):
@@ -137,6 +142,8 @@ func optionSelected():
 	elif selected == 2:
 		showAbilityMenu(true)
 		hoverAbility()
+	elif selected == 3:
+		characterRest.emit()
 		
 
 func printcharacterAbilities(ch:Character) -> void:
@@ -195,3 +202,28 @@ func set_input_enabled():
 func disable_input():
 	input_enabled = false
 	changeNodeVisibility(cursorActionMenu, false)
+
+func characterDead(ch:Character):
+	var chIndex:int = -1
+	# Search character
+	for chI in playerCharacters.size():
+		if playerCharacters[chI] == ch:
+			chIndex = chI
+			break
+	
+	if chIndex == -1:
+		return
+	
+	var chDisplay = characterDisplays[chIndex]
+	
+	# Change character display color
+	chDisplay.modulate = DEAD_COLOR
+	
+	# hp and mp = 0
+	chDisplay.updateHealthValues(0)
+	chDisplay.updateAbilityValues(0)
+	chDisplay.clearAttackMeter()
+	
+	# remove from characterDisplay array
+	characterDisplays.remove_at(chIndex)
+	playerCharacters.remove_at(chIndex)

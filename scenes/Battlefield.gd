@@ -5,6 +5,7 @@ signal stop_preparing_attacks
 signal resume_preparing_attacks
 signal player_attack_turn(ch:Character)
 signal enemy_attack_turn(ch:Character)
+signal player_dead(ch:Character)
 
 class CharacterData:
 	var character		:Character
@@ -36,6 +37,10 @@ func _ready():
 	var player = load_character(preload("res://scenes/characters/Knight.tscn"), true)
 	if player != null:
 		set_character_tile(player, 1, 1, true)
+		
+	var player1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
+	if player1 != null:
+		set_character_tile(player1, 0, 1, true)
 	
 	var enemy = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
 	if enemy != null:
@@ -135,8 +140,7 @@ func character_died(ch:Character):
 	var player_character := character_data.player_field
 	if player_character:
 		player_grid.remove_character_from_grid(ch)
-		#!!!!!!!! Notify action menu to prevent references errors
-		pass
+		player_dead.emit(ch)
 	else:
 		enemy_grid.remove_character_from_grid(ch)
 	
@@ -145,8 +149,8 @@ func character_died(ch:Character):
 	
 	# Delete character
 	ch.visible = false
-	#await get_tree().create_timer(1.0).timeout
-	#ch.queue_free()
+	await get_tree().create_timer(1.0).timeout
+	ch.queue_free()
 
 func remove_from_attack_cue(ch:Character):
 	attack_cue.erase(ch)

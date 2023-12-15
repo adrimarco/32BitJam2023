@@ -34,3 +34,7 @@ func updateAbilityValues(mp:int) -> void:
 	# Update UI values with character data
 	$MPBar/TextMP.text = str(mpf) + "/" + str(maxMp)
 	$MPBar/TextureProgressBarMP.value = (mpf / maxMp) * 100
+
+
+func clearAttackMeter():
+	$AttackTimerBar/TextureProgressBar.value = 0

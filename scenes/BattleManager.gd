@@ -29,6 +29,7 @@ func _ready():
 	battlefield.connect("player_attack_turn", Callable(self, "set_attacking_character"))
 	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
 	battlefield.connect("enemy_attack_turn", Callable(self, "set_attacking_character"))
+	battlefield.connect("player_dead", Callable(actionMenu, "characterDead"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))
 	actionMenu.connect("characterAttack", Callable(self, "request_attack_range_for_player"))
@@ -65,10 +66,10 @@ func bind_characters_signals():
 	for ch in characters:
 		ch.connect("tile_movement_finished", Callable(self, "check_character_finished_action_animation"))
 		ch.connect("attack_animation_finished", Callable(self, "check_character_finished_action_animation"))
-
+	
 func getCharactersFromBattleField(isPlayer:bool) -> Array[Character]:
 	return battlefield.getCharactersByType(isPlayer)
-
+	
 func request_movement_range_for_enemy(ch:Character) -> RangeFunctions.TileCollection:
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, movement_ability, false, true)
 	

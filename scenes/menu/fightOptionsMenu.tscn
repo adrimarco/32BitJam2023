@@ -49,5 +49,13 @@ text = "Ability
 "
 scroll_active = false
 
+[node name="RestOption" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme = ExtResource("1_j0owy")
+text = "Rest
+"
+scroll_active = false
+
 [node name="CursorNode" parent="." instance=ExtResource("2_dcj0u")]
-position = Vector2(8, 40)
+position = Vector2(8, 27)

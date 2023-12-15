@@ -13,7 +13,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 #	var nextMoveTile = 0
 	
 	var wAtt = selectRandomAbility(actor, decisionWeightsAttack)
-	if wAtt.size() <= 0:
+	if !wAtt:
 		return FAILURE
 	
 	var prevAb = wAtt[0]
