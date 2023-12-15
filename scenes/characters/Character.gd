@@ -49,7 +49,7 @@ var mp						:int	= 1:
 	set(new_value):
 		mp = new_value
 		energy_changed.emit(mp)
-
+var current_effects			:Array[AbilityEffect]
 
 func _ready():
 	# Init character values
@@ -58,6 +58,7 @@ func _ready():
 	attack_meter 		= 0.0
 	preparing_attack 	= false
 	character_moving 	= false
+	current_effects.clear()
 	
 	initializeCharacterAbilities()
 	
