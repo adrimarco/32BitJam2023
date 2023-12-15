@@ -1,10 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfiu1i7gfyx6m"]
+[gd_scene load_steps=11 format=3 uid="uid://dfiu1i7gfyx6m"]
 
 [ext_resource type="Script" path="res://scenes/BattleManager.gd" id="1_em4oq"]
 [ext_resource type="PackedScene" uid="uid://c71nvbb5j0pfu" path="res://scenes/Battlefield.tscn" id="2_sd8bj"]
 [ext_resource type="PackedScene" uid="uid://22fxpqk40s2a" path="res://scenes/menu/actionMenu.tscn" id="3_f4lmw"]
 [ext_resource type="PackedScene" uid="uid://berkrmqhgdyoy" path="res://scenes/TileSelector.tscn" id="4_hfu7f"]
 [ext_resource type="PackedScene" uid="uid://c40laoe5fb5x3" path="res://scenes/aiManager.tscn" id="5_3sa0g"]
+[ext_resource type="PackedScene" uid="uid://c8woi6j6ua1g6" path="res://assets/environment/town/TownMap.glb" id="6_gxogp"]
+[ext_resource type="Texture2D" uid="uid://biohnfp70ucvb" path="res://assets/environment/town/PixelTexture (86).png" id="7_5mjpx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_es3m7"]
+albedo_texture = ExtResource("7_5mjpx")
+uv1_scale = Vector3(35, 35, 35)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2kybm"]
+material = SubResource("StandardMaterial3D_es3m7")
+size = Vector2(50, 50)
+
+[sub_resource type="Environment" id="Environment_k8crt"]
 
 [node name="BattleManager" type="Node3D"]
 script = ExtResource("1_em4oq")
@@ -16,3 +28,25 @@ script = ExtResource("1_em4oq")
 [node name="TileSelector" parent="." instance=ExtResource("4_hfu7f")]
 
 [node name="aiManager" parent="." instance=ExtResource("5_3sa0g")]
+
+[node name="TownMap" parent="." instance=ExtResource("6_gxogp")]
+transform = Transform3D(0.343201, 0, 0.429782, 0, 0.55, 0, -0.429782, 0, 0.343201, 2.20269, 9.53674e-07, 0.870487)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TownMap"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -1.19209e-07, -0.01, -1.638)
+mesh = SubResource("PlaneMesh_2kybm")
+skeleton = NodePath("../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.572218, -0.617677, 0.539484, -0.110235, 0.593925, 0.796933, -0.812659, -0.515489, 0.271765, 4.7618, 5.39931, 3.98452)
+shadow_enabled = true
+shadow_opacity = 0.9
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k8crt")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="resume_turn"]

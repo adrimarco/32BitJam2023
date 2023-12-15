@@ -98,10 +98,10 @@ func check_attack_cue():
 		# Check if character is player or not and emit attack turn signal
 		if searchCharacterIsPlayer(attacking_character):
 			player_attack_turn.emit(attacking_character)
-			print("Player attacking")
+			print("######## Player attacking ########")
 		else:
 			enemy_attack_turn.emit(attacking_character)
-			print("Enemy attacking")			
+			print("######## Enemy attacking ########")			
 			
 		attack_cue.pop_back()
 	return
@@ -114,11 +114,42 @@ func searchCharacterIsPlayer(ch:Character) -> bool:
 	return false
 
 func attack_finished():
-	print("Character finished turn")
+	print("------ Character finished turn ------")
 	character_attacking = false
 	check_attack_cue()
 	
 	return
+
+func character_died(ch:Character):
+	var character_data	:CharacterData = null
+	
+	for c in characters:
+		if c.character == ch:
+			character_data = c
+			break
+		
+	if character_data == null:
+		return
+	
+	# Delete all references
+	var player_character := character_data.player_field
+	if player_character:
+		player_grid.remove_character_from_grid(ch)
+		#!!!!!!!! Notify action menu to prevent references errors
+		pass
+	else:
+		enemy_grid.remove_character_from_grid(ch)
+	
+	characters.erase(character_data)
+	remove_from_attack_cue(ch)
+	
+	# Delete character
+	ch.visible = false
+	#await get_tree().create_timer(1.0).timeout
+	#ch.queue_free()
+
+func remove_from_attack_cue(ch:Character):
+	attack_cue.erase(ch)
 
 func load_character(character_scene:PackedScene, player_character:bool) -> Character:	
 	var ch_data:CharacterData = CharacterData.new()
@@ -132,6 +163,7 @@ func load_character(character_scene:PackedScene, player_character:bool) -> Chara
 	
 	# Bind signals
 	ch_data.character.connect("attack_ready", Callable(self, "character_ready_to_attack"))
+	ch_data.character.connect("character_dead", Callable(self, "character_died"))
 	connect("resume_preparing_attacks", Callable(ch_data.character, "prepare_attack"))
 	connect("stop_preparing_attacks", Callable(ch_data.character, "stop_preparing_attack"))
 	
@@ -190,32 +222,20 @@ func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bo
 	if grid == null:
 		return false
 	
-	# Check tile index is valid
-	if r < 0 or r >= grid.rows or c < 0 or c >= grid.columns:
-		return false
-	
-	# Check the indexes are correct and tile is empty
-	if grid.grid_tiles[r] == null or grid.grid_tiles[r][c] != null:
-		return false
-	
-	# Free previous tile
-	if ch.grid_position.x >= 0 and ch.grid_position.y >= 0:
-		grid.grid_tiles[ch.grid_position.x][ch.grid_position.y] = null
-	
-	# Move character
-	grid.grid_tiles[r][c] = ch
-	ch.move_to_world_position(get_tile_position_in_character_battlefield(ch, r, c), teleport)
-	ch.grid_position = Vector2i(r, c)
-	
-	return true
-	
-	
+	return grid.set_character_tile(ch, r, c, teleport)	
+
 func getCharactersByType(isPlayer:bool) -> Array[Character]:
 	var chs:Array[Character] = []
 	for ch in characters:
 		if ch.player_field == isPlayer:
 			chs.append(ch.character)
 	return chs
+
+func get_all_characters() -> Array[Character]:
+	var ch_array:Array[Character] = []
+	for ch in characters:
+		ch_array.append(ch.character)
+	return ch_array
 
 func get_ability_range_from_position(ch:Character, ability:Ability, cast_tile:Vector2i, mark_range:bool = true, only_valid:bool = false) -> RangeFunctions.TileCollection:
 	var target_field := get_grid_affected_by_ability(ch, ability)

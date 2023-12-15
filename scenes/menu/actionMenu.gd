@@ -34,6 +34,7 @@ var input_enabled:bool = false
 # signals
 signal characterMove(ch:Character)
 signal characterAttack(ch:Character)
+signal characterRest
 signal characterAbility(ch:Character, abl:Ability)
 signal requestAbilityRange(ch:Character, abl:Ability)
 signal requestUnmarkRange
@@ -105,8 +106,8 @@ func checkAbilityTabInput():
 			showAbilityMenu(false)
 			requestUnmarkRange.emit()
 	elif Input.is_action_just_pressed("action_accept"):
-		characterAbility.emit(characterRefAttacking, getAbilityFromIndex(characterRefAttacking, abilitySelection))
 		disable_input()
+		characterAbility.emit(characterRefAttacking, getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
 
 func hideActionMenu():
@@ -128,11 +129,11 @@ func hoverAbility():
 
 func optionSelected():
 	if   selected == 0:
+		disable_input()
 		characterMove.emit(characterRefAttacking)
-		disable_input()
 	elif selected == 1:
-		characterAttack.emit(characterRefAttacking)
 		disable_input()
+		characterAttack.emit(characterRefAttacking)
 	elif selected == 2:
 		showAbilityMenu(true)
 		hoverAbility()

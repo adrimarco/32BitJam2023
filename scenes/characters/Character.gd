@@ -4,13 +4,21 @@ extends Node3D
 signal attack_ready(ch:Character)
 signal health_changed(new_health:int)
 signal energy_changed(new_energy:int)
+signal attack_animation_finished(ch:Character)
+signal tile_movement_finished(ch:Character)
+signal character_dead(ch:Character)
 
 # Constants
-static var ATTACK_READY_VALUE	:float	= 10.0
+static var ATTACK_READY_VALUE	:float	= 30.0
 static var SPRITE_VELOCITY		:float	= 1.0
 static var ATTACK_INC_PER_TILE	:float	= 0.15
 static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 static var CRITICAL_MULTIPLIER	:float	= 0.5
+static var MP_RECOVER_INTERVAL	:float	= 0.3
+static var MP_RECOVER_AT_REST	:int	= 20
+
+# Scenes
+var damage_counter_scene 		:= preload("res://scenes/battle/DamageCounter.tscn")
 
 # Nodes
 @onready var sprite		= $Sprite
@@ -26,6 +34,7 @@ static var CRITICAL_MULTIPLIER	:float	= 0.5
 @export var abilitiesScene	:Array[PackedScene] = []
 @export_range (0, 100) var aggressivity:int = 0
 var attack_meter			:float	= 0.0
+var mp_timer				:float	= 0.0
 var preparing_attack		:bool	= false
 var character_moving		:bool	= false
 var grid_position			:Vector2i
@@ -59,6 +68,7 @@ func _ready():
 func _process(delta):
 	update_attack_meter(delta)
 	update_character_position(delta)
+	update_energy(delta)
 	
 	return
 
@@ -91,14 +101,27 @@ func update_character_position(delta):
 	
 	if global_position.distance_to(target_position) < 0.01:
 		character_moving = false
+		tile_movement_finished.emit(self)
 	
 	return
+
+func update_energy(delta):
+	if not preparing_attack or mp >= maxmp:
+		return
+	
+	mp_timer += delta
+	
+	if mp_timer >= MP_RECOVER_INTERVAL:
+		var energy_recovered := floori(mp_timer/MP_RECOVER_INTERVAL)
+		mp = min(mp + energy_recovered, maxmp)
+		mp_timer -= energy_recovered * MP_RECOVER_INTERVAL
 
 func stop_preparing_attack():
 	preparing_attack = false
 
 func prepare_attack():
-	preparing_attack = true
+	if hp > 0:
+		preparing_attack = true
 
 func set_grid_position(new_pos:Vector2i):
 	grid_position = new_pos
@@ -117,7 +140,17 @@ func reset_attack_meter():
 func update_character_y_offset():
 	# Offset equals half sprite height
 	sprite.offset.y = sprite.get_item_rect().size.y/2
+
+func reset_idle_animation():
+	if sprite.animation == "attack":
+		attack_animation_finished.emit(self)
 	
+	if sprite.animation != "idle":
+		sprite.play("idle")
+
+func play_attack_animation():
+	sprite.play("attack")
+
 func initializeCharacterAbilities():
 	# Instantiate basic ability
 	if basicAttackScene:
@@ -139,6 +172,10 @@ func clearAbilitiesArray():
 			ab.queue_free()
 	abilities.clear()
 
+func recover_extra_energy():
+	mp = min(mp + MP_RECOVER_AT_REST, maxmp)
+	play_attack_animation()
+	
 func damaged(attacker:Character, abl:Ability):
 	if abl.dmg_multiplier <= 0.001:
 		return
@@ -147,7 +184,8 @@ func damaged(attacker:Character, abl:Ability):
 	var attack_power :float = attacker.atk * abl.dmg_multiplier
 	# Apply tile attack increment and critical bonus (randomly)
 	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
-	attack_power += add_critical_damage(attack_power)
+	var critic_damage := add_critical_damage(attack_power)
+	attack_power += critic_damage
 	
 	# Calculate target defense
 	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x)
@@ -155,7 +193,17 @@ func damaged(attacker:Character, abl:Ability):
 	var damage :int = maxi(1, floori(attack_power - defense_power))
 	hp -= damage
 	
+	# Display damage
+	var counter := damage_counter_scene.instantiate()
+	counter.position.y = 1
+	add_child(counter)
+	counter.display_number(damage, critic_damage > 0.001)
+	
 	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
+	# If character dies, notify
+	if hp <= 0:
+		await get_tree().create_timer(1.0).timeout
+		character_dead.emit(self)
 
 func add_critical_damage(damage:float) -> float:
 	var random_value := randi() % 1000
