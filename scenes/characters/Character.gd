@@ -14,6 +14,9 @@ static var ATTACK_INC_PER_TILE	:float	= 0.15
 static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 static var CRITICAL_MULTIPLIER	:float	= 0.5
 
+# Scenes
+var damage_counter_scene 		:= preload("res://scenes/battle/DamageCounter.tscn")
+
 # Nodes
 @onready var sprite		= $Sprite
 
@@ -159,13 +162,20 @@ func damaged(attacker:Character, abl:Ability):
 	var attack_power :float = attacker.atk * abl.dmg_multiplier
 	# Apply tile attack increment and critical bonus (randomly)
 	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
-	attack_power += add_critical_damage(attack_power)
+	var critic_damage := add_critical_damage(attack_power)
+	attack_power += critic_damage
 	
 	# Calculate target defense
 	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x)
 	
 	var damage :int = maxi(1, floori(attack_power - defense_power))
 	hp -= damage
+	
+	# Display damage
+	var counter := damage_counter_scene.instantiate()
+	counter.position.y = 1
+	add_child(counter)
+	counter.display_number(damage, critic_damage > 0.001)
 	
 	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
 
