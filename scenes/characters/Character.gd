@@ -8,11 +8,12 @@ signal attack_animation_finished(ch:Character)
 signal tile_movement_finished(ch:Character)
 
 # Constants
-static var ATTACK_READY_VALUE	:float	= 10.0
+static var ATTACK_READY_VALUE	:float	= 30.0
 static var SPRITE_VELOCITY		:float	= 1.0
 static var ATTACK_INC_PER_TILE	:float	= 0.15
 static var DEFENSE_DEC_PER_TILE	:float	= 0.1
 static var CRITICAL_MULTIPLIER	:float	= 0.5
+static var MP_RECOVER_INTERVAL	:float	= 0.1
 
 # Scenes
 var damage_counter_scene 		:= preload("res://scenes/battle/DamageCounter.tscn")
@@ -30,6 +31,7 @@ var damage_counter_scene 		:= preload("res://scenes/battle/DamageCounter.tscn")
 @export var basicAttackScene:PackedScene = preload("res://scenes/abilities/SlashAttack.tscn")
 @export var abilitiesScene	:Array[PackedScene] = []
 var attack_meter			:float	= 0.0
+var mp_timer				:float	= 0.0
 var preparing_attack		:bool	= false
 var character_moving		:bool	= false
 var grid_position			:Vector2i
@@ -63,6 +65,7 @@ func _ready():
 func _process(delta):
 	update_attack_meter(delta)
 	update_character_position(delta)
+	update_energy(delta)
 	
 	return
 
@@ -98,6 +101,17 @@ func update_character_position(delta):
 		tile_movement_finished.emit(self)
 	
 	return
+
+func update_energy(delta):
+	if not preparing_attack or mp >= maxmp:
+		return
+	
+	mp_timer += delta
+	
+	if mp_timer >= MP_RECOVER_INTERVAL:
+		var energy_recovered := floori(mp_timer/MP_RECOVER_INTERVAL)
+		mp = min(mp + energy_recovered, maxmp)
+		mp_timer -= energy_recovered * MP_RECOVER_INTERVAL
 
 func stop_preparing_attack():
 	preparing_attack = false

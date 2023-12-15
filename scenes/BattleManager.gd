@@ -95,6 +95,7 @@ func mark_ability_range(ch:Character, abl:Ability):
 func request_ability_range_for_player(ch:Character, abl:Ability):
 	# Check character has enough energy to cast ability
 	if ch.mp < abl.cost:
+		actionMenu.set_input_enabled()
 		return
 	
 	set_attacking_character(ch)
@@ -122,10 +123,9 @@ func do_action_attack(tiles_affected:Array[Vector2i], casted_ability:Ability):
 func check_remaining_actions(actions_consumed:int):
 	actions_remaining -= actions_consumed
 	
-	if actions_remaining > 0:
-		if player_character:
-			actionMenu._storeCharacterAttacking(attacking_character)
-			actionMenu.disable_input()
+	if player_character:
+		actionMenu._storeCharacterAttacking(attacking_character)
+		actionMenu.disable_input()
 	
 	waiting_for_action_animation = true
 	timer.start()
