@@ -3,7 +3,7 @@ extends ActionLeaf
 
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
-	print("Request Movement")
+#	print("Request Movement")
 	var battleManager:BattleManager = blackboard.get_value("battleManager")
 	var tiles:RangeFunctions.TileCollection = battleManager.request_movement_range_for_enemy(actor)
 	

@@ -18,7 +18,11 @@ var waiting_for_action_animation	:bool
 var movement_ability :Ability
 #########################
 
+signal requestAIAction
+
 func _ready():
+	
+	connect("requestAIAction", Callable(aiManager, "getNextAction"))
 	# Connect battlefield signal
 	# When a playable character is ready to attack -> emit signal
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
@@ -37,6 +41,10 @@ func _ready():
 	tileSelector.connect("movement_confirmed", Callable(self, "do_action_movement"))
 	tileSelector.connect("attack_confirmed", Callable(self, "do_action_attack"))
 	tileSelector.connect("selection_canceled", Callable(actionMenu, "hoverAbility"))
+	
+	aiManager.connect("executeMovementActionEnemy", Callable(self, "do_action_movement"))
+	aiManager.connect("executeAttackActionEnemy", Callable(self, "do_action_attack"))
+	aiManager.connect("executeRestActionEnemy", Callable(self, "do_action_rest"))
 	
 	actionMenu.initCharacterList()
 	aiManager.initCharacterList()
@@ -66,15 +74,10 @@ func request_movement_range_for_enemy(ch:Character) -> RangeFunctions.TileCollec
 	
 	return affected_tiles
 
-<<<<<<< HEAD
 func request_attack_range_for_enemy(ch:Character, castTile:Vector2i = ch.grid_position, ab:Ability = ch.basic_attack) -> RangeFunctions.TileCollection:
 	set_attacking_character(ch)
 	
 	var affected_tiles := battlefield.get_ability_range_from_position(ch, ab, castTile, false, true)
-=======
-func request_attack_range_for_enemy(ch:Character) -> RangeFunctions.TileCollection:
-	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, ch.basic_attack, false, true)
->>>>>>> main
 	
 	return affected_tiles
 
@@ -161,6 +164,8 @@ func resume_turn():
 	else:
 		if player_character:
 			actionMenu.set_input_enabled()
+		else:
+			requestAIAction.emit()
 
 func set_attacking_character(ch:Character):
 	if attacking_character == null or attacking_character != ch:

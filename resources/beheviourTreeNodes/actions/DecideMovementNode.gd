@@ -8,7 +8,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 	var moveTiles = blackboard.get_value("tilesMovement").tiles
 	var decisionWeightsMovement:Array = blackboard.get_value("decisionWeightsMovement")
 	var movementRandom = rng.randi_range(0, 100)
-	print("Random " + str(movementRandom) + " Agg " + str(actor.aggressivity))
+#	print("Random " + str(movementRandom) + " Agg " + str(actor.aggressivity))
 	
 	if actor.aggressivity >= 50:
 		if movementRandom < actor.aggressivity && movementRandom >= actor.aggressivity/2:
@@ -17,7 +17,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			if !tilePos:
 				return FAILURE
 			decisionWeightsMovement.append(tilePos)
-			print("no change line " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
+#			print("no change line " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 			return SUCCESS
 	else:
 		if movementRandom > actor.aggressivity && movementRandom <= actor.aggressivity*1.5:
@@ -26,7 +26,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			if !tilePos:
 				return FAILURE
 			decisionWeightsMovement.append(tilePos)
-			print("no change line " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
+#			print("no change line " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 			return SUCCESS
 	if movementRandom <= actor.aggressivity:
 		# Go forward if possible
@@ -34,7 +34,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		if !tilePos:
 			return FAILURE
 		decisionWeightsMovement.append(tilePos)
-		print("Go forward " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
+#		print("Go forward " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 		return SUCCESS
 	else:
 		# Go back if possible
@@ -42,7 +42,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		if !tilePos:
 			return FAILURE
 		decisionWeightsMovement.append(tilePos) 
-		print("Go back " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
+#		print("Go back " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 		return SUCCESS
 	return FAILURE
 
