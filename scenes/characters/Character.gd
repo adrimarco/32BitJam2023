@@ -4,6 +4,8 @@ extends Node3D
 signal attack_ready(ch:Character)
 signal health_changed(new_health:int)
 signal energy_changed(new_energy:int)
+signal attack_animation_finished(ch:Character)
+signal tile_movement_finished(ch:Character)
 
 # Constants
 static var ATTACK_READY_VALUE	:float	= 10.0
@@ -90,6 +92,7 @@ func update_character_position(delta):
 	
 	if global_position.distance_to(target_position) < 0.01:
 		character_moving = false
+		tile_movement_finished.emit(self)
 	
 	return
 
@@ -116,7 +119,17 @@ func reset_attack_meter():
 func update_character_y_offset():
 	# Offset equals half sprite height
 	sprite.offset.y = sprite.get_item_rect().size.y/2
+
+func reset_idle_animation():
+	if sprite.animation == "attack":
+		attack_animation_finished.emit(self)
 	
+	if sprite.animation != "idle":
+		sprite.play("idle")
+
+func play_attack_animation():
+	sprite.play("attack")
+
 func initializeCharacterAbilities():
 	# Instantiate basic ability
 	if basicAttackScene:

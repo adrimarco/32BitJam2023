@@ -121,7 +121,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"energy",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -144,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"health",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -167,7 +167,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"luck",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -190,5 +190,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"normal",
-"speed": 5.0
+"speed": 10.0
 }]

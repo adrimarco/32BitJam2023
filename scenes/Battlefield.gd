@@ -98,10 +98,10 @@ func check_attack_cue():
 		# Check if character is player or not and emit attack turn signal
 		if searchCharacterIsPlayer(attacking_character):
 			player_attack_turn.emit(attacking_character)
-			print("Player attacking")
+			print("######## Player attacking ########")
 		else:
 			enemy_attack_turn.emit(attacking_character)
-			print("Enemy attacking")			
+			print("######## Enemy attacking ########")			
 			
 		attack_cue.pop_back()
 	return
@@ -114,7 +114,7 @@ func searchCharacterIsPlayer(ch:Character) -> bool:
 	return false
 
 func attack_finished():
-	print("Character finished turn")
+	print("------ Character finished turn ------")
 	character_attacking = false
 	check_attack_cue()
 	
@@ -216,6 +216,12 @@ func getCharactersByType(isPlayer:bool) -> Array[Character]:
 		if ch.player_field == isPlayer:
 			chs.append(ch.character)
 	return chs
+
+func get_all_characters() -> Array[Character]:
+	var ch_array:Array[Character] = []
+	for ch in characters:
+		ch_array.append(ch.character)
+	return ch_array
 
 func get_ability_range_from_position(ch:Character, ability:Ability, cast_tile:Vector2i, mark_range:bool = true, only_valid:bool = false) -> RangeFunctions.TileCollection:
 	var target_field := get_grid_affected_by_ability(ch, ability)

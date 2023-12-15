@@ -7,10 +7,12 @@ enum CharacterAction {None, Move, Attack}
 @onready var actionMenu:ActionMenu		= $actionMenu
 @onready var tileSelector:TileSelector	= $TileSelector
 @onready var aiManager:AIManager		= $aiManager
+@onready var timer						:= $Timer
 
 var attacking_character	:Character
 var player_character	:bool
 var actions_remaining 	:int
+var waiting_for_action_animation	:bool
 
 ##### TEMPORAL ? ########
 var movement_ability :Ability
@@ -43,8 +45,16 @@ func _ready():
 	movement_ability.target_type = Ability.TargetTypes.Selection
 	movement_ability.target_enemy_team = false
 	############################
-
 	
+	bind_characters_signals()
+
+func bind_characters_signals():
+	var characters := battlefield.get_all_characters()
+	
+	for ch in characters:
+		ch.connect("tile_movement_finished", Callable(self, "check_character_finished_action_animation"))
+		ch.connect("attack_animation_finished", Callable(self, "check_character_finished_action_animation"))
+
 func getCharactersFromBattleField(isPlayer:bool) -> Array[Character]:
 	return battlefield.getCharactersByType(isPlayer)
 
@@ -112,8 +122,28 @@ func do_action_attack(tiles_affected:Array[Vector2i], casted_ability:Ability):
 func check_remaining_actions(actions_consumed:int):
 	actions_remaining -= actions_consumed
 	
+	if actions_remaining > 0:
+		if player_character:
+			actionMenu._storeCharacterAttacking(attacking_character)
+			actionMenu.disable_input()
+	
+	waiting_for_action_animation = true
+	timer.start()
+
+func check_character_finished_action_animation(ch:Character):
+	if ch == attacking_character && waiting_for_action_animation:
+		resume_turn()
+
+func resume_turn():
+	if not waiting_for_action_animation:
+		return
+		
+	waiting_for_action_animation = false
+	if not timer.is_stopped():
+		timer.stop()
+	
+	# If character did all their actions, battle continues
 	if actions_remaining <= 0:
-		# Resume turns
 		attacking_character = null
 		if player_character:
 			actionMenu.showAbilityMenu(false)
@@ -124,8 +154,7 @@ func check_remaining_actions(actions_consumed:int):
 		battlefield.attack_finished()
 	else:
 		if player_character:
-			actionMenu._storeCharacterAttacking(attacking_character)
-
+			actionMenu.set_input_enabled()
 
 func set_attacking_character(ch:Character):
 	if attacking_character == null or attacking_character != ch:
@@ -138,6 +167,8 @@ func set_attacking_character(ch:Character):
 func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i]):
 	if caster == null or abl == null or caster.mp < abl.cost:
 		return
+	
+	caster.play_attack_animation()
 	
 	var grid:BattlefieldGrid
 	# Get target grid
