@@ -70,6 +70,39 @@ func unmark_all_tiles():
 			
 		
 
+func remove_character_from_grid(ch:Character):
+	if ch == null:
+		return
+	
+	# Check if the player is in the grid
+	var ch_pos := ch.grid_position
+	if grid_tiles[ch_pos.x][ch_pos.y] == ch:
+		grid_tiles[ch_pos.x][ch_pos.y] = null
+		ch.set_grid_position(Vector2i(-1, -1))
+
+func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bool:
+	# Check tile index is valid
+	if r < 0 or r >= rows or c < 0 or c >= columns:
+		return false
+	
+	# Check the indexes are correct and tile is empty
+	if grid_tiles[r] == null or grid_tiles[r][c] != null:
+		return false
+	
+	# Free previous tile
+	if ch.grid_position.x >= 0 and ch.grid_position.y >= 0:
+		var previous_pos = ch.grid_position
+		if grid_tiles[previous_pos.x][previous_pos.y] == ch:
+			# Character was in this grid, free position
+			grid_tiles[previous_pos.x][previous_pos.y] = null
+	
+	# Move character
+	grid_tiles[r][c] = ch
+	ch.move_to_world_position(get_tile_position(r, c), teleport)
+	ch.grid_position = Vector2i(r, c)
+	
+	return true
+
 func mark_tiles(tiles_to_mark:Array[Vector2i]):
 	for t in tiles_to_mark:
 		mark_tile(t.x, t.y)

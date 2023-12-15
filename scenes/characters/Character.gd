@@ -6,6 +6,7 @@ signal health_changed(new_health:int)
 signal energy_changed(new_energy:int)
 signal attack_animation_finished(ch:Character)
 signal tile_movement_finished(ch:Character)
+signal character_dead(ch:Character)
 
 # Constants
 static var ATTACK_READY_VALUE	:float	= 30.0
@@ -118,7 +119,8 @@ func stop_preparing_attack():
 	preparing_attack = false
 
 func prepare_attack():
-	preparing_attack = true
+	if hp > 0:
+		preparing_attack = true
 
 func set_grid_position(new_pos:Vector2i):
 	grid_position = new_pos
@@ -197,6 +199,10 @@ func damaged(attacker:Character, abl:Ability):
 	counter.display_number(damage, critic_damage > 0.001)
 	
 	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
+	# If character dies, notify
+	if hp <= 0:
+		await get_tree().create_timer(1.0).timeout
+		character_dead.emit(self)
 
 func add_critical_damage(damage:float) -> float:
 	var random_value := randi() % 1000
