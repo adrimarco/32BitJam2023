@@ -21,14 +21,14 @@ var movement_ability :Ability
 signal requestAIAction
 
 func _ready():
-	
 	connect("requestAIAction", Callable(aiManager, "getNextAction"))
-	# Connect battlefield signal
-	# When a playable character is ready to attack -> emit signal
+	
+	# Connect children signal
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
 	battlefield.connect("player_attack_turn", Callable(self, "set_attacking_character"))
 	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
 	battlefield.connect("enemy_attack_turn", Callable(self, "set_attacking_character"))
+	battlefield.connect("battle_finished", Callable(self, "end_battle"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))
 	actionMenu.connect("characterAttack", Callable(self, "request_attack_range_for_player"))
@@ -196,3 +196,9 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	print("Character attacking with basic attack (" + str(targets.size()) + " targets)")
 	# Reduce energy cost
 	caster.mp -= abl.cost
+
+func end_battle(player_win:bool):
+	if player_win:
+		print("VICTORY!!")
+	else:
+		print("DEFEATED...")

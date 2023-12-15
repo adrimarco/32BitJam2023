@@ -5,6 +5,7 @@ signal stop_preparing_attacks
 signal resume_preparing_attacks
 signal player_attack_turn(ch:Character)
 signal enemy_attack_turn(ch:Character)
+signal battle_finished(player_win:bool)
 
 class CharacterData:
 	var character		:Character
@@ -41,13 +42,13 @@ func _ready():
 	if enemy != null:
 		set_character_tile(enemy, 1, 1, true)	
 	
-#	var enemy1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
-#	if enemy1 != null:
-#		set_character_tile(enemy1, 0, 1, true)	
-#
-#	var enemy2 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
-#	if enemy2 != null:
-#		set_character_tile(enemy2, 2, 1, true)	
+	var enemy1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
+	if enemy1 != null:
+		set_character_tile(enemy1, 0, 1, true)	
+
+	var enemy2 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
+	if enemy2 != null:
+		set_character_tile(enemy2, 2, 1, true)	
 		
 	resume_preparing_attacks.emit()
 	
@@ -97,11 +98,11 @@ func check_attack_cue():
 
 		# Check if character is player or not and emit attack turn signal
 		if searchCharacterIsPlayer(attacking_character):
-			player_attack_turn.emit(attacking_character)
 			print("######## Player attacking ########")
+			player_attack_turn.emit(attacking_character)
 		else:
+			print("######## Enemy attacking ########")
 			enemy_attack_turn.emit(attacking_character)
-			print("######## Enemy attacking ########")			
 			
 		attack_cue.pop_back()
 	return
@@ -147,6 +148,23 @@ func character_died(ch:Character):
 	ch.visible = false
 	#await get_tree().create_timer(1.0).timeout
 	#ch.queue_free()
+	check_game_over()
+
+func check_game_over():
+	var player_alive 	:= false
+	var enemy_alive 	:= false
+	
+	for c in characters:
+		if c.player_field:
+			player_alive = true
+		else:
+			enemy_alive = true
+		
+	# Check if one of the teams has been defeated
+	if not player_alive:
+		battle_finished.emit(false)
+	elif not enemy_alive:
+		battle_finished.emit(true)
 
 func remove_from_attack_cue(ch:Character):
 	attack_cue.erase(ch)

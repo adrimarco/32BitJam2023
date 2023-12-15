@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 RangeFunctions="*res://scenes/RangeFunctions.gd"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
+EffectsContainer="*res://scenes/battle/AbilityEffects_Container.gd"
 
 [display]
 
