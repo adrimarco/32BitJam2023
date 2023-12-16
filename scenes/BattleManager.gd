@@ -83,7 +83,7 @@ func request_attack_range_for_enemy(ch:Character, castTile:Vector2i = ch.grid_po
 
 func request_movement_range_for_player(ch:Character):
 	# Check character is not stunned
-	if ch.has_effect(AbilityEffect.EffectType.Stun):
+	if ch.has_effects([AbilityEffect.EffectType.Stun]):
 		actionMenu.set_input_enabled()
 		return
 	
@@ -111,7 +111,7 @@ func request_ability_range_for_player(ch:Character, abl:Ability):
 	tileSelector.enable_tile_selector(battlefield.get_grid_affected_by_ability(ch, abl), affected_tiles, abl, false, CharacterAction.Attack)
 
 func do_action_movement(tiles_affected:Vector2i):
-	if attacking_character == null or attacking_character.has_effect(AbilityEffect.EffectType.Stun):
+	if attacking_character == null or attacking_character.has_effects([AbilityEffect.EffectType.Stun]):
 		check_remaining_actions(0)
 		return
 	print("Character moving to tile (" + str(tiles_affected.x) + ", " + str(tiles_affected.y) + ")")

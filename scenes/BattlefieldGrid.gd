@@ -10,6 +10,7 @@ static var PLAYER_MARK_COLOR	:Color = Color(0.0, 0.5, 1.0)
 static var ENEMY_MARK_COLOR		:Color = Color(1.0, 0.25, 0.0)
 static var SELECT_COLOR			:Color = PLAYER_MARK_COLOR#Color(1.0, 0.96, 0.23)
 static var LUCKY_TILE_EFFECTS	:Array[AbilityEffect.EffectType] = [AbilityEffect.EffectType.Lucky]
+static var LUCKY_TILE_EFF_VALUE	:Array[float] = [50.0]
 
 @export var rows 		:int = 3
 @export var columns		:int = 3
@@ -111,7 +112,32 @@ func set_character_tile(ch:Character, r:int, c:int, teleport:bool = false) -> bo
 	ch.move_to_world_position(get_tile_position(r, c), teleport)
 	ch.grid_position = Vector2i(r, c)
 	
+	# Add effect to characters stepping on lucky tile
+	ch.remove_tile_effects()
+	if grid_lucky_effects[r][c] != -1:
+		add_lucky_effect_to_character(r, c)
+	
 	return true
+
+func add_lucky_effect_to_character(r: int, c:int):
+	if r < 0 or c < 0 or r >= rows or c >= columns:
+		return
+	
+	# Check there is a character on the tile and it is lucky
+	if grid_lucky_effects[r][c] == -1 or grid_tiles[r][c] == null:
+		return
+	
+	var type = grid_lucky_effects[r][c]
+	var effect := EffectsContainer.get_effect(type as AbilityEffect.EffectType, LUCKY_TILE_EFF_VALUE[get_lucky_effect_index(type)], 1)
+	
+	grid_tiles[r][c].add_special_effect(effect)
+
+func get_lucky_effect_index(type:AbilityEffect.EffectType) -> int:
+	for i in LUCKY_TILE_EFFECTS.size():
+		if LUCKY_TILE_EFFECTS[i] == type:
+			return i
+		
+	return -1
 
 func mark_tiles(tiles_to_mark:Array[Vector2i]):
 	for t in tiles_to_mark:
@@ -176,6 +202,10 @@ func set_lucky_tile(r:int, c:int) -> bool:
 	current_lucky_effects.append(lucky_effect)
 	update_lucky_tile_sprite(r, c)
 	
+	# If there is a character on it, receive effect
+	if grid_tiles[r][c] != null:
+		add_lucky_effect_to_character(r, c)
+	
 	return true
 
 func update_lucky_tile_sprite(r:int, c:int):
@@ -196,6 +226,10 @@ func remove_lucky_tile(r:int, c:int) -> bool:
 		return false
 	
 	if grid_lucky_effects[r][c] != -1:
+		# If there is a character on it, loose effect
+		if grid_tiles[r][c] != null:
+			grid_tiles[r][c].remove_tile_effects()
+		
 		# Remove effect from tile and current effects array
 		current_lucky_effects.erase(grid_lucky_effects[r][c])
 		grid_lucky_effects[r][c] = -1

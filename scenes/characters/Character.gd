@@ -202,7 +202,7 @@ func damaged(attacker:Character, abl:Ability):
 	var attack_power :float = attacker.atk * abl.dmg_multiplier * get_damage_multiplier_by_effects(attacker)
 	# Apply tile attack increment and critical bonus (randomly)
 	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
-	var critic_damage := add_critical_damage(attack_power)
+	var critic_damage := add_critical_damage(attacker, attack_power)
 	attack_power += critic_damage
 	
 	# Calculate target defense
@@ -266,17 +266,26 @@ func get_speed_multiplier_by_effects(ch:Character) -> float:
 	
 	return multiplier
 
-func add_critical_damage(damage:float) -> float:
+func add_critical_damage(attacker:Character, damage:float) -> float:
 	var random_value := randi() % 1000
 	
-	if random_value <= 50:
+	if random_value <= get_critical_chance(attacker):
 		return damage * CRITICAL_MULTIPLIER
 	
 	return 0.0
 
-func has_effect(effect_searched:AbilityEffect.EffectType) -> bool:
+func get_critical_chance(attacker:Character) -> int:
+	var limit_value := 50
+	
+	for effect in attacker.current_effects:
+		if effect.type == AbilityEffect.EffectType.Lucky:
+			limit_value = max(limit_value, 1000 * (effect.value/100.0))
+		
+	return limit_value
+
+func has_effects(effect_searched:Array[AbilityEffect.EffectType]) -> bool:
 	for effect in current_effects:
-		if effect.type == effect_searched:
+		if effect.type in effect_searched:
 			return true
 		
 	return false
@@ -298,6 +307,15 @@ func remove_negative_effects():
 		else:
 			i += 1
 		
+
+func remove_tile_effects():
+	var i := 0
+	while i < current_effects.size():
+		if current_effects[i].type in BattlefieldGrid.LUCKY_TILE_EFFECTS:
+			current_effects.remove_at(i)
+		else:
+			i += 1
+	
 
 func update_effects_duration(duration_type:AbilityEffect.DurationType, value:float):
 	# Prevent value from being negative
