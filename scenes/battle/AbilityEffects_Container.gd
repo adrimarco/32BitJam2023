@@ -1,6 +1,13 @@
 class_name AbilityEffectsContainer
 extends Node
 
+func duplicate_effect(effect:AbilityEffect) -> AbilityEffect:
+	var new_effect := _get_effect_with_value_and_duration(effect.value, effect.duration)
+	
+	new_effect.type 	= effect.type
+	new_effect.dur_type = effect.dur_type
+	
+	return new_effect
 
 func get_effect(type:AbilityEffect.EffectType, value:float, duration:float) -> AbilityEffect:
 	if type == AbilityEffect.EffectType.IncAtk:
@@ -53,7 +60,7 @@ func _attack_increase_effect(effect_value:float, effect_duration:float) -> Abili
 	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
 	
 	effect.type 	= AbilityEffect.EffectType.IncAtk
-	effect.dur_type = AbilityEffect.DurationType.Time
+	effect.dur_type = AbilityEffect.DurationType.Turns
 	
 	return effect
 
@@ -77,7 +84,7 @@ func _attack_decrease_effect(effect_value:float, effect_duration:float) -> Abili
 	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
 	
 	effect.type 	= AbilityEffect.EffectType.DecAtk
-	effect.dur_type = AbilityEffect.DurationType.Time
+	effect.dur_type = AbilityEffect.DurationType.Turns
 	
 	return effect
 
