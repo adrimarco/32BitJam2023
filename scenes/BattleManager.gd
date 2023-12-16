@@ -163,6 +163,9 @@ func resume_turn():
 	
 	# If character did all their actions, battle continues
 	if actions_remaining <= 0:
+		# Update effects when character turn's end
+		attacking_character.update_effects_duration(AbilityEffect.DurationType.Turns, 1)
+		
 		attacking_character = null
 		if player_character:
 			actionMenu.showAbilityMenu(false)

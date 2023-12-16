@@ -88,7 +88,9 @@ func update_attack_meter(delta):
 	return
 
 func update_effects(delta):
-	pass
+	if not preparing_attack:
+		return
+	update_effects_duration(AbilityEffect.DurationType.Time, delta)
 
 func update_character_position(delta):
 	if not character_moving:
@@ -296,3 +298,19 @@ func remove_negative_effects():
 		else:
 			i += 1
 		
+
+func update_effects_duration(duration_type:AbilityEffect.DurationType, value:float):
+	# Prevent value from being negative
+	value = max(value, 0.0)
+	
+	var i := 0
+	while i < current_effects.size():
+		# Update effects that match given duration type
+		if current_effects[i].dur_type == duration_type:
+			current_effects[i].duration -= value
+			if current_effects[i].duration <= 0.0:
+				current_effects.remove_at(i)
+				continue
+			
+		i += 1
+	
