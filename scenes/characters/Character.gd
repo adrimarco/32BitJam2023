@@ -70,6 +70,7 @@ func _process(delta):
 	update_attack_meter(delta)
 	update_character_position(delta)
 	update_energy(delta)
+	update_effects(delta)
 	
 	return
 
@@ -78,13 +79,16 @@ func update_attack_meter(delta):
 		return
 	
 	# Charge attack
-	attack_meter += delta * spd
+	attack_meter += delta * spd * get_speed_multiplier_by_effects(self)
 	
 	# Check if attack is ready to notify battlefield
 	if attack_meter >= ATTACK_READY_VALUE:
 		attack_ready.emit(self)
 	
 	return
+
+func update_effects(delta):
+	pass
 
 func update_character_position(delta):
 	if not character_moving:
@@ -173,23 +177,25 @@ func clearAbilitiesArray():
 			ab.queue_free()
 	abilities.clear()
 
-func recover_extra_energy():
-	mp = min(mp + MP_RECOVER_AT_REST, maxmp)
-	play_attack_animation()
-	
+func recover_energy(mp_recovered:int = MP_RECOVER_AT_REST):
+	mp = min(mp + mp_recovered, maxmp)
+
+func recover_health(hp_recovered:int):
+	hp = min(hp + hp_recovered, maxhp)
+
 func damaged(attacker:Character, abl:Ability):
 	if abl.dmg_multiplier <= 0.001:
 		return
 	
-	# Calculate damage from ability and attacker's attack power
-	var attack_power :float = attacker.atk * abl.dmg_multiplier
+	# Calculate damage from ability, attacker's attack power and effect
+	var attack_power :float = attacker.atk * abl.dmg_multiplier * get_damage_multiplier_by_effects(attacker)
 	# Apply tile attack increment and critical bonus (randomly)
 	attack_power += attacker.atk * (ATTACK_INC_PER_TILE * attacker.grid_position.x)
 	var critic_damage := add_critical_damage(attack_power)
 	attack_power += critic_damage
 	
 	# Calculate target defense
-	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x)
+	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x) * get_defense_multiplier_by_effects(self)
 	
 	var damage :int = maxi(1, floori(attack_power - defense_power))
 	hp -= damage
@@ -206,6 +212,49 @@ func damaged(attacker:Character, abl:Ability):
 		await get_tree().create_timer(1.0).timeout
 		character_dead.emit(self)
 
+func get_damage_multiplier_by_effects(ch:Character) -> float:
+	var multiplier := 1.0
+	
+	for effect in ch.current_effects:
+		if effect.type == AbilityEffect.EffectType.IncAtk:
+			print("Damage increased")
+			var increment = effect.value / 100.0
+			multiplier += increment
+		elif effect.type == AbilityEffect.EffectType.DecAtk:
+			print("Damage decreased")
+			var decrement = effect.value / 100.0
+			multiplier -= decrement
+	
+	return multiplier
+
+func get_defense_multiplier_by_effects(ch:Character) -> float:
+	var multiplier := 1.0
+	
+	for effect in ch.current_effects:
+		if effect.type == AbilityEffect.EffectType.IncDef:
+			print("Defense increased")
+			var increment = effect.value / 100.0
+			multiplier += increment
+		elif effect.type == AbilityEffect.EffectType.DecDef:
+			print("Defense decreased")
+			var decrement = effect.value / 100.0
+			multiplier -= decrement
+	
+	return multiplier
+
+func get_speed_multiplier_by_effects(ch:Character) -> float:
+	var multiplier := 1.0
+	
+	for effect in ch.current_effects:
+		if effect.type == AbilityEffect.EffectType.IncSpd:
+			var increment = effect.value / 100.0
+			multiplier += increment
+		elif effect.type == AbilityEffect.EffectType.DecSpd:
+			var decrement = effect.value / 100.0
+			multiplier -= decrement
+	
+	return multiplier
+
 func add_critical_damage(damage:float) -> float:
 	var random_value := randi() % 1000
 	
@@ -213,3 +262,12 @@ func add_critical_damage(damage:float) -> float:
 		return damage * CRITICAL_MULTIPLIER
 	
 	return 0.0
+
+func add_special_effect(new_effect:AbilityEffect):
+	for e in current_effects:
+		if e.type == new_effect.type:
+			e.duration 	= new_effect.duration
+			e.value		= new_effect.value
+			return
+	
+	current_effects.append(EffectsContainer.duplicate_effect(new_effect))

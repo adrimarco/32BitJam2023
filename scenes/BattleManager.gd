@@ -127,7 +127,8 @@ func do_action_rest():
 	if attacking_character == null:
 		return
 	
-	attacking_character.recover_extra_energy()
+	attacking_character.recover_energy()
+	attacking_character.play_attack_animation()
 	
 	check_remaining_actions(2)
 
@@ -190,14 +191,45 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	else:
 		grid = battlefield.get_character_grid_from_character(caster)
 	
-	if abl.dmg_multiplier > 0.001:
-		# Damage all targets
-		for target in targets:
-			if grid.grid_tiles[target.x][target.y] != null:
+	# Damage all targets
+	for target in targets:
+		if grid.grid_tiles[target.x][target.y] != null:
+			if abl.dmg_multiplier > 0.001:
 				grid.grid_tiles[target.x][target.y].damaged(caster, abl)
-	print("Character attacking with basic attack (" + str(targets.size()) + " targets)")
+			add_ability_effects_to_character(grid.grid_tiles[target.x][target.y], abl.effects_target)
+			
+			# Selection abilities can only affect one target
+			if abl.target_type == Ability.TargetTypes.Selection:
+				break
+	print("Character attacking with " + abl.ability_name + " (" + str(targets.size()) + " targets)")
+	
+	# Add effects to caster
+	add_ability_effects_to_character(caster, abl.effects_caster)
+	
 	# Reduce energy cost
 	caster.mp -= abl.cost
+
+func add_ability_effects_to_character(ch:Character, ability_effects:Array[AbilityEffect]):
+	if ch == null:
+		return
+	
+	for e in ability_effects:
+		if e.dur_type == AbilityEffect.DurationType.Immediate:
+			resolve_immediate_effect(ch, e)
+		else:
+			ch.add_special_effect(e)
+
+func resolve_immediate_effect(ch:Character, effect:AbilityEffect):
+	if effect.type == AbilityEffect.EffectType.PushBack:
+		pass
+	elif effect.type == AbilityEffect.EffectType.PushFront:
+		pass
+	elif effect.type == AbilityEffect.EffectType.RecovHp:
+		@warning_ignore("narrowing_conversion")
+		ch.recover_health(ch.maxhp * (effect.value / 100.0))
+	elif effect.type == AbilityEffect.EffectType.RecovMp:
+		@warning_ignore("narrowing_conversion")		
+		ch.recover_energy(ch.maxmp * (effect.value / 100.0))
 
 func end_battle(player_win:bool):
 	if player_win:
