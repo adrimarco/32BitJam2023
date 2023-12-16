@@ -75,7 +75,8 @@ func clearCharacterDisplays():
 func _process(_delta):
 	# Update UI data
 	for index in range(characterDisplays.size()):
-		characterDisplays[index].updateAttackMeter(playerCharacters[index])
+		if characterRefAttacking != playerCharacters[index]:
+			characterDisplays[index].updateAttackMeter(playerCharacters[index])
 	
 	# input
 	if not input_enabled or not Input.is_anything_pressed():
@@ -113,7 +114,6 @@ func checkAbilityTabInput():
 	elif Input.is_action_just_pressed("action_accept"):
 		disable_input()
 		characterAbility.emit(characterRefAttacking, getAbilityFromIndex(characterRefAttacking, abilitySelection))
-	
 
 func hideActionMenu():
 	changeNodeVisibility(fightOptionsMenu, false)
@@ -186,6 +186,9 @@ func _storeCharacterAttacking(ch:Character) -> void:
 	characterAttacking = true
 	characterRefAttacking = ch
 	abilitySelection = 0
+	var chDisplay:CharacterDisplay = getCharacterDisplayFromCharacter(ch)
+	if chDisplay:
+		chDisplay.clearAttackMeter(100)
 	printcharacterAbilities(characterRefAttacking)
 	printCharacterAbilityDescription(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
@@ -222,8 +225,17 @@ func characterDead(ch:Character):
 	# hp and mp = 0
 	chDisplay.updateHealthValues(0)
 	chDisplay.updateAbilityValues(0)
-	chDisplay.clearAttackMeter()
+	chDisplay.clearAttackMeter(0)
 	
 	# remove from characterDisplay array
 	characterDisplays.remove_at(chIndex)
 	playerCharacters.remove_at(chIndex)
+
+func getCharacterDisplayFromCharacter(ch:Character) -> CharacterDisplay:
+	for i in playerCharacters.size():
+		if playerCharacters[i] == ch:
+			return characterDisplays[i]
+	return null
+	
+func resumePreparingAttacks():
+	characterRefAttacking = null

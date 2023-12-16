@@ -29,6 +29,7 @@ func _ready():
 	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
 	battlefield.connect("enemy_attack_turn", Callable(self, "set_attacking_character"))
 	battlefield.connect("player_dead", Callable(actionMenu, "characterDead"))
+	battlefield.connect("resume_preparing_attacks", Callable(actionMenu, "resumePreparingAttacks"))
 	battlefield.connect("battle_finished", Callable(self, "end_battle"))
 	
 	actionMenu.connect("characterMove", Callable(self, "request_movement_range_for_player"))

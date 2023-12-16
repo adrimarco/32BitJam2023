@@ -36,5 +36,5 @@ func updateAbilityValues(mp:int) -> void:
 	$MPBar/TextureProgressBarMP.value = (mpf / maxMp) * 100
 
 
-func clearAttackMeter():
-	$AttackTimerBar/TextureProgressBar.value = 0
+func clearAttackMeter(v:int):
+	$AttackTimerBar/TextureProgressBar.value = v
