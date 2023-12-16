@@ -287,3 +287,12 @@ func add_special_effect(new_effect:AbilityEffect):
 			return
 	
 	current_effects.append(EffectsContainer.duplicate_effect(new_effect))
+
+func remove_negative_effects():
+	var i := 0
+	while i < current_effects.size():
+		if current_effects[i].type in EffectsContainer.negative_effects:
+			current_effects.remove_at(i)
+		else:
+			i += 1
+		

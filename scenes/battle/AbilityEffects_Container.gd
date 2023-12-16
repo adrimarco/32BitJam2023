@@ -1,6 +1,10 @@
 class_name AbilityEffectsContainer
 extends Node
 
+var negative_effects := [	AbilityEffect.EffectType.DecAtk, AbilityEffect.EffectType.DecDef,
+							AbilityEffect.EffectType.DecSpd, AbilityEffect.EffectType.IncMpCost,
+							AbilityEffect.EffectType.Stun	]
+
 func duplicate_effect(effect:AbilityEffect) -> AbilityEffect:
 	var new_effect := _get_effect_with_value_and_duration(effect.value, effect.duration)
 	
@@ -45,6 +49,9 @@ func get_effect(type:AbilityEffect.EffectType, value:float, duration:float) -> A
 		
 	elif type == AbilityEffect.EffectType.PushFront:
 		return _push_front_effect(value, duration)
+	
+	elif type == AbilityEffect.EffectType.Purify:
+		return _purify_effect(value, duration)
 		
 	return null
 
@@ -148,6 +155,14 @@ func _push_front_effect(effect_value:float, effect_duration:float) -> AbilityEff
 	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
 	
 	effect.type 	= AbilityEffect.EffectType.PushFront
+	effect.dur_type = AbilityEffect.DurationType.Immediate
+	
+	return effect
+
+func _purify_effect(effect_value:float, effect_duration:float) -> AbilityEffect:
+	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
+	
+	effect.type 	= AbilityEffect.EffectType.Purify
 	effect.dur_type = AbilityEffect.DurationType.Immediate
 	
 	return effect

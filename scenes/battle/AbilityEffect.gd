@@ -5,8 +5,8 @@ extends Control
 enum EffectType {	IncAtk, IncDef, IncSpd, 
 					DecAtk, DecDef, DecSpd, 
 					RecovHp, RecovMp, IncMpCost,
-					Stun, PushBack, PushFront
-				}
+					Stun, PushBack, PushFront,
+					Purify }
 
 enum DurationType {Immediate, Turns, Time}
 

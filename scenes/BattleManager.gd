@@ -250,6 +250,8 @@ func resolve_immediate_effect(ch:Character, effect:AbilityEffect):
 	elif effect.type == AbilityEffect.EffectType.RecovMp:
 		@warning_ignore("narrowing_conversion")		
 		ch.recover_energy(ch.maxmp * (effect.value / 100.0))
+	elif effect.type == AbilityEffect.EffectType.Purify:
+		ch.remove_negative_effects()
 
 func end_battle(player_win:bool):
 	if player_win:
