@@ -76,14 +76,17 @@ func request_movement_range_for_enemy(ch:Character) -> RangeFunctions.TileCollec
 	
 	return affected_tiles
 
-func request_attack_range_for_enemy(ch:Character, castTile:Vector2i = ch.grid_position, ab:Ability = ch.basic_attack) -> RangeFunctions.TileCollection:
-	set_attacking_character(ch)
-	
+func request_attack_range_for_enemy(ch:Character, castTile:Vector2i = ch.grid_position, ab:Ability = ch.basic_attack) -> RangeFunctions.TileCollection:	
 	var affected_tiles := battlefield.get_ability_range_from_position(ch, ab, castTile, false, true)
 	
 	return affected_tiles
 
 func request_movement_range_for_player(ch:Character):
+	# Check character is not stunned
+	if ch.has_effect(AbilityEffect.EffectType.Stun):
+		actionMenu.set_input_enabled()
+		return
+	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, movement_ability, true, true)
 	
 	tileSelector.enable_tile_selector(battlefield.get_character_grid_from_character(ch), affected_tiles, movement_ability, true, CharacterAction.Move)
@@ -99,7 +102,7 @@ func mark_ability_range(ch:Character, abl:Ability):
 
 func request_ability_range_for_player(ch:Character, abl:Ability):
 	# Check character has enough energy to cast ability
-	if ch.mp < abl.cost:
+	if ch.mp < ch.get_ability_cost_from_character(abl):
 		actionMenu.set_input_enabled()
 		return
 	
@@ -108,7 +111,8 @@ func request_ability_range_for_player(ch:Character, abl:Ability):
 	tileSelector.enable_tile_selector(battlefield.get_grid_affected_by_ability(ch, abl), affected_tiles, abl, false, CharacterAction.Attack)
 
 func do_action_movement(tiles_affected:Vector2i):
-	if attacking_character == null:
+	if attacking_character == null or attacking_character.has_effect(AbilityEffect.EffectType.Stun):
+		check_remaining_actions(0)
 		return
 	print("Character moving to tile (" + str(tiles_affected.x) + ", " + str(tiles_affected.y) + ")")
 	battlefield.set_character_tile(attacking_character, tiles_affected.x, tiles_affected.y)
@@ -140,7 +144,10 @@ func check_remaining_actions(actions_consumed:int):
 		actionMenu.disable_input()
 	
 	waiting_for_action_animation = true
-	timer.start()
+	if actions_consumed > 0:
+		timer.start()
+	else:
+		resume_turn()
 
 func check_character_finished_action_animation(ch:Character):
 	if ch == attacking_character && waiting_for_action_animation:
@@ -179,7 +186,7 @@ func set_attacking_character(ch:Character):
 	attacking_character = ch
 
 func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i]):
-	if caster == null or abl == null or caster.mp < abl.cost:
+	if caster == null or abl == null or caster.mp < caster.get_ability_cost_from_character(abl):
 		return
 	
 	caster.play_attack_animation()
@@ -207,7 +214,20 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	add_ability_effects_to_character(caster, abl.effects_caster)
 	
 	# Reduce energy cost
-	caster.mp -= abl.cost
+	caster.mp -= caster.get_ability_cost_from_character(abl)
+
+func push_character_trough_row(ch:Character, forward:bool):
+	if ch == null:
+		return
+		
+	var new_tile := ch.grid_position
+	new_tile.x += 1 if forward else -1
+	
+	print("Character pushed to tile (" + str(new_tile.x) + ", " + str(new_tile.y) + ")")
+	if battlefield.set_character_tile(ch, new_tile.x, new_tile.y):
+		await ch.tile_movement_finished
+	
+	return
 
 func add_ability_effects_to_character(ch:Character, ability_effects:Array[AbilityEffect]):
 	if ch == null:
@@ -221,9 +241,9 @@ func add_ability_effects_to_character(ch:Character, ability_effects:Array[Abilit
 
 func resolve_immediate_effect(ch:Character, effect:AbilityEffect):
 	if effect.type == AbilityEffect.EffectType.PushBack:
-		pass
+		push_character_trough_row(ch, false)
 	elif effect.type == AbilityEffect.EffectType.PushFront:
-		pass
+		push_character_trough_row(ch, true)
 	elif effect.type == AbilityEffect.EffectType.RecovHp:
 		@warning_ignore("narrowing_conversion")
 		ch.recover_health(ch.maxhp * (effect.value / 100.0))

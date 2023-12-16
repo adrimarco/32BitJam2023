@@ -131,6 +131,15 @@ func prepare_attack():
 func set_grid_position(new_pos:Vector2i):
 	grid_position = new_pos
 
+func get_ability_cost_from_character(ability:Ability) -> int:
+	var cost := ability.cost
+	
+	for effect in current_effects:
+		if effect.type == AbilityEffect.EffectType.IncMpCost:
+			cost += cost * (effect.value / 100.0)
+		
+	return cost
+
 func move_to_world_position(new_pos:Vector3, teleport:bool = false):
 	target_position = new_pos
 	if teleport:
@@ -262,6 +271,13 @@ func add_critical_damage(damage:float) -> float:
 		return damage * CRITICAL_MULTIPLIER
 	
 	return 0.0
+
+func has_effect(effect_searched:AbilityEffect.EffectType) -> bool:
+	for effect in current_effects:
+		if effect.type == effect_searched:
+			return true
+		
+	return false
 
 func add_special_effect(new_effect:AbilityEffect):
 	for e in current_effects:
