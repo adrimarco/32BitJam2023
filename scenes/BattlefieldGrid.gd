@@ -1,17 +1,23 @@
 class_name BattlefieldGrid
 extends Node3D
 
+@onready var lucky_timer 		:= $LuckyTimer
+
 static var TILE_SIZE			:float = 0.6
-static var UNMARK_COLOR			:Color = Color(0.0, 0.0, 0.0)
+static var NORMAL_UNMARK_COLOR	:Color = Color(0.0, 0.0, 0.0)
+static var LUCKY_UNMARK_COLOR	:Color = Color(0.659, 0.549, 0.0)
 static var PLAYER_MARK_COLOR	:Color = Color(0.0, 0.5, 1.0)
 static var ENEMY_MARK_COLOR		:Color = Color(1.0, 0.25, 0.0)
 static var SELECT_COLOR			:Color = PLAYER_MARK_COLOR#Color(1.0, 0.96, 0.23)
+static var LUCKY_TILE_EFFECTS	:Array[AbilityEffect.EffectType] = [AbilityEffect.EffectType.Lucky]
 
 @export var rows 		:int = 3
 @export var columns		:int = 3
 @export var invert		:bool = false
 var grid_tiles			:Array[Array]
 var grid_sprites		:Array[Array]
+var grid_lucky_effects	:Array[Array]
+var current_lucky_effects:Array[AbilityEffect.EffectType]
 var mark_color			:Color = ENEMY_MARK_COLOR
 
 func _ready():
@@ -28,15 +34,17 @@ func _ready():
 	
 	grid_sprites.resize(rows)
 	grid_tiles.resize(rows)
+	grid_lucky_effects.resize(rows)
 	for r in rows:
 		grid_sprites[r].resize(columns)
 		grid_tiles[r].resize(columns)
+		grid_lucky_effects[r].resize(columns)
 		
 		for c in columns:
 			# Create tile
 			var tile = AnimatedSprite3D.new()
 			tile.sprite_frames = sprite_frame
-			tile.modulate = UNMARK_COLOR
+			tile.modulate = NORMAL_UNMARK_COLOR
 			tile.animation = "normal"
 			
 			var grid_dir = -1.0 if invert else 1.0
@@ -45,6 +53,7 @@ func _ready():
 			
 			add_child(tile)
 			grid_sprites[r][c] = tile
+			grid_lucky_effects[r][c] = -1
 		
 	
 
@@ -62,10 +71,11 @@ func get_tile_position(r, c) -> Vector3:
 	return grid_sprites[r][c].global_position
 
 func unmark_all_tiles():
-	for row in grid_sprites:
-		for tile in row:
+	for r in grid_sprites.size():
+		for c in grid_sprites[r].size():
+			var tile = grid_sprites[r][c]
 			tile.position.y = 0.0
-			tile.modulate = UNMARK_COLOR
+			tile.modulate = NORMAL_UNMARK_COLOR if grid_lucky_effects[r][c] == -1 else LUCKY_UNMARK_COLOR
 			tile.stop()
 			
 		
@@ -108,7 +118,7 @@ func mark_tiles(tiles_to_mark:Array[Vector2i]):
 		mark_tile(t.x, t.y)
 
 func mark_tile(r:int, c:int):
-	if r < 0 or c < 0 or r >= grid_sprites.size() or c >= grid_sprites[r].size():
+	if r < 0 or c < 0 or r >= rows or c >= columns:
 		return
 	
 	if grid_sprites[r][c] != null:
@@ -117,7 +127,7 @@ func mark_tile(r:int, c:int):
 	return
 
 func select_tile(r:int, c:int):
-	if r < 0 or c < 0 or r >= grid_sprites.size() or c >= grid_sprites[r].size():
+	if r < 0 or c < 0 or r >= rows or c >= columns:
 		return
 	
 	if grid_sprites[r][c] != null:
@@ -125,9 +135,79 @@ func select_tile(r:int, c:int):
 		grid_sprites[r][c].play()
 
 func unselect_tile(r:int, c:int):
-	if r < 0 or c < 0 or r >= grid_sprites.size() or c >= grid_sprites[r].size():
+	if r < 0 or c < 0 or r >= rows or c >= columns:
 		return
 	
 	if grid_sprites[r][c] != null:
 		#grid_sprites[r][c].modulate = mark_color
 		grid_sprites[r][c].stop()
+
+func change_lucky_tiles():
+	var previous_tiles :Array[Vector2i] = []
+	
+	for r in grid_lucky_effects.size():
+		for c in grid_lucky_effects[r].size():
+			if grid_lucky_effects[r][c] != -1:
+				previous_tiles.append(Vector2i(r, c))
+				remove_lucky_tile(r, c)
+			
+		
+	var lucky_tiles_placed := 0
+	while lucky_tiles_placed < 1:
+		var rand_row 	:= randi() % rows
+		var rand_column := randi() % columns
+		
+		if not Vector2i(rand_row, rand_column) in previous_tiles and set_lucky_tile(rand_row, rand_column):
+			lucky_tiles_placed += 1
+
+func set_lucky_tile(r:int, c:int) -> bool:
+	if r < 0 or r >= rows or c < 0 or c >= columns or grid_lucky_effects[r][c] != -1:
+		return false
+	
+	# Get a random effect
+	var lucky_effect := LUCKY_TILE_EFFECTS[randi()%LUCKY_TILE_EFFECTS.size()]
+	
+	# Prevent the effect to be repeated, unless there is no option
+	while lucky_effect in current_lucky_effects and current_lucky_effects.size() < LUCKY_TILE_EFFECTS.size():
+		lucky_effect = (lucky_effect + 1) % LUCKY_TILE_EFFECTS.size()
+	
+	# Add the effect to the tile and current effects array
+	grid_lucky_effects[r][c] = lucky_effect
+	current_lucky_effects.append(lucky_effect)
+	update_lucky_tile_sprite(r, c)
+	
+	return true
+
+func update_lucky_tile_sprite(r:int, c:int):
+	if r < 0 or r >= rows or c < 0 or c >= columns:
+		return false
+	
+	if grid_lucky_effects[r][c] == -1:
+		grid_sprites[r][c].animation = "normal"
+		grid_sprites[r][c].modulate = NORMAL_UNMARK_COLOR
+	else:
+		grid_sprites[r][c].modulate = LUCKY_UNMARK_COLOR
+		grid_sprites[r][c].animation = "luck"
+		
+
+
+func remove_lucky_tile(r:int, c:int) -> bool:
+	if r < 0 or r >= rows or c < 0 or c >= columns:
+		return false
+	
+	if grid_lucky_effects[r][c] != -1:
+		# Remove effect from tile and current effects array
+		current_lucky_effects.erase(grid_lucky_effects[r][c])
+		grid_lucky_effects[r][c] = -1
+		
+		update_lucky_tile_sprite(r, c)
+		
+		return true
+	
+	return false
+
+func pause_lucky_timer():
+	lucky_timer.set_paused(true)
+
+func unpause_lucky_timer():
+	lucky_timer.set_paused(false)	

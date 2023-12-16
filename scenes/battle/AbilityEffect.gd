@@ -6,9 +6,9 @@ enum EffectType {	IncAtk, IncDef, IncSpd,
 					DecAtk, DecDef, DecSpd, 
 					RecovHp, RecovMp, IncMpCost,
 					Stun, PushBack, PushFront,
-					Purify }
+					Purify, Lucky }
 
-enum DurationType {Immediate, Turns, Time}
+enum DurationType {Immediate, Turns, Time, Tile}
 
 var type 		:EffectType
 var value		:float

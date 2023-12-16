@@ -53,6 +53,9 @@ func get_effect(type:AbilityEffect.EffectType, value:float, duration:float) -> A
 	elif type == AbilityEffect.EffectType.Purify:
 		return _purify_effect(value, duration)
 		
+	elif type == AbilityEffect.EffectType.Lucky:
+		return _lucky_effect(value, duration)
+		
 	return null
 
 func _get_effect_with_value_and_duration(effect_value:float, effect_duration:float) -> AbilityEffect:
@@ -164,5 +167,13 @@ func _purify_effect(effect_value:float, effect_duration:float) -> AbilityEffect:
 	
 	effect.type 	= AbilityEffect.EffectType.Purify
 	effect.dur_type = AbilityEffect.DurationType.Immediate
+	
+	return effect
+
+func _lucky_effect(effect_value:float, effect_duration:float) -> AbilityEffect:
+	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
+	
+	effect.type 	= AbilityEffect.EffectType.Lucky
+	effect.dur_type = AbilityEffect.DurationType.Tile
 	
 	return effect
