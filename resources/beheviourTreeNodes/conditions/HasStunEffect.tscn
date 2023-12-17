@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2qly3p66itq2"]
+
+[ext_resource type="Script" path="res://resources/beheviourTreeNodes/conditions/HasStunEffect.gd" id="1_mnol4"]
+
+[node name="HasStunEffect" type="Node"]
+script = ExtResource("1_mnol4")

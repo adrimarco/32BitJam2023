@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cueifjecmcp5v"]
+
+[ext_resource type="Shader" path="res://resources/shaders/psxFilter.gdshader" id="1_xcnl8"]
+
+[resource]
+shader = ExtResource("1_xcnl8")
+shader_parameter/enabled = true
+shader_parameter/dithering = true
+shader_parameter/colors = 9
+shader_parameter/dither_size = 2

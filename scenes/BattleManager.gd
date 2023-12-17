@@ -3,11 +3,11 @@ extends Node3D
 
 enum CharacterAction {None, Move, Attack, Rest}
 
-@onready var battlefield:Battlefield	= $Battlefield
-@onready var actionMenu:ActionMenu		= $actionMenu
-@onready var tileSelector:TileSelector	= $TileSelector
-@onready var aiManager:AIManager		= $aiManager
-@onready var timer						:= $Timer
+@onready var battlefield:Battlefield	= $SubViewportContainer/SubViewport/Battlefield
+@onready var actionMenu:ActionMenu		= $SubViewportContainer/SubViewport/actionMenu
+@onready var tileSelector:TileSelector	= $SubViewportContainer/SubViewport/TileSelector
+@onready var aiManager:AIManager		= $SubViewportContainer/SubViewport/aiManager
+@onready var timer						:= $SubViewportContainer/SubViewport/Timer
 
 var attacking_character	:Character
 var player_character	:bool

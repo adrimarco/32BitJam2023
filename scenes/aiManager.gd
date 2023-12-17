@@ -19,9 +19,9 @@ func _ready():
 	pass # Replace with function body.
 	
 func initCharacterList():
-	enemyCharacters = get_parent().getCharactersFromBattleField(false)
+	enemyCharacters = get_parent().get_parent().get_parent().getCharactersFromBattleField(false)
 
-func storeCharacterDecisionAITurn(movement, attack, attRange):
+func storeCharacterDecisionAITurn(movement, attack, attRange:Array[Vector2i]):
 	if decisionCompleted:
 		return
 		

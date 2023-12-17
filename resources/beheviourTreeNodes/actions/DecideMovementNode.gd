@@ -4,7 +4,7 @@ extends ActionLeaf
 var rng = RandomNumberGenerator.new()
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
-	var battleManager:BattleManager = blackboard.get_value("battleManager")
+	#var battleManager:BattleManager = blackboard.get_value("battleManager")
 	var moveTiles = blackboard.get_value("tilesMovement").tiles
 	var decisionWeightsMovement:Array = blackboard.get_value("decisionWeightsMovement")
 	var movementRandom = rng.randi_range(0, 100)
@@ -44,11 +44,10 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		decisionWeightsMovement.append(tilePos) 
 #		print("Go back " + str(decisionWeightsMovement[0].x) + ", " + str(decisionWeightsMovement[0].y))
 		return SUCCESS
-	return FAILURE
 
 
 func getSidewaysTile(moveTiles, actor) ->Array:
-	var sidewayT:Array
+	var sidewayT:Array = []
 	for t in moveTiles:
 		if actor.grid_position.x == t.x:
 			sidewayT.append(t)
