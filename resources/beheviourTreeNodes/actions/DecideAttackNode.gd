@@ -5,10 +5,10 @@ var rng = RandomNumberGenerator.new()
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
 	var battleManager:BattleManager = blackboard.get_value("battleManager")
-	var moveTiles = blackboard.get_value("tilesMovement").tiles
+	#var moveTiles = blackboard.get_value("tilesMovement").tiles
 	var decisionWeightsAttack:Array = blackboard.get_value("decisionWeightsAttack")
 	
-	var attackCountMovement = moveTiles.size()
+#	var attackCountMovement = moveTiles.size()
 #	var indexAttack = 0
 #	var nextMoveTile = 0
 	
@@ -24,13 +24,19 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		elif aux[0].target_type == Ability.TargetTypes.Priority:
 			pass
 		elif aux[0].target_type == Ability.TargetTypes.Selection:
-			pass
-	#	while indexAttack < decisionWeightsAttack.size() && nextMoveTile + attackCountMovement < decisionWeightsAttack.size():
-	#		var weightAttack = decisionWeightsAttack[indexAttack]
-	#
-	#		indexAttack += 1 
-	#		if indexAttack % attackCountMovement:
-	#			nextMoveTile += attackCountMovement
+			var possibleTarget = blackboard.get_value("possibleTarget")
+			var attackTiles = battleManager.request_attack_range_for_enemy(actor, aux[2], aux[0]).tiles
+			
+			var target = null
+			for at in attackTiles:
+				if possibleTarget == at:
+					target = possibleTarget
+					break
+					
+			if !target:
+				var randTile = rng.randi_range(0, attackTiles.size()-1)
+				target = attackTiles[randTile]
+			blackboard.set_value("attackTarget", target)
 		
 	blackboard.set_value("attack", prevAb)
 	return SUCCESS

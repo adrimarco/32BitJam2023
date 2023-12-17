@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dwjjw3scf83m"]
+[gd_scene load_steps=16 format=3 uid="uid://dwjjw3scf83m"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_gieq1"]
 [ext_resource type="PackedScene" uid="uid://b3eslhu1uttey" path="res://scenes/abilities/Basic_Ray.tscn" id="2_a3khx"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cpmw2px1fg1ep" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.tscn" id="8_blcs8"]
 [ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="8_ge7km"]
 [ext_resource type="PackedScene" uid="uid://b848vs0dv2bqe" path="res://resources/beheviourTreeNodes/actions/DecideMovementNode.tscn" id="11_sfahu"]
+[ext_resource type="PackedScene" uid="uid://cggpfcm6thpsd" path="res://resources/beheviourTreeNodes/actions/TargetEnemyByLowerHealth.tscn" id="13_g6ex4"]
 [ext_resource type="PackedScene" uid="uid://jb6ng7cfgb68" path="res://resources/beheviourTreeNodes/actions/DecideAttackNode.tscn" id="15_v5gsy"]
 [ext_resource type="PackedScene" uid="uid://rdonwj73ufb6" path="res://resources/beheviourTreeNodes/actions/DoAIDecision.tscn" id="17_i8gpj"]
 [ext_resource type="PackedScene" uid="uid://bj36arykxxnji" path="res://resources/beheviourTreeNodes/actions/RequestAbilityRangeNode.tscn" id="17_i8onb"]
@@ -43,6 +44,8 @@ script = ExtResource("4_tuq6x")
 
 [node name="RequestAbilityRangeNode" parent="BeheviourTree/SequenceStarComposite" index="4" instance=ExtResource("17_i8onb")]
 
-[node name="DecideAttackNode" parent="BeheviourTree/SequenceStarComposite" index="5" instance=ExtResource("15_v5gsy")]
+[node name="TargetEnemyByLowerHealth" parent="BeheviourTree/SequenceStarComposite" index="5" instance=ExtResource("13_g6ex4")]
 
-[node name="DoAIDecision" parent="BeheviourTree/SequenceStarComposite" index="6" instance=ExtResource("17_i8gpj")]
+[node name="DecideAttackNode" parent="BeheviourTree/SequenceStarComposite" index="6" instance=ExtResource("15_v5gsy")]
+
+[node name="DoAIDecision" parent="BeheviourTree/SequenceStarComposite" index="7" instance=ExtResource("17_i8gpj")]
