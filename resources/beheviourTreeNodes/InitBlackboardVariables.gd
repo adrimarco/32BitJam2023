@@ -1,7 +1,7 @@
 extends ActionLeaf
 
 @onready var battleManager = get_tree().get_root().get_node("BattleManager")
-@onready var aiManager = battleManager.get_node("aiManager")
+@onready var aiManager = battleManager.get_node("%aiManager")
 
 func tick(_actor: Node, blackboard: Blackboard) -> int:
 	#blackboard.set_value("enemyMoved", false)

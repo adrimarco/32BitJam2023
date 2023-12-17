@@ -49,7 +49,7 @@ func _ready():
 	
 
 func initCharacterList():
-	playerCharacters = get_parent().getCharactersFromBattleField(true)
+	playerCharacters = get_parent().get_parent().get_parent().getCharactersFromBattleField(true)
 	clearCharacterDisplays()
 	
 	for ch in playerCharacters:
