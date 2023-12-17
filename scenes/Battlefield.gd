@@ -34,6 +34,11 @@ func _ready():
 	enemy_grid.set_mark_color(false)
 	player_grid.set_mark_color(true)
 	
+	connect("stop_preparing_attacks", Callable(player_grid, "pause_lucky_timer"))
+	connect("stop_preparing_attacks", Callable(enemy_grid, "pause_lucky_timer"))
+	connect("resume_preparing_attacks", Callable(player_grid, "unpause_lucky_timer"))
+	connect("resume_preparing_attacks", Callable(enemy_grid, "unpause_lucky_timer"))
+	
 	# Load characters
 	var player = load_character(preload("res://scenes/characters/Knight.tscn"), true)
 	if player != null:

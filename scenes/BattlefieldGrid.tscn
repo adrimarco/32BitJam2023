@@ -10,3 +10,9 @@ script = ExtResource("1_2e4vx")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 centered = false
 texture = ExtResource("2_tisgx")
+
+[node name="LuckyTimer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[connection signal="timeout" from="LuckyTimer" to="." method="change_lucky_tiles"]
