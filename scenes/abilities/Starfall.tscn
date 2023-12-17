@@ -5,7 +5,7 @@
 
 [node name="Ability" instance=ExtResource("1_ufawm")]
 ability_name = "Starfall"
-description = "Summon a rain of stars that fall on all enemies in the front column"
+description = "Summon a rain of stars that fall on all enemies in the front column."
 dmg_multiplier = 1.3
 cost = 40
 target_enemy_team = true

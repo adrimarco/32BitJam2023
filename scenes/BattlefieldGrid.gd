@@ -9,8 +9,10 @@ static var LUCKY_UNMARK_COLOR	:Color = Color(0.659, 0.549, 0.0)
 static var PLAYER_MARK_COLOR	:Color = Color(0.0, 0.5, 1.0)
 static var ENEMY_MARK_COLOR		:Color = Color(1.0, 0.25, 0.0)
 static var SELECT_COLOR			:Color = PLAYER_MARK_COLOR#Color(1.0, 0.96, 0.23)
-static var LUCKY_TILE_EFFECTS	:Array[AbilityEffect.EffectType] = [AbilityEffect.EffectType.Lucky]
-static var LUCKY_TILE_EFF_VALUE	:Array[float] = [50.0]
+static var LUCKY_TILES_COUNT	:int   = 2
+static var LUCKY_TILE_EFFECTS	:Array[AbilityEffect.EffectType] = [AbilityEffect.EffectType.Lucky, 
+								AbilityEffect.EffectType.DecMpCost, AbilityEffect.EffectType.StealHp]
+static var LUCKY_TILE_EFF_VALUE	:Array[float] = [50.0, 25.0, 60.0]
 
 @export var rows 		:int = 3
 @export var columns		:int = 3
@@ -179,7 +181,7 @@ func change_lucky_tiles():
 			
 		
 	var lucky_tiles_placed := 0
-	while lucky_tiles_placed < 1:
+	while lucky_tiles_placed < LUCKY_TILES_COUNT:
 		var rand_row 	:= randi() % rows
 		var rand_column := randi() % columns
 		
@@ -191,11 +193,13 @@ func set_lucky_tile(r:int, c:int) -> bool:
 		return false
 	
 	# Get a random effect
-	var lucky_effect := LUCKY_TILE_EFFECTS[randi()%LUCKY_TILE_EFFECTS.size()]
+	var rand_index 		:= randi()%LUCKY_TILE_EFFECTS.size()
+	var lucky_effect 	:= LUCKY_TILE_EFFECTS[rand_index]
 	
 	# Prevent the effect to be repeated, unless there is no option
 	while lucky_effect in current_lucky_effects and current_lucky_effects.size() < LUCKY_TILE_EFFECTS.size():
-		lucky_effect = (lucky_effect + 1) % LUCKY_TILE_EFFECTS.size()
+		rand_index		= (rand_index + 1) % LUCKY_TILE_EFFECTS.size()
+		lucky_effect 	= LUCKY_TILE_EFFECTS[rand_index]
 	
 	# Add the effect to the tile and current effects array
 	grid_lucky_effects[r][c] = lucky_effect
@@ -217,7 +221,12 @@ func update_lucky_tile_sprite(r:int, c:int):
 		grid_sprites[r][c].modulate = NORMAL_UNMARK_COLOR
 	else:
 		grid_sprites[r][c].modulate = LUCKY_UNMARK_COLOR
-		grid_sprites[r][c].animation = "luck"
+		if grid_lucky_effects[r][c] == AbilityEffect.EffectType.DecMpCost:
+			grid_sprites[r][c].animation = "energy"
+		elif grid_lucky_effects[r][c] == AbilityEffect.EffectType.StealHp:
+			grid_sprites[r][c].animation = "health"
+		else:
+			grid_sprites[r][c].animation = "luck"
 		
 
 
