@@ -135,12 +135,15 @@ func set_grid_position(new_pos:Vector2i):
 
 func get_ability_cost_from_character(ability:Ability) -> int:
 	var cost := ability.cost
+	var multiplier := 1.0
 	
 	for effect in current_effects:
 		if effect.type == AbilityEffect.EffectType.IncMpCost:
-			cost += cost * (effect.value / 100.0)
+			multiplier *= 1 + (effect.value / 100.0)
+		elif effect.type == AbilityEffect.EffectType.DecMpCost:
+			multiplier *= 1 - effect.value / 100.0
 		
-	return cost
+	return max(cost * multiplier, 0)
 
 func move_to_world_position(new_pos:Vector3, teleport:bool = false):
 	target_position = new_pos

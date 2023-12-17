@@ -4,7 +4,7 @@ extends Control
 
 enum EffectType {	IncAtk, IncDef, IncSpd, 
 					DecAtk, DecDef, DecSpd, 
-					RecovHp, RecovMp, IncMpCost,
+					RecovHp, RecovMp, IncMpCost, DecMpCost,
 					Stun, PushBack, PushFront,
 					Purify, Lucky }
 

@@ -41,6 +41,9 @@ func get_effect(type:AbilityEffect.EffectType, value:float, duration:float) -> A
 	elif type == AbilityEffect.EffectType.IncMpCost:
 		return _increase_energy_cost_effect(value, duration)
 		
+	elif type == AbilityEffect.EffectType.DecMpCost:
+		return _decrease_energy_cost_effect(value, duration)
+		
 	elif type == AbilityEffect.EffectType.Stun:
 		return _stunned_effect(value, duration)
 		
@@ -135,6 +138,14 @@ func _increase_energy_cost_effect(effect_value:float, effect_duration:float) -> 
 	
 	effect.type 	= AbilityEffect.EffectType.IncMpCost
 	effect.dur_type = AbilityEffect.DurationType.Turns
+	
+	return effect
+
+func _decrease_energy_cost_effect(effect_value:float, effect_duration:float) -> AbilityEffect:
+	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
+	
+	effect.type 	= AbilityEffect.EffectType.DecMpCost
+	effect.dur_type = AbilityEffect.DurationType.Tile
 	
 	return effect
 
