@@ -10,6 +10,8 @@ func tick(_actor: Node, blackboard: Blackboard) -> int:
 	blackboard.set_value("decisionWeightsMovement", [])
 	blackboard.set_value("decisionWeightsAttack", [])
 	blackboard.set_value("players", battleManager.getCharactersFromBattleField(true))
-	blackboard.set_value("attackTarget", null)
+	var attTarget:Array[Vector2i] = []
+	blackboard.set_value("attackTarget", attTarget)
+	blackboard.set_value("rest", false)
 	
 	return SUCCESS

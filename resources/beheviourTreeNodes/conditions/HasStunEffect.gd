@@ -1,9 +1,8 @@
 class_name HasStunEffect extends ConditionLeaf
 
-func tick(_actor: Node, blackboard: Blackboard) -> int:
-	if blackboard.get_value("enemyMoved"):
-		print("Once moved")
+func tick(actor: Node, _blackboard: Blackboard) -> int:
+	var p:Character = actor
+	var hasEffect:bool = p.has_effects([AbilityEffect.EffectType.Stun])
+	if hasEffect:
 		return FAILURE
-	else:
-		print("no moved")
-		return SUCCESS
+	return SUCCESS

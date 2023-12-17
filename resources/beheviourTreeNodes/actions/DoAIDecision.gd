@@ -11,14 +11,16 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 		return FAILURE
 		
 	#battleManager.do_action_movement(att[2])
-	var targetAtt = blackboard.get_value("attackTarget")
-	if !targetAtt:
-		targetAtt = battleManager.request_attack_range_for_enemy(actor, att[2], att[0])
+	var targetAtt:Array[Vector2i] = blackboard.get_value("attackTarget")
+	if targetAtt.size() <= 0:
+		targetAtt = battleManager.request_attack_range_for_enemy(actor, att[2], att[0]).tiles
 
-	aiManager.storeCharacterDecisionAITurn(att[2], att[0], targetAtt)
-	
-	#battleManager.do_action_attack(attackTiles.tiles, att[0])
-	
 	# Movement -> att[2]
-	# Attack -> attackTiles.tiles, att[0]
+	# Attack ->  att[0], targetAtt
+	
+	if blackboard.get_value("rest"):
+		aiManager.storeCharacterDecisionAITurn(null, null, targetAtt)
+	else:
+		aiManager.storeCharacterDecisionAITurn(att[2], att[0], targetAtt)
+	
 	return SUCCESS

@@ -14,7 +14,8 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 	
 	var wAtt = selectRandomAbility(actor, decisionWeightsAttack)
 	if !wAtt:
-		return FAILURE
+		blackboard.set_value("rest", true)
+		return SUCCESS
 	
 	var prevAb = wAtt[0]
 	for aux in wAtt:
@@ -27,34 +28,44 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			var possibleTarget = blackboard.get_value("possibleTarget")
 			var attackTiles = battleManager.request_attack_range_for_enemy(actor, aux[2], aux[0]).tiles
 			
-			var target = null
+			var target:Array[Vector2i]
 			for at in attackTiles:
-				if possibleTarget == at:
-					target = possibleTarget
+				if possibleTarget[0] == at:
+					target.append(at)
 					break
 					
-			if !target:
+			if target.size() <= 0:
 				var randTile = rng.randi_range(0, attackTiles.size()-1)
-				target = attackTiles[randTile]
+				target.append(attackTiles[randTile])
 			blackboard.set_value("attackTarget", target)
 		
 	blackboard.set_value("attack", prevAb)
 	return SUCCESS
 
 
-func selectRandomAbility(actor, decisionWeightsAttack):
+func selectRandomAbility(actor:Character, decisionWeightsAttack):
 	var ab = null
-	
-	while ab == null:
-		var rIdx = rng.randi_range(0, actor.abilities.size()-1)
-		var aAux = actor.abilities[rIdx]
-		if aAux.cost > actor.mp:
+	var possibleAbilities:Array = []
+	for pAb in actor.abilities :
+		if actor.get_ability_cost_from_character(pAb) > actor.mp:
 			continue
-		var weightAtt = searchAbilityDecisionWeights(aAux, decisionWeightsAttack)
+			
+		var weightAtt = searchAbilityDecisionWeights(pAb, decisionWeightsAttack)
 		if weightAtt.size() <= 0:
-			return
-		ab = weightAtt
-	return ab
+			continue
+			
+		possibleAbilities.append(weightAtt)
+		
+	if possibleAbilities.size() > 0:
+		var rIdx = rng.randi_range(0, possibleAbilities.size()-1)
+		return possibleAbilities[rIdx]
+	
+	# Check enemy basic attack
+	var weightAtt = searchAbilityDecisionWeights(actor.basic_attack, decisionWeightsAttack)
+	if weightAtt.size() <= 0:
+		return null
+	return weightAtt
+	
 	
 	
 func searchAbilityDecisionWeights(ab:Ability, decisionWeightsAttack) ->Array:
