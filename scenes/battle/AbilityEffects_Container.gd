@@ -59,6 +59,9 @@ func get_effect(type:AbilityEffect.EffectType, value:float, duration:float) -> A
 	elif type == AbilityEffect.EffectType.Lucky:
 		return _lucky_effect(value, duration)
 		
+	elif type == AbilityEffect.EffectType.StealHp:
+		return _steal_health_effect(value, duration)
+		
 	return null
 
 func _get_effect_with_value_and_duration(effect_value:float, effect_duration:float) -> AbilityEffect:
@@ -185,6 +188,14 @@ func _lucky_effect(effect_value:float, effect_duration:float) -> AbilityEffect:
 	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
 	
 	effect.type 	= AbilityEffect.EffectType.Lucky
+	effect.dur_type = AbilityEffect.DurationType.Tile
+	
+	return effect
+
+func _steal_health_effect(effect_value:float, effect_duration:float) -> AbilityEffect:
+	var effect := _get_effect_with_value_and_duration(effect_value, effect_duration)
+	
+	effect.type 	= AbilityEffect.EffectType.StealHp
 	effect.dur_type = AbilityEffect.DurationType.Tile
 	
 	return effect

@@ -11,8 +11,8 @@ static var ENEMY_MARK_COLOR		:Color = Color(1.0, 0.25, 0.0)
 static var SELECT_COLOR			:Color = PLAYER_MARK_COLOR#Color(1.0, 0.96, 0.23)
 static var LUCKY_TILES_COUNT	:int   = 2
 static var LUCKY_TILE_EFFECTS	:Array[AbilityEffect.EffectType] = [AbilityEffect.EffectType.Lucky, 
-								AbilityEffect.EffectType.DecMpCost]
-static var LUCKY_TILE_EFF_VALUE	:Array[float] = [50.0, 25.0]
+								AbilityEffect.EffectType.DecMpCost, AbilityEffect.EffectType.StealHp]
+static var LUCKY_TILE_EFF_VALUE	:Array[float] = [50.0, 25.0, 60.0]
 
 @export var rows 		:int = 3
 @export var columns		:int = 3
@@ -223,6 +223,8 @@ func update_lucky_tile_sprite(r:int, c:int):
 		grid_sprites[r][c].modulate = LUCKY_UNMARK_COLOR
 		if grid_lucky_effects[r][c] == AbilityEffect.EffectType.DecMpCost:
 			grid_sprites[r][c].animation = "energy"
+		elif grid_lucky_effects[r][c] == AbilityEffect.EffectType.StealHp:
+			grid_sprites[r][c].animation = "health"
 		else:
 			grid_sprites[r][c].animation = "luck"
 		

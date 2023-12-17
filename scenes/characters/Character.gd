@@ -214,6 +214,11 @@ func damaged(attacker:Character, abl:Ability):
 	var damage :int = maxi(1, floori(attack_power - defense_power))
 	hp -= damage
 	
+	# If attacker has steal health effect, they recover hp
+	if attacker.has_effects([AbilityEffect.EffectType.StealHp]):
+		var steal_hp_effect := attacker.get_effect(AbilityEffect.EffectType.StealHp)
+		attacker.recover_health(damage * (steal_hp_effect.value/100.0))
+	
 	# Display damage
 	var counter := damage_counter_scene.instantiate()
 	counter.position.y = 1
@@ -292,6 +297,13 @@ func has_effects(effect_searched:Array[AbilityEffect.EffectType]) -> bool:
 			return true
 		
 	return false
+
+func get_effect(effect_searched:AbilityEffect.EffectType) -> AbilityEffect:
+	for effect in current_effects:
+		if effect.type == effect_searched:
+			return effect
+		
+	return null
 
 func add_special_effect(new_effect:AbilityEffect):
 	for e in current_effects:
