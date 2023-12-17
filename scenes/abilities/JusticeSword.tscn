@@ -4,9 +4,15 @@
 
 [node name="Ability" instance=ExtResource("1_fthsv")]
 ability_name = "Sword of Justice"
-description = "Attack a close enemy with your sword. Attack slows target."
-dmg_multiplier = 1.2
-cost = 25
+description = "Attack a close enemy with your sword. Attack slightly slows target and increase your attack."
+dmg_multiplier = 1.0
+cost = 30
 target_enemy_team = true
 target_type = 1
 ability_range_name = &"tiles_at_two_or_less"
+cast_effc_type = Array[int]([0])
+cast_effc_value = Array[float]([20.0])
+cast_effc_dur = Array[float]([2.0])
+target_effc_type = Array[int]([5])
+target_effc_value = Array[float]([10.0])
+target_effc_dur = Array[float]([3.0])

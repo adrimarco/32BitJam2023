@@ -145,9 +145,9 @@ func check_remaining_actions(actions_consumed:int):
 	
 	waiting_for_action_animation = true
 	if actions_consumed > 0:
-		timer.start()
+		timer.start(5.0)
 	else:
-		resume_turn()
+		timer.start(0.5)
 
 func check_character_finished_action_animation(ch:Character):
 	if ch == attacking_character && waiting_for_action_animation:

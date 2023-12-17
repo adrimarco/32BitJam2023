@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqfrh0jc3a1ug"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_loc74"]
+[ext_resource type="SpriteFrames" uid="uid://bcfnj7cnodi8b" path="res://resources/spriteFrames/abilitiesFrames/fireballAttack.tres" id="2_twv2y"]
+
+[node name="Ability" instance=ExtResource("1_loc74")]
+ability_name = "Arcane wave"
+description = "Launch an arcane wave that pushes an enemy back. In addition, the enemy is wrapped by a sphere of magic that stuns them for 1 turn."
+dmg_multiplier = 0.85
+cost = 30
+target_enemy_team = true
+target_type = 2
+priority_func_name = &"closest_character_from_front"
+target_effc_type = Array[int]([11, 10])
+target_effc_value = Array[float]([1.0, 1.0])
+target_effc_dur = Array[float]([1.0, 1.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_twv2y")
+frame = 0
+frame_progress = 0.0

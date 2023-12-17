@@ -7,7 +7,7 @@
 ability_name = "Fireball"
 description = "Launch a ball of fire that hits an enemy in your same row"
 dmg_multiplier = 1.5
-cost = 30
+cost = 50
 target_enemy_team = true
 target_type = 1
 

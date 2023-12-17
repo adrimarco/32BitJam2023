@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dwjjw3scf83m"]
+[gd_scene load_steps=16 format=3 uid="uid://dwjjw3scf83m"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_gieq1"]
 [ext_resource type="PackedScene" uid="uid://b3eslhu1uttey" path="res://scenes/abilities/Basic_Ray.tscn" id="2_a3khx"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://vxoqqfq8yu4y" path="res://scenes/abilities/FireballAttack.tscn" id="4_v00ag"]
 [ext_resource type="PackedScene" uid="uid://ctrevgx5ryle6" path="res://scenes/abilities/Starfall.tscn" id="5_8ref8"]
 [ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="6_3k2bv"]
+[ext_resource type="PackedScene" uid="uid://cqfrh0jc3a1ug" path="res://scenes/abilities/ArcaneWave.tscn" id="6_ulbyq"]
 [ext_resource type="PackedScene" uid="uid://cpmw2px1fg1ep" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.tscn" id="8_blcs8"]
 [ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="8_ge7km"]
 [ext_resource type="PackedScene" uid="uid://b848vs0dv2bqe" path="res://resources/beheviourTreeNodes/actions/DecideMovementNode.tscn" id="11_sfahu"]
@@ -18,12 +19,12 @@
 [node name="Character" instance=ExtResource("1_gieq1")]
 maxhp = 180
 maxmp = 160
-atk = 24
+atk = 26
 dfn = 15
 spd = 8.0
 character_name = "SKULL MAGE"
 basicAttackScene = ExtResource("2_a3khx")
-abilitiesScene = Array[PackedScene]([ExtResource("3_lqk4i"), ExtResource("4_v00ag"), ExtResource("5_8ref8")])
+abilitiesScene = Array[PackedScene]([ExtResource("3_lqk4i"), ExtResource("4_v00ag"), ExtResource("5_8ref8"), ExtResource("6_ulbyq")])
 aggressivity = 20
 
 [node name="Sprite" parent="." index="0"]

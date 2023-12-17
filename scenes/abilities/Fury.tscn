@@ -5,8 +5,11 @@
 [node name="Ability" instance=ExtResource("1_jbwss")]
 ability_name = "Fury"
 description = "Hits an enemy in the back column and push them forward."
-dmg_multiplier = 1.0
-cost = 15
+dmg_multiplier = 0.8
+cost = 20
 target_enemy_team = true
 target_type = 1
 ability_range_name = &"only_back_column"
+target_effc_type = Array[int]([12])
+target_effc_value = Array[float]([1.0])
+target_effc_dur = Array[float]([1.0])

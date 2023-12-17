@@ -5,11 +5,14 @@
 
 [node name="Ability" instance=ExtResource("1_seqmk")]
 ability_name = "Frost nova"
-description = "Cast a frost nova that damages and slows all enemies 3 columns away"
-dmg_multiplier = 1.3
+description = "Cast a frost nova that damages and slightly slows all enemies 3 columns away."
+dmg_multiplier = 1.2
 cost = 35
 target_enemy_team = true
 ability_range_name = &"column_at_three"
+target_effc_type = Array[int]([5])
+target_effc_value = Array[float]([10.0])
+target_effc_dur = Array[float]([3.0])
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_q2bbf")

@@ -5,8 +5,8 @@
 [node name="Ability" instance=ExtResource("1_csaul")]
 ability_name = "Slash"
 description = "Strikes a close enemy with a strong slash"
-dmg_multiplier = 1.1
-cost = 15
+dmg_multiplier = 1.15
+cost = 30
 target_enemy_team = true
 target_type = 1
-ability_range_name = &"columns_at_two_or_less"
+ability_range_name = &"surrounding_tiles_at_two_or_less"

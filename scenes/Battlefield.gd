@@ -44,9 +44,9 @@ func _ready():
 	if player != null:
 		set_character_tile(player, 1, 1, true)
 		
-#	var player1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
-#	if player1 != null:
-#		set_character_tile(player1, 0, 1, true)
+	var player1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
+	if player1 != null:
+		set_character_tile(player1, 0, 1, true)
 	
 	var enemy = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
 	if enemy != null:
