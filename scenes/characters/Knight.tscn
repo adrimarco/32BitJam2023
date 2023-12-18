@@ -1,12 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnyf631o7isau"]
+[gd_scene load_steps=16 format=3 uid="uid://bnyf631o7isau"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_nq667"]
 [ext_resource type="PackedScene" uid="uid://qp0jsmgmgjdf" path="res://scenes/abilities/Basic_Sword.tscn" id="2_qv7a4"]
 [ext_resource type="PackedScene" uid="uid://crqfwnbibb4v5" path="res://scenes/abilities/SlashAttack.tscn" id="3_h77pj"]
 [ext_resource type="PackedScene" uid="uid://ccg4i48fln326" path="res://scenes/abilities/JusticeSword.tscn" id="3_re11g"]
 [ext_resource type="PackedScene" uid="uid://bk1ieouok45af" path="res://scenes/abilities/Fury.tscn" id="4_dts82"]
-[ext_resource type="PackedScene" uid="uid://bcrtfwldl4hor" path="res://resources/beheviourTreeNodes/actions/PrintValueNode.tscn" id="4_uxf8t"]
 [ext_resource type="PackedScene" uid="uid://5s4sj0uacjei" path="res://scenes/abilities/LightLance.tscn" id="6_avyr8"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="7_jpxyi"]
+[ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="8_iuhu0"]
+[ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="9_y4ll3"]
+[ext_resource type="PackedScene" uid="uid://b848vs0dv2bqe" path="res://resources/beheviourTreeNodes/actions/DecideMovementNode.tscn" id="10_jd4ek"]
+[ext_resource type="PackedScene" uid="uid://d2qly3p66itq2" path="res://resources/beheviourTreeNodes/conditions/HasStunEffect.tscn" id="11_tbbjs"]
+[ext_resource type="PackedScene" uid="uid://cpmw2px1fg1ep" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.tscn" id="12_2l1vr"]
+[ext_resource type="PackedScene" uid="uid://bj36arykxxnji" path="res://resources/beheviourTreeNodes/actions/RequestAbilityRangeNode.tscn" id="13_1bt4e"]
+[ext_resource type="PackedScene" uid="uid://jb6ng7cfgb68" path="res://resources/beheviourTreeNodes/actions/DecideAttackNode.tscn" id="15_ks2ek"]
+[ext_resource type="PackedScene" uid="uid://rdonwj73ufb6" path="res://resources/beheviourTreeNodes/actions/DoAIDecision.tscn" id="16_6xwrl"]
 
 [node name="Character" instance=ExtResource("1_nq667")]
 maxhp = 200
@@ -17,5 +25,23 @@ spd = 10.0
 character_name = "RED KNIGHT"
 basicAttackScene = ExtResource("2_qv7a4")
 abilitiesScene = Array[PackedScene]([ExtResource("3_re11g"), ExtResource("4_dts82"), ExtResource("3_h77pj"), ExtResource("6_avyr8")])
+aggressivity = 90
 
-[node name="PrintValueNode" parent="BeheviourTree" index="0" instance=ExtResource("4_uxf8t")]
+[node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
+script = ExtResource("7_jpxyi")
+
+[node name="InitBlackboardVariables" parent="BeheviourTree/SequenceStarComposite" index="0" instance=ExtResource("8_iuhu0")]
+
+[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceStarComposite" index="1" instance=ExtResource("9_y4ll3")]
+
+[node name="DecideMovementNode" parent="BeheviourTree/SequenceStarComposite" index="2" instance=ExtResource("10_jd4ek")]
+
+[node name="HasStunEffect" parent="BeheviourTree/SequenceStarComposite" index="3" instance=ExtResource("11_tbbjs")]
+
+[node name="RequestAttackRangeNode" parent="BeheviourTree/SequenceStarComposite" index="4" instance=ExtResource("12_2l1vr")]
+
+[node name="RequestAbilityRangeNode" parent="BeheviourTree/SequenceStarComposite" index="5" instance=ExtResource("13_1bt4e")]
+
+[node name="DecideAttackNode" parent="BeheviourTree/SequenceStarComposite" index="6" instance=ExtResource("15_ks2ek")]
+
+[node name="DoAIDecision" parent="BeheviourTree/SequenceStarComposite" index="7" instance=ExtResource("16_6xwrl")]

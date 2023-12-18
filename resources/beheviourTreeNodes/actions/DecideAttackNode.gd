@@ -29,10 +29,11 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			var attackTiles = battleManager.request_attack_range_for_enemy(actor, aux[2], aux[0]).tiles
 			
 			var target:Array[Vector2i] = []
-			for at in attackTiles:
-				if possibleTarget[0] == at:
-					target.append(at)
-					break
+			if possibleTarget:
+				for at in attackTiles:
+					if possibleTarget[0] == at:
+						target.append(at)
+						break
 					
 			if target.size() <= 0:
 				var randTile = rng.randi_range(0, attackTiles.size()-1)

@@ -8,6 +8,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 #	var decisionWeightsAttack:Array = blackboard.get_value("decisionWeightsAttack")
 	var att = blackboard.get_value("attack")
 	if !att:
+		aiManager.storeCharacterDecisionAITurn(null, null, [])
 		return FAILURE
 		
 	#battleManager.do_action_movement(att[2])

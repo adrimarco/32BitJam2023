@@ -47,17 +47,14 @@ func _ready():
 	var player1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
 	if player1 != null:
 		set_character_tile(player1, 0, 1, true)
-	var player2 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
-	if player2 != null:
-		set_character_tile(player2, 2, 1, true)
 	
-	var enemy = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
+	var enemy = load_character(preload("res://scenes/characters/Knight.tscn"), false)
 	if enemy != null:
 		set_character_tile(enemy, 1, 1, true)	
 	
-#	var enemy1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
-#	if enemy1 != null:
-#		set_character_tile(enemy1, 0, 1, true)	
+	var enemy1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), false)
+	if enemy1 != null:
+		set_character_tile(enemy1, 0, 1, true)	
 #
 #	var enemy2 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
 #	if enemy2 != null:

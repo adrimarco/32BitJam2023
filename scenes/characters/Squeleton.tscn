@@ -21,7 +21,7 @@
 [node name="Character" instance=ExtResource("1_gieq1")]
 maxhp = 180
 maxmp = 160
-atk = 26
+atk = 32
 dfn = 15
 spd = 8.0
 character_name = "SKULL MAGE"

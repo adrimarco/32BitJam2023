@@ -24,9 +24,11 @@ func initCharacterList():
 func storeCharacterDecisionAITurn(movement, attack, attRange:Array[Vector2i]):
 	if decisionCompleted:
 		return
-		
-	movementAction = movement
-	attackAction = attack
+	
+	if movement:
+		movementAction = movement
+	if attack:
+		attackAction = attack
 	attackRange = attRange
 	decisionCompleted = true
 	executeBehaviourTree(false)
