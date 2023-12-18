@@ -54,7 +54,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(4, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, 4), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j2kqr"]
@@ -66,12 +66,12 @@ _data = {
 [node name="CursorNode" type="Node2D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "cursor_idle"
 libraries = {
 "": SubResource("AnimationLibrary_j2kqr")
 }
 
 [node name="Cursor" type="Sprite2D" parent="."]
+rotation = -1.5708
 texture = ExtResource("1_1sf1m")
 region_enabled = true
-region_rect = Rect2(32, 0, 16, 15)
+region_rect = Rect2(49, 2, 14, 12)

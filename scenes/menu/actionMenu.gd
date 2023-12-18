@@ -16,22 +16,28 @@ var characterRefAttacking:Character
 
 # Menu selection variables
 var selected:int 	= 0
-var cursorPosition:Vector2 = Vector2(8, 27)
+var cursorPosition:Vector2 = Vector2(150, 16)
+var cursorPositionOffset:int = 36
 var fightOptionsCount:int = 4
 @onready var cursorActionMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode
 @onready var cursorAbilityMenu = $ColorRect/AbilityTab/CursorNode
 @onready var fightOptionsMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu
 
 @onready var abilityDescText = $ColorRect/AbilityTab/AbilityDescBorder/AbilityDesc
+@onready var abilityPowerValue = $ColorRect/AbilityTab/AbilityDescBorder/AbilityPowerBorder/AbilityPowerValue
+@onready var abilityPMValue = $ColorRect/AbilityTab/AbilityDescBorder/AbilityPMBorder/AbilityPMValue
 @onready var abilityTab = $ColorRect/AbilityTab
 @onready var abilityNameList = $ColorRect/AbilityTab/AbilityNameBorder/AbilityNameList
-const MAX_ABILITIES:int = 7
+var optionBox = preload("res://scenes/menu/menuOptionBox.tscn")
+
+#const MAX_ABILITIES:int = 7
 var characterAbilitiesCount:int = 0
-var characterAbilitiesTextOffset:int = 16
+var characterAbilitiesTextOffset:int = 30
 
 var abilityTabActive:bool = false
 var abilitySelection:int = 0
-var cursorAbilityPosition:Vector2 = Vector2(20, 36)
+var cursorAbilityPosition:Vector2 = Vector2(229, 41)
+
 
 var input_enabled:bool = false
 
@@ -91,7 +97,7 @@ func _process(_delta):
 				selected = (selected - 1) % fightOptionsCount
 				if selected < 0:
 					selected += fightOptionsCount
-			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + 24*selected)
+			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + cursorPositionOffset*selected)
 			# Option selected
 			if Input.is_action_just_pressed("action_accept"):
 				optionSelected()
@@ -154,12 +160,10 @@ func printcharacterAbilities(ch:Character) -> void:
 	
 	# Get all abilities name and create a rich text node
 	for cAb in ch.abilities:
-		var label:RichTextLabel = RichTextLabel.new()
-		label.text = cAb.ability_name
-		label.custom_minimum_size = Vector2(0, 12)
-		label.scroll_active = false
-		label.theme = preload("res://resources/menuTheme.tres")
-		abilityNameList.add_child(label)
+		var opBox = optionBox.instantiate()
+		opBox.get_node("OptionText").text = cAb.ability_name
+		opBox.custom_minimum_size = Vector2(90, 11)
+		abilityNameList.add_child(opBox)
 		
 
 func clearAbilityList():
@@ -175,6 +179,8 @@ func getAbilityFromIndex(ch:Character, index:int) ->Ability:
 
 func printCharacterAbilityDescription(ab:Ability):
 	abilityDescText.text = ab.description
+	abilityPowerValue.text = str(ab.dmg_multiplier*100)
+	abilityPMValue.text = str(characterRefAttacking.get_ability_cost_from_character(ab))
 
 func showAbilityMenu(newVisibility:bool):
 	$ColorRect/AbilityTab.visible = newVisibility

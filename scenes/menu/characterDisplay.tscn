@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://u8k1ume1gcgg"]
+[gd_scene load_steps=17 format=3 uid="uid://u8k1ume1gcgg"]
 
 [ext_resource type="Script" path="res://scenes/menu/characterDisplay.gd" id="1_3l4es"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="1_nl6y8"]
 [ext_resource type="Texture2D" uid="uid://v36bljnf66pv" path="res://assets/menu/spritesMenu.png" id="2_b6gqr"]
+[ext_resource type="Texture2D" uid="uid://dg2m50rhnpsmf" path="res://assets/borders/13.png" id="2_vinfs"]
 
 [sub_resource type="Gradient" id="Gradient_qsccv"]
 offsets = PackedFloat32Array(0)
@@ -11,7 +12,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_qt27g"]
 gradient = SubResource("Gradient_qsccv")
 width = 94
-height = 6
+height = 9
 
 [sub_resource type="Gradient" id="Gradient_neqtb"]
 colors = PackedColorArray(0.898039, 0.717647, 0, 1, 0.976471, 0.937255, 0, 1)
@@ -19,7 +20,7 @@ colors = PackedColorArray(0.898039, 0.717647, 0, 1, 0.976471, 0.937255, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ndd8y"]
 gradient = SubResource("Gradient_neqtb")
 width = 94
-height = 6
+height = 9
 
 [sub_resource type="Gradient" id="Gradient_w1hr3"]
 offsets = PackedFloat32Array(0)
@@ -28,7 +29,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0fh67"]
 gradient = SubResource("Gradient_w1hr3")
 width = 96
-height = 2
+height = 5
 
 [sub_resource type="Gradient" id="Gradient_va6g4"]
 offsets = PackedFloat32Array(0, 0.993007)
@@ -37,7 +38,7 @@ colors = PackedColorArray(0.391902, 0.0738928, 0.003538, 1, 0.751541, 0, 0.08532
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_327gd"]
 gradient = SubResource("Gradient_va6g4")
 width = 96
-height = 2
+height = 5
 
 [sub_resource type="Gradient" id="Gradient_i58hi"]
 offsets = PackedFloat32Array(0)
@@ -46,7 +47,7 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_m1sg6"]
 gradient = SubResource("Gradient_i58hi")
 width = 96
-height = 2
+height = 5
 
 [sub_resource type="Gradient" id="Gradient_2daya"]
 colors = PackedColorArray(1.78084e-06, 0, 0.608104, 1, 0.0705882, 0.192157, 1, 1)
@@ -54,33 +55,43 @@ colors = PackedColorArray(1.78084e-06, 0, 0.608104, 1, 0.0705882, 0.192157, 1, 1
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yf2qj"]
 gradient = SubResource("Gradient_2daya")
 width = 96
-height = 2
+height = 5
 
 [node name="characterDisplay" type="Control"]
-custom_minimum_size = Vector2(464, 35)
+custom_minimum_size = Vector2(464, 45)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -256.0
-offset_bottom = -541.0
+offset_bottom = -531.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3l4es")
 
-[node name="CharacterName" type="RichTextLabel" parent="."]
+[node name="CharacterNameBG" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(151, 33)
+layout_mode = 0
+offset_right = 151.0
+offset_bottom = 33.0
+texture = ExtResource("2_vinfs")
+region_rect = Rect2(80, 84, 64, 25)
+patch_margin_left = 49
+patch_margin_right = 55
+
+[node name="CharacterName" type="RichTextLabel" parent="CharacterNameBG"]
+custom_minimum_size = Vector2(151, 8)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 1.0
 anchor_bottom = 0.5
+offset_left = 8.0
 offset_top = -4.0
+offset_right = 159.0
 offset_bottom = 4.0
-grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_nl6y8")
 text = "Merequetengue"
-fit_content = true
 scroll_active = false
 
 [node name="AttackTimerBar" type="NinePatchRect" parent="."]
@@ -88,7 +99,7 @@ layout_mode = 0
 offset_left = 364.0
 offset_top = 12.0
 offset_right = 464.0
-offset_bottom = 24.0
+offset_bottom = 27.0
 texture = ExtResource("2_b6gqr")
 region_rect = Rect2(0, 0, 16, 8)
 patch_margin_left = 3
@@ -101,7 +112,7 @@ layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 97.0
-offset_bottom = 9.0
+offset_bottom = 12.0
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_qt27g")
 texture_progress = SubResource("GradientTexture2D_ndd8y")
@@ -109,9 +120,9 @@ texture_progress = SubResource("GradientTexture2D_ndd8y")
 [node name="HPBar" type="NinePatchRect" parent="."]
 layout_mode = 0
 offset_left = 152.0
-offset_top = 17.5
+offset_top = 18.0
 offset_right = 252.0
-offset_bottom = 23.5
+offset_bottom = 27.0
 texture = ExtResource("2_b6gqr")
 region_rect = Rect2(16, 0, 16, 5)
 patch_margin_left = 3
@@ -124,7 +135,7 @@ layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 98.0
-offset_bottom = 4.0
+offset_bottom = 7.0
 texture_under = SubResource("GradientTexture2D_0fh67")
 texture_progress = SubResource("GradientTexture2D_327gd")
 
@@ -145,9 +156,9 @@ scroll_active = false
 [node name="MPBar" type="NinePatchRect" parent="."]
 layout_mode = 0
 offset_left = 258.0
-offset_top = 17.5
+offset_top = 18.0
 offset_right = 358.0
-offset_bottom = 23.5
+offset_bottom = 27.0
 texture = ExtResource("2_b6gqr")
 region_rect = Rect2(16, 0, 16, 5)
 patch_margin_left = 3
