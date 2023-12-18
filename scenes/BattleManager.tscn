@@ -9,12 +9,12 @@
 [ext_resource type="Material" uid="uid://cueifjecmcp5v" path="res://resources/shaders/psxFilter.tres" id="6_vcnl3"]
 [ext_resource type="Texture2D" uid="uid://biohnfp70ucvb" path="res://assets/environment/town/PixelTexture (86).png" id="7_5mjpx"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_es3m7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58a7v"]
 albedo_texture = ExtResource("7_5mjpx")
 uv1_scale = Vector3(35, 35, 35)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2kybm"]
-material = SubResource("StandardMaterial3D_es3m7")
+material = SubResource("StandardMaterial3D_58a7v")
 size = Vector2(50, 50)
 
 [sub_resource type="Environment" id="Environment_k8crt"]

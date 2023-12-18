@@ -1,7 +1,7 @@
 [gd_resource type="SpriteFrames" load_steps=93 format=3 uid="uid://fguk6gjbh3lr"]
 
-[ext_resource type="Texture2D" uid="uid://yiufj1toc0v3" path="res://assets/characters/NecromancerAttack.png" id="1_5yt87"]
-[ext_resource type="Texture2D" uid="uid://bknslo21moq32" path="res://assets/characters/NecromancerIdle.png" id="2_2caup"]
+[ext_resource type="Texture2D" uid="uid://y6qqmh7ar68q" path="res://assets/characters/NecromancerAttack.png" id="1_5yt87"]
+[ext_resource type="Texture2D" uid="uid://bgxumy577tkrw" path="res://assets/characters/NecromancerIdle.png" id="2_2caup"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7rxx"]
 atlas = ExtResource("1_5yt87")
