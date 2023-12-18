@@ -14,7 +14,7 @@ func _process(_delta):
 	pass
 
 func initCharacterDisplay(ch:Character) -> void:
-	$CharacterName.text = ch.character_name
+	$CharacterNameBG/CharacterName.text = ch.character_name
 	$HPBar/TextHP.text = str(ch.hp) + "/" + str(ch.maxhp)
 	$MPBar/TextMP.text = str(ch.mp) + "/" + str(ch.maxmp)
 	maxHp = ch.maxhp

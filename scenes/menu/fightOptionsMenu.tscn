@@ -1,61 +1,64 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsr1gjomei63r"]
 
-[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="1_j0owy"]
+[ext_resource type="PackedScene" uid="uid://csmnqols32khu" path="res://scenes/menu/menuOptionBox.tscn" id="1_3iwdy"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="2_dcj0u"]
 
 [node name="fightOptionsMenu" type="Control"]
-custom_minimum_size = Vector2(200, 140)
+custom_minimum_size = Vector2(160, 140)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -520.0
+offset_right = -560.0
 offset_bottom = -436.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(160, 140)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 22.0
-offset_right = 22.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -70.0
+offset_right = 80.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="MoveOption" type="RichTextLabel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="OptionBorder" parent="VBoxContainer" instance=ExtResource("1_3iwdy")]
 layout_mode = 2
-theme = ExtResource("1_j0owy")
-text = "Move
-"
-scroll_active = false
 
-[node name="AttackOption" type="RichTextLabel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-theme = ExtResource("1_j0owy")
-text = "Attack
-"
-scroll_active = false
+[node name="OptionText" parent="VBoxContainer/OptionBorder" index="0"]
+text = "Move"
 
-[node name="AbilityOption" type="RichTextLabel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="OptionBorder2" parent="VBoxContainer" instance=ExtResource("1_3iwdy")]
 layout_mode = 2
-theme = ExtResource("1_j0owy")
-text = "Ability
-"
-scroll_active = false
 
-[node name="RestOption" type="RichTextLabel" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="OptionText" parent="VBoxContainer/OptionBorder2" index="0"]
+text = "Attack"
+
+[node name="OptionBorder3" parent="VBoxContainer" instance=ExtResource("1_3iwdy")]
 layout_mode = 2
-theme = ExtResource("1_j0owy")
-text = "Rest
-"
-scroll_active = false
+
+[node name="OptionText" parent="VBoxContainer/OptionBorder3" index="0"]
+text = "Ability"
+
+[node name="OptionBorder4" parent="VBoxContainer" instance=ExtResource("1_3iwdy")]
+layout_mode = 2
+
+[node name="OptionText" parent="VBoxContainer/OptionBorder4" index="0"]
+text = "Rest"
 
 [node name="CursorNode" parent="." instance=ExtResource("2_dcj0u")]
-position = Vector2(8, 27)
+position = Vector2(150, 16)
+scale = Vector2(2.3, 2.3)
+
+[editable path="VBoxContainer/OptionBorder"]
+[editable path="VBoxContainer/OptionBorder2"]
+[editable path="VBoxContainer/OptionBorder3"]
+[editable path="VBoxContainer/OptionBorder4"]
