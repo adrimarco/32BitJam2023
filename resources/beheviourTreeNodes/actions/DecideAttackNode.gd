@@ -28,7 +28,7 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			var possibleTarget = blackboard.get_value("possibleTarget")
 			var attackTiles = battleManager.request_attack_range_for_enemy(actor, aux[2], aux[0]).tiles
 			
-			var target:Array[Vector2i]
+			var target:Array[Vector2i] = []
 			for at in attackTiles:
 				if possibleTarget[0] == at:
 					target.append(at)
@@ -44,7 +44,6 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 
 
 func selectRandomAbility(actor:Character, decisionWeightsAttack):
-	var ab = null
 	var possibleAbilities:Array = []
 	for pAb in actor.abilities :
 		if actor.get_ability_cost_from_character(pAb) > actor.mp:

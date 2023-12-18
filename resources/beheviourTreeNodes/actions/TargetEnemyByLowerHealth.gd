@@ -1,7 +1,7 @@
 extends ActionLeaf
 
 # TargetEnemyByLowerHealth
-func tick(actor: Node, blackboard: Blackboard) -> int:
+func tick(_actor: Node, blackboard: Blackboard) -> int:
 	var players:Array[Character] = blackboard.get_value("players")
 	
 	var lessHealth:Character = players[0]
