@@ -217,6 +217,7 @@ func damaged(attacker:Character, abl:Ability):
 	# If attacker has steal health effect, they recover hp
 	if attacker.has_effects([AbilityEffect.EffectType.StealHp]):
 		var steal_hp_effect := attacker.get_effect(AbilityEffect.EffectType.StealHp)
+		@warning_ignore("narrowing_conversion")
 		attacker.recover_health(damage * (steal_hp_effect.value/100.0))
 	
 	# Display damage

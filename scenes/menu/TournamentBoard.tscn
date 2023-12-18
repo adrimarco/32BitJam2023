@@ -1,8 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://mut7p4a231vo"]
+[gd_scene load_steps=7 format=3 uid="uid://mut7p4a231vo"]
 
 [ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="1_0k7eo"]
 [ext_resource type="Script" path="res://scenes/menu/TournamentBoard.gd" id="1_2g8wa"]
 [ext_resource type="Texture2D" uid="uid://b0lowrmrk8uco" path="res://assets/menu/TournamentBoard.png" id="2_n2rl4"]
+
+[sub_resource type="Animation" id="Animation_c7dgl"]
+resource_name = "fade_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_uc4k8"]
+resource_name = "show_board"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(360, 576), Vector2(360, 576)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.35, 0.35), Vector2(0.35, 0.35)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2wj4j"]
+_data = {
+"fade_animation": SubResource("Animation_c7dgl"),
+"show_board": SubResource("Animation_uc4k8")
+}
 
 [node name="TournamentBoard" type="Node2D"]
 script = ExtResource("1_2g8wa")
@@ -10,36 +59,121 @@ script = ExtResource("1_2g8wa")
 [node name="Background" type="Node2D" parent="."]
 
 [node name="Background1" type="Sprite2D" parent="Background"]
+position = Vector2(1, -581)
 texture = ExtResource("1_0k7eo")
 centered = false
 metadata/_edit_lock_ = true
 
 [node name="Background2" type="Sprite2D" parent="Background"]
-position = Vector2(-720, 0)
+position = Vector2(-719, -581)
 texture = ExtResource("1_0k7eo")
 centered = false
 metadata/_edit_lock_ = true
 
 [node name="Background3" type="Sprite2D" parent="Background"]
-position = Vector2(720, 0)
+position = Vector2(721, -581)
 texture = ExtResource("1_0k7eo")
 centered = false
 metadata/_edit_lock_ = true
 
 [node name="Background4" type="Sprite2D" parent="Background"]
-position = Vector2(719, 580)
+position = Vector2(720, -1)
 texture = ExtResource("1_0k7eo")
 centered = false
 metadata/_edit_lock_ = true
 
 [node name="Background5" type="Sprite2D" parent="Background"]
-position = Vector2(-1, 580)
+position = Vector2(0, -1)
 texture = ExtResource("1_0k7eo")
 centered = false
 metadata/_edit_lock_ = true
 
 [node name="Background6" type="Sprite2D" parent="Background"]
-position = Vector2(-721, 580)
+position = Vector2(-720, -1)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background7" type="Sprite2D" parent="Background"]
+position = Vector2(720, 579)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background8" type="Sprite2D" parent="Background"]
+position = Vector2(0, 579)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background9" type="Sprite2D" parent="Background"]
+position = Vector2(-720, 579)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background10" type="Sprite2D" parent="Background"]
+position = Vector2(1441, -581)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background11" type="Sprite2D" parent="Background"]
+position = Vector2(1440, -1)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background12" type="Sprite2D" parent="Background"]
+position = Vector2(1440, 579)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background13" type="Sprite2D" parent="Background"]
+position = Vector2(-1439, -581)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background14" type="Sprite2D" parent="Background"]
+position = Vector2(-1440, -1)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background15" type="Sprite2D" parent="Background"]
+position = Vector2(-1440, 579)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background16" type="Sprite2D" parent="Background"]
+position = Vector2(720, 1159)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background17" type="Sprite2D" parent="Background"]
+position = Vector2(0, 1159)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background18" type="Sprite2D" parent="Background"]
+position = Vector2(-720, 1159)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background19" type="Sprite2D" parent="Background"]
+position = Vector2(1440, 1159)
+texture = ExtResource("1_0k7eo")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Background20" type="Sprite2D" parent="Background"]
+position = Vector2(-1440, 1159)
 texture = ExtResource("1_0k7eo")
 centered = false
 metadata/_edit_lock_ = true
@@ -307,6 +441,12 @@ region_enabled = true
 region_rect = Rect2(405.145, 8.89478, 85.1843, 79.5396)
 metadata/_edit_lock_ = true
 
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender1"]
+position = Vector2(2, 61)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
+
 [node name="Contender2" type="Sprite2D" parent="Contenders"]
 position = Vector2(-553, 443)
 texture = ExtResource("2_n2rl4")
@@ -330,6 +470,12 @@ texture = ExtResource("2_n2rl4")
 region_enabled = true
 region_rect = Rect2(390.95, 96.3185, 93.1383, 92.0093)
 metadata/_edit_lock_ = true
+
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender2"]
+position = Vector2(1, 61)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
 
 [node name="Contender3" type="Sprite2D" parent="Contenders"]
 position = Vector2(-555, 678)
@@ -355,6 +501,12 @@ region_enabled = true
 region_rect = Rect2(394.253, 187.256, 94.939, 102.452)
 metadata/_edit_lock_ = true
 
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender3"]
+position = Vector2(1, 65)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
+
 [node name="Contender4" type="Sprite2D" parent="Contenders"]
 position = Vector2(-551, 976)
 texture = ExtResource("2_n2rl4")
@@ -378,6 +530,12 @@ texture = ExtResource("2_n2rl4")
 region_enabled = true
 region_rect = Rect2(385.773, 296.64, 112.697, 82.6447)
 metadata/_edit_lock_ = true
+
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender4"]
+position = Vector2(-2, 63)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
 
 [node name="Contender5" type="Sprite2D" parent="Contenders"]
 position = Vector2(1168, 135)
@@ -403,6 +561,12 @@ region_enabled = true
 region_rect = Rect2(386.259, 386.733, 109.282, 104.936)
 metadata/_edit_lock_ = true
 
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender5"]
+position = Vector2(3, 64)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
+
 [node name="Contender6" type="Sprite2D" parent="Contenders"]
 position = Vector2(1175, 435)
 texture = ExtResource("2_n2rl4")
@@ -426,6 +590,12 @@ texture = ExtResource("2_n2rl4")
 region_enabled = true
 region_rect = Rect2(263.34, 390.557, 101.041, 95.9607)
 metadata/_edit_lock_ = true
+
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender6"]
+position = Vector2(2, 63)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
 
 [node name="Contender7" type="Sprite2D" parent="Contenders"]
 position = Vector2(1175, 654)
@@ -451,6 +621,12 @@ region_enabled = true
 region_rect = Rect2(149.15, 392.7, 88.058, 94.8317)
 metadata/_edit_lock_ = true
 
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender7"]
+position = Vector2(2, 64)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
+
 [node name="Contender8" type="Sprite2D" parent="Contenders"]
 position = Vector2(1179, 971)
 texture = ExtResource("2_n2rl4")
@@ -475,9 +651,81 @@ region_enabled = true
 region_rect = Rect2(41.9163, 381.736, 81.1724, 98.2039)
 metadata/_edit_lock_ = true
 
+[node name="Cross" type="Sprite2D" parent="Contenders/Contender8"]
+position = Vector2(0, 63)
+texture = ExtResource("2_n2rl4")
+region_enabled = true
+region_rect = Rect2(9, 208.5, 137, 146)
+
+[node name="PaperPositions" type="Node2D" parent="."]
+
+[node name="Round1" type="Node2D" parent="PaperPositions"]
+
+[node name="PaperPosition1" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(-545, 154)
+
+[node name="PaperPosition2" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(-552, 459)
+
+[node name="PaperPosition3" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(-549, 688)
+
+[node name="PaperPosition4" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(-556, 993)
+
+[node name="PaperPosition5" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(1173, 149)
+
+[node name="PaperPosition6" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(1166, 454)
+
+[node name="PaperPosition7" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(1169, 683)
+
+[node name="PaperPosition8" type="Marker2D" parent="PaperPositions/Round1"]
+position = Vector2(1162, 988)
+
+[node name="Round2" type="Node2D" parent="PaperPositions"]
+
+[node name="PaperPosition9" type="Marker2D" parent="PaperPositions/Round2"]
+position = Vector2(810, 295)
+
+[node name="PaperPosition10" type="Marker2D" parent="PaperPositions/Round2"]
+position = Vector2(810, 828)
+
+[node name="PaperPosition11" type="Marker2D" parent="PaperPositions/Round2"]
+position = Vector2(-158, 295)
+
+[node name="PaperPosition12" type="Marker2D" parent="PaperPositions/Round2"]
+position = Vector2(-158, 828)
+
+[node name="Round3" type="Node2D" parent="PaperPositions"]
+
+[node name="PaperPosition13" type="Marker2D" parent="PaperPositions/Round3"]
+position = Vector2(165, 559)
+
+[node name="PaperPosition14" type="Marker2D" parent="PaperPositions/Round3"]
+position = Vector2(484, 559)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = -720
-limit_top = 0
-limit_right = 1440
-limit_bottom = 1160
+position = Vector2(322, 576)
+limit_left = -1439
+limit_top = -1439
+limit_right = 2159
+limit_bottom = 1739
 position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2wj4j")
+}

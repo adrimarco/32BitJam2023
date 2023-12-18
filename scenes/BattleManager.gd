@@ -19,6 +19,7 @@ var movement_ability :Ability
 #########################
 
 signal requestAIAction
+signal player_win_battle
 
 func _ready():
 	connect("requestAIAction", Callable(aiManager, "getNextAction"))
@@ -259,5 +260,7 @@ func resolve_immediate_effect(ch:Character, effect:AbilityEffect):
 func end_battle(player_win:bool):
 	if player_win:
 		print("VICTORY!!")
+		player_win_battle.emit()
 	else:
 		print("DEFEATED...")
+		player_win_battle.emit()

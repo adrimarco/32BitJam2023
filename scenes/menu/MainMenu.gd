@@ -51,11 +51,11 @@ func execute_menu_action():
 	
 
 func load_game():
-	var battle_scene := load("res://scenes/BattleManager.tscn")
+	var tournament_scene := load("res://scenes/menu/TournamentBoard.tscn")
 	
-	if battle_scene:
-		var battle_instance = battle_scene.instantiate()
-		get_tree().root.add_child(battle_instance)
+	if tournament_scene:
+		var tournament_instance = tournament_scene.instantiate()
+		get_tree().root.add_child(tournament_instance)
 
 func hide_main_menu():
 	menu_canvas.hide()
