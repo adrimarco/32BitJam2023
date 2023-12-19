@@ -1,41 +1,30 @@
-[gd_resource type="SpriteFrames" load_steps=11 format=3 uid="uid://brfg01mwvpi0e"]
-
-[ext_resource type="Texture2D" uid="uid://dqb5dri48loxv" path="res://assets/abilities/magic_arrow_blue.png" id="1_v0fn8"]
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://brfg01mwvpi0e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfcga"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(0, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_els2a"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(55, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g12vn"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(110, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4k76e"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(165, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_infm5"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(220, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c5mon"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(275, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2oxuu"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(330, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp8pg"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(385, 0, 55, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqdlt"]
-atlas = ExtResource("1_v0fn8")
 region = Rect2(440, 0, 55, 30)
 
 [resource]

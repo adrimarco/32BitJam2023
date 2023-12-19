@@ -21,6 +21,7 @@ var player_team				:int
 var teams_array				:Array[Node]
 var teams_playing			:Array[bool]
 var board_positions			:Array[Array]
+var teams_fought			:Array[int]
 
 func _ready():
 	fade_layer.color 	= Color(0.0, 0.0, 0.0, 1.0)
@@ -65,16 +66,27 @@ func reset_camera_position_and_zoom():
 	pass
 
 func load_battle():
+	# Get random team to fight against
+	var enemy_team_index := randi() % CharactersContainer.teams_count
+	
+	while enemy_team_index in teams_fought:
+		enemy_team_index = (enemy_team_index + 1) % CharactersContainer.teams_count
+	
+	teams_fought.append(enemy_team_index)
+	
+	# Load battle manager
 	battle_node = battle_scene.instantiate()
 	if battle_node:
+		await fade_screen(true)
 		# Bind signals
 		battle_node.connect("player_win_battle", Callable(self, "next_round"))
 		battle_node.connect("player_loose_battle", Callable(self, "back_to_main_menu"))
-		await fade_screen(true)
 		
 		camera.enabled = false
 		get_tree().get_root().add_child(battle_node)
+		battle_node.set_battle_teams([0, 0, 0], CharactersContainer.get_team_by_id(enemy_team_index))
 		fade_screen(false)
+		battle_node.start_battle()
 	
 
 func move_camera_to_player_battle():

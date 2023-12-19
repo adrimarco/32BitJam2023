@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="32BitJam2023"
-run/main_scene="res://scenes/menu/TournamentBoard.tscn"
+run/main_scene="res://scenes/menu/MainMenu.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,7 @@ RangeFunctions="*res://scenes/RangeFunctions.gd"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 EffectsContainer="*res://scenes/battle/AbilityEffects_Container.gd"
+CharactersContainer="*res://scenes/characters/CharacterContainer.gd"
 
 [display]
 

@@ -3,6 +3,8 @@ extends Node3D
 
 enum CharacterAction {None, Move, Attack, Rest}
 
+static var CHARACTERS_PER_TEAM			:= 3
+
 @onready var battlefield:Battlefield	= $SubViewportContainer/SubViewport/Battlefield
 @onready var actionMenu:ActionMenu		= $SubViewportContainer/SubViewport/actionMenu
 @onready var tileSelector:TileSelector	= $SubViewportContainer/SubViewport/TileSelector
@@ -50,9 +52,6 @@ func _ready():
 	aiManager.connect("executeAttackActionEnemy", Callable(self, "do_action_attack"))
 	aiManager.connect("executeRestActionEnemy", Callable(self, "do_action_rest"))
 	
-	actionMenu.initCharacterList()
-	aiManager.initCharacterList()
-	
 	###### TEMPORAL ? ##########
 	movement_ability = Ability.new()
 	movement_ability.ability_range = Callable(RangeFunctions, "able_to_move")
@@ -61,7 +60,6 @@ func _ready():
 	movement_ability.target_enemy_team = false
 	############################
 	
-	bind_characters_signals()
 
 func bind_characters_signals():
 	var characters := battlefield.get_all_characters()
@@ -69,7 +67,39 @@ func bind_characters_signals():
 	for ch in characters:
 		ch.connect("tile_movement_finished", Callable(self, "check_character_finished_action_animation"))
 		ch.connect("attack_animation_finished", Callable(self, "check_character_finished_action_animation"))
+
+func start_battle():
+	actionMenu.initCharacterList()
+	aiManager.initCharacterList()
 	
+	battlefield.start_battle()
+
+func set_battle_teams(player_team:Array[int], enemy_team:Array[int]):
+	# Load characters into battlefield
+	var characters_loaded := 0
+	for character_id in player_team:
+		# Load character in player team
+		var ch = battlefield.load_character(CharactersContainer.get_character_scene_by_id(character_id), true)
+		# Check no more than 3 characters are loaded
+		if ch != null:
+			characters_loaded += 1
+			if characters_loaded >= CHARACTERS_PER_TEAM:
+				break
+		
+	
+	characters_loaded = 0
+	for character_id in enemy_team:
+		# Load character in enemy team
+		var ch = battlefield.load_character(CharactersContainer.get_character_scene_by_id(character_id), false)
+		if ch != null:
+			# Check no more than 3 characters are loaded
+			characters_loaded += 1
+			if characters_loaded >= CHARACTERS_PER_TEAM:
+				break
+		
+	
+	bind_characters_signals()
+
 func getCharactersFromBattleField(isPlayer:bool) -> Array[Character]:
 	return battlefield.getCharactersByType(isPlayer)
 	
