@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu3tcqpcsdygv"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_fo8jr"]
+
+[node name="Ability" instance=ExtResource("1_fo8jr")]
+ability_name = "Hammer Throw"
+description = "Throw your weapon to hit the first enemy in your row. The hit reduces the target’s speed."
+dmg_multiplier = 1.2
+cost = 30
+target_enemy_team = true
+target_type = 2
+priority_func_name = &"closest_character_from_front"
+target_effc_type = Array[int]([5])
+target_effc_value = Array[float]([30.0])
+target_effc_dur = Array[float]([3.0])

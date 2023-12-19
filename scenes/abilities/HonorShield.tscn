@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlyyvxmf1403n"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_3hjyc"]
+
+[node name="Ability" instance=ExtResource("1_3hjyc")]
+ability_name = "Shield of honor"
+description = "Your will to protect others invokes an arcane power that protects you and your allies in your column, increasing your defense."
+cost = 30
+ability_range_name = &"tiles_in_same_column"
+target_effc_type = Array[int]([1])
+target_effc_value = Array[float]([60.0])
+target_effc_dur = Array[float]([8.0])

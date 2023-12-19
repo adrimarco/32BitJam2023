@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2pnn6gxmifdv"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_2tnut"]
+
+[node name="Ability" instance=ExtResource("1_2tnut")]
+ability_name = "Demolition"
+description = "Use all your strength to deliver a devastating strike right in front of you. If you hit an enemy, they will suffer a lot of damage and reduce their defensive."
+dmg_multiplier = 2.0
+cost = 55
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"front_tile"
+target_effc_type = Array[int]([4])
+target_effc_value = Array[float]([25.0])
+target_effc_dur = Array[float]([5.0])

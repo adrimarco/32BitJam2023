@@ -174,15 +174,21 @@ func column_at_three(grid:Array[Array], character_tile:Vector2i) -> TileCollecti
 	
 	return tiles_in_same_column(grid, tile.tiles[0])
 
-func surrounding_tiles_at_two_or_less(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+func _surrounding_tiles_at_n_or_less(grid:Array[Array], character_tile:Vector2i, n:int) -> TileCollection:
 	var surrounding_tiles := adjacent_tiles_in_column(grid, character_tile)
 	
-	var tiles := _tiles_from_enemy_field_at_n_distance_or_less(grid, character_tile, 2)
+	var tiles := _tiles_from_enemy_field_at_n_distance_or_less(grid, character_tile, n)
 	# Get all tiles from tiles_at_two's tiles's columns
 	for t in surrounding_tiles.tiles:
-		tiles.tiles.append_array(_tiles_from_enemy_field_at_n_distance_or_less(grid, t, 2).tiles)
+		tiles.tiles.append_array(_tiles_from_enemy_field_at_n_distance_or_less(grid, t, n).tiles)
 	
 	return tiles
+
+func surrounding_tiles_at_two_or_less(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+	return _surrounding_tiles_at_n_or_less(grid, character_tile, 2)
+
+func surrounding_tiles_at_three_or_less(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+	return _surrounding_tiles_at_n_or_less(grid, character_tile, 3)
 
 func columns_at_two_or_less(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
 	var tiles_at_two := _tiles_from_enemy_field_at_n_distance_or_less(grid, character_tile, 2)
@@ -196,7 +202,10 @@ func columns_at_two_or_less(grid:Array[Array], character_tile:Vector2i) -> TileC
 		tiles.tiles.append_array(tiles_in_same_column(grid, t).tiles)
 	
 	return tiles
-	
+
+func front_tile(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+	return _tiles_from_enemy_field_at_n_distance_or_less(grid, character_tile, 1)
+
 func able_to_move(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
 	# Get adjacent tiles
 	var tiles:TileCollection = adjacent_tiles(grid, character_tile)

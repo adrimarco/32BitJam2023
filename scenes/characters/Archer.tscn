@@ -1,0 +1,54 @@
+[gd_scene load_steps=18 format=3 uid="uid://b8f4n7k5ot5x7"]
+
+[ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_ghrsq"]
+[ext_resource type="PackedScene" uid="uid://b3eslhu1uttey" path="res://scenes/abilities/Basic_Ray.tscn" id="2_3ujb7"]
+[ext_resource type="PackedScene" uid="uid://cbl1rtrk3822h" path="res://scenes/abilities/MagicArrow.tscn" id="3_rvg1v"]
+[ext_resource type="PackedScene" uid="uid://r78x1v1bhr7e" path="res://scenes/abilities/CombatRoll.tscn" id="4_2y1a0"]
+[ext_resource type="PackedScene" uid="uid://bwwmusqxsp38h" path="res://scenes/abilities/AccurateShot.tscn" id="5_ru4po"]
+[ext_resource type="SpriteFrames" uid="uid://bta6y48l4c5ye" path="res://resources/spriteFrames/archer.tres" id="6_vwvwu"]
+[ext_resource type="PackedScene" uid="uid://s2ssockihoew" path="res://scenes/abilities/ArrowStorm.tscn" id="6_x4uoi"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="8_4o5e6"]
+[ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="9_ifu2n"]
+[ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="10_pqbk7"]
+[ext_resource type="PackedScene" uid="uid://b848vs0dv2bqe" path="res://resources/beheviourTreeNodes/actions/DecideMovementNode.tscn" id="11_62b7o"]
+[ext_resource type="PackedScene" uid="uid://d2qly3p66itq2" path="res://resources/beheviourTreeNodes/conditions/HasStunEffect.tscn" id="12_4t8l7"]
+[ext_resource type="PackedScene" uid="uid://cpmw2px1fg1ep" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.tscn" id="13_7ejg0"]
+[ext_resource type="PackedScene" uid="uid://bj36arykxxnji" path="res://resources/beheviourTreeNodes/actions/RequestAbilityRangeNode.tscn" id="14_vi5x0"]
+[ext_resource type="PackedScene" uid="uid://cggpfcm6thpsd" path="res://resources/beheviourTreeNodes/actions/TargetEnemyByLowerHealth.tscn" id="15_58orc"]
+[ext_resource type="PackedScene" uid="uid://jb6ng7cfgb68" path="res://resources/beheviourTreeNodes/actions/DecideAttackNode.tscn" id="16_lkw1h"]
+[ext_resource type="PackedScene" uid="uid://rdonwj73ufb6" path="res://resources/beheviourTreeNodes/actions/DoAIDecision.tscn" id="17_ovgxf"]
+
+[node name="Character" instance=ExtResource("1_ghrsq")]
+maxhp = 170
+maxmp = 140
+atk = 27
+dfn = 17
+spd = 12.0
+character_name = "BOBIN WOOD"
+basicAttackScene = ExtResource("2_3ujb7")
+abilitiesScene = Array[PackedScene]([ExtResource("3_rvg1v"), ExtResource("4_2y1a0"), ExtResource("5_ru4po"), ExtResource("6_x4uoi")])
+aggressivity = 40
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("6_vwvwu")
+
+[node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
+script = ExtResource("8_4o5e6")
+
+[node name="InitBlackboardVariables" parent="BeheviourTree/SequenceStarComposite" index="0" instance=ExtResource("9_ifu2n")]
+
+[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceStarComposite" index="1" instance=ExtResource("10_pqbk7")]
+
+[node name="DecideMovementNode" parent="BeheviourTree/SequenceStarComposite" index="2" instance=ExtResource("11_62b7o")]
+
+[node name="HasStunEffect" parent="BeheviourTree/SequenceStarComposite" index="3" instance=ExtResource("12_4t8l7")]
+
+[node name="RequestAttackRangeNode" parent="BeheviourTree/SequenceStarComposite" index="4" instance=ExtResource("13_7ejg0")]
+
+[node name="RequestAbilityRangeNode" parent="BeheviourTree/SequenceStarComposite" index="5" instance=ExtResource("14_vi5x0")]
+
+[node name="TargetEnemyByLowerHealth" parent="BeheviourTree/SequenceStarComposite" index="6" instance=ExtResource("15_58orc")]
+
+[node name="DecideAttackNode" parent="BeheviourTree/SequenceStarComposite" index="7" instance=ExtResource("16_lkw1h")]
+
+[node name="DoAIDecision" parent="BeheviourTree/SequenceStarComposite" index="8" instance=ExtResource("17_ovgxf")]
