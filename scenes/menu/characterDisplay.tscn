@@ -91,6 +91,7 @@ offset_right = 159.0
 offset_bottom = 4.0
 grow_vertical = 2
 theme = ExtResource("1_nl6y8")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Merequetengue"
 scroll_active = false
 
@@ -107,12 +108,13 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="AttackTimerBar"]
+[node name="TextureProgressBarAttackTimer" type="TextureProgressBar" parent="AttackTimerBar"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 97.0
 offset_bottom = 12.0
+value = 100.0
 nine_patch_stretch = true
 texture_under = SubResource("GradientTexture2D_qt27g")
 texture_progress = SubResource("GradientTexture2D_ndd8y")
