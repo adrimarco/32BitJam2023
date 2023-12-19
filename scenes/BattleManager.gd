@@ -195,6 +195,7 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	
 	caster.play_attack_animation()
 	
+	
 	var grid:BattlefieldGrid
 	# Get target grid
 	if abl.target_enemy_team:
@@ -204,10 +205,14 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	
 	# Damage all targets
 	for target in targets:
-		if grid.grid_tiles[target.x][target.y] != null:
+		var characterTarget:Character = grid.grid_tiles[target.x][target.y]
+		if characterTarget != null:
 			if abl.dmg_multiplier > 0.001:
-				grid.grid_tiles[target.x][target.y].damaged(caster, abl)
-			add_ability_effects_to_character(grid.grid_tiles[target.x][target.y], abl.effects_target)
+				characterTarget.damaged(caster, abl)
+			add_ability_effects_to_character(characterTarget, abl.effects_target)
+			
+			#Play ability animation at the target position
+			abl.play_ability_animation(characterTarget)
 			
 			# Selection abilities can only affect one target
 			if abl.target_type == Ability.TargetTypes.Selection:
