@@ -21,7 +21,7 @@ func initCharacterDisplay(ch:Character) -> void:
 	maxMp = ch.maxmp
 
 func updateAttackMeter(ch:Character) -> void:
-	$AttackTimerBar/TextureProgressBar.value = (ch.attack_meter / ch.ATTACK_READY_VALUE) * 100.0
+	$AttackTimerBar/TextureProgressBarAttackTimer.value = (ch.attack_meter / ch.ATTACK_READY_VALUE) * 100.0
 
 func updateHealthValues(hp:int) -> void:
 	var hpf:float = hp
@@ -37,4 +37,7 @@ func updateAbilityValues(mp:int) -> void:
 
 
 func clearAttackMeter(v:int):
-	$AttackTimerBar/TextureProgressBar.value = v
+	$AttackTimerBar/TextureProgressBarAttackTimer.value = v
+
+func changeModulateColor(c:Color):
+	$AttackTimerBar/TextureProgressBarAttackTimer.modulate = c

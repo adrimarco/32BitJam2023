@@ -4,6 +4,8 @@ extends Control
 
 static var NORMAL_COLOR			:Color = Color(1.0, 1.0, 1.0)
 static var DEAD_COLOR			:Color = Color(0.3, 0.3, 0.3)
+static var TURNBAR_NORMAL_COLOR :Color = Color(1.0, 1.0, 1.0)
+static var TURNBAR_FULL_COLOR 	:Color = Color(0.97, 0.51, 0.79)
 
 var cDisplay:PackedScene = preload("res://scenes/menu/characterDisplay.tscn")
 var characterScene = preload("res://scenes/characters/Character.tscn")
@@ -41,6 +43,7 @@ var cursorAbilityPosition:Vector2 = Vector2(229, 41)
 
 var input_enabled:bool = false
 
+var resetTimerBarColor:bool = true
 # signals
 signal characterMove(ch:Character)
 signal characterAttack(ch:Character)
@@ -81,6 +84,9 @@ func clearCharacterDisplays():
 func _process(_delta):
 	# Update UI data
 	for index in range(characterDisplays.size()):
+		if resetTimerBarColor && !characterRefAttacking:
+			characterDisplays[index].changeModulateColor(TURNBAR_NORMAL_COLOR)
+			resetTimerBarColor = false
 		if characterRefAttacking != playerCharacters[index]:
 			characterDisplays[index].updateAttackMeter(playerCharacters[index])
 	
@@ -189,12 +195,14 @@ func showAbilityMenu(newVisibility:bool):
 	changeNodeVisibility(fightOptionsMenu, not newVisibility)
 
 func _storeCharacterAttacking(ch:Character) -> void:
+	resetTimerBarColor = true
 	characterAttacking = true
 	characterRefAttacking = ch
 	abilitySelection = 0
 	var chDisplay:CharacterDisplay = getCharacterDisplayFromCharacter(ch)
 	if chDisplay:
 		chDisplay.clearAttackMeter(100)
+		chDisplay.changeModulateColor(TURNBAR_FULL_COLOR)
 	printcharacterAbilities(characterRefAttacking)
 	printCharacterAbilityDescription(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
@@ -244,4 +252,6 @@ func getCharacterDisplayFromCharacter(ch:Character) -> CharacterDisplay:
 	return null
 	
 func resumePreparingAttacks():
+	for chD in characterDisplays:
+		chD.changeModulateColor(TURNBAR_NORMAL_COLOR)
 	characterRefAttacking = null

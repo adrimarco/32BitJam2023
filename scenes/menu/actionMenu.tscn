@@ -61,27 +61,27 @@ grow_vertical = 2
 [node name="HealthLabel" type="RichTextLabel" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 0
 offset_left = 181.0
-offset_top = 12.0
+offset_top = 21.0
 offset_right = 288.0
-offset_bottom = 52.0
+offset_bottom = 61.0
 theme = ExtResource("3_7cp2m")
 text = "Health"
 
 [node name="EnergyLabel" type="RichTextLabel" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 0
 offset_left = 288.0
-offset_top = 12.0
+offset_top = 21.0
 offset_right = 394.0
-offset_bottom = 52.0
+offset_bottom = 61.0
 theme = ExtResource("3_7cp2m")
 text = "Energy"
 
 [node name="AttackLabel" type="RichTextLabel" parent="ColorRect/MainActionMenu/Border"]
 layout_mode = 0
 offset_left = 394.0
-offset_top = 12.0
+offset_top = 21.0
 offset_right = 500.0
-offset_bottom = 52.0
+offset_bottom = 61.0
 theme = ExtResource("3_7cp2m")
 text = "Attack"
 

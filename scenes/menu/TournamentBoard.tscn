@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://mut7p4a231vo"]
 
-[ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="1_0k7eo"]
+[ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="1_0k7eo"]
 [ext_resource type="Script" path="res://scenes/menu/TournamentBoard.gd" id="1_2g8wa"]
-[ext_resource type="Texture2D" uid="uid://b0lowrmrk8uco" path="res://assets/menu/TournamentBoard.png" id="2_n2rl4"]
+[ext_resource type="Texture2D" uid="uid://4fj4hj1h03bp" path="res://assets/menu/TournamentBoard.png" id="2_n2rl4"]
 
 [sub_resource type="Animation" id="Animation_c7dgl"]
 resource_name = "fade_animation"
