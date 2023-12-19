@@ -1,6 +1,8 @@
 class_name TournamentBoard
 extends Node2D
 
+signal activate_main_menu
+
 @onready var fade_layer 	:= $CanvasLayer/ColorRect
 @onready var anim_player	:= $AnimationPlayer
 @onready var camera			:= $Camera2D
@@ -43,22 +45,71 @@ func _ready():
 	tint_papers()
 	
 	await fade_screen(false)
+	play_tournament_board_animation()
 	
+
+func play_tournament_board_animation():
 	anim_player.play("show_board")
 	await anim_player.animation_finished
+	
+	await fade_screen(true)
+	move_camera_to_player_battle()
+	fade_screen(false)
+	await get_tree().create_timer(3.0).timeout
+	
 	load_battle()
+
+func reset_camera_position_and_zoom():
+	camera.position = Vector2(322, 576)
+	camera.zoom		= Vector2(1, 1)
+	pass
 
 func load_battle():
 	battle_node = battle_scene.instantiate()
 	if battle_node:
 		# Bind signals
 		battle_node.connect("player_win_battle", Callable(self, "next_round"))
+		battle_node.connect("player_loose_battle", Callable(self, "back_to_main_menu"))
 		await fade_screen(true)
 		
 		camera.enabled = false
 		get_tree().get_root().add_child(battle_node)
 		fade_screen(false)
 	
+
+func move_camera_to_player_battle():
+	camera.zoom 	= Vector2(1.0, 1.0)
+	var camera_pos :Vector2 = teams_array[player_team].position
+	
+	# Get the team that fights against
+	var teams_being_checked	:= Array()
+	var group_count 		:= 2*(tournament_round + 1)
+	@warning_ignore("integer_division")
+	var iterations			:= teams_array.size()/group_count
+	for group_index in iterations:
+		# Add teams fighting in the group
+		var i := group_count*group_index
+		while i < group_count*(group_index + 1):
+			if teams_playing[i]:
+				teams_being_checked.append(i)
+			i += 1
+		
+		if player_team in teams_being_checked:
+			break
+		else:
+			teams_being_checked.clear()
+		
+	if teams_being_checked.size() >= 2:
+		# Calculate camera position and zoom
+		teams_being_checked.erase(player_team)
+		var other_team_pos = teams_array[teams_being_checked[0]].position
+		var zoom := minf(1, 1 / (camera_pos.distance_to(other_team_pos)/400))
+		camera.zoom = Vector2(zoom, zoom)
+		
+		camera_pos += teams_array[teams_being_checked[0]].position
+		camera_pos /= 2
+		
+	camera.position = camera_pos + Vector2(0, 70)
 
 func place_papers(place_player_paper:bool = false):
 	if tournament_round == 0:
@@ -121,6 +172,7 @@ func fade_screen(to_black:bool) -> Signal:
 	return anim_player.animation_finished
 
 func next_round():
+	reset_camera_position_and_zoom()
 	# Fade screen and eliminate battle node
 	await fade_screen(true)
 	battle_node.queue_free()
@@ -132,8 +184,18 @@ func next_round():
 	tournament_round += 1
 	place_papers(true)
 	
-	fade_screen(false)
+	await fade_screen(false)
+	play_tournament_board_animation()
 
+func back_to_main_menu():
+	# Fade screen and eliminate battle node
+	await fade_screen(true)
+	if battle_node:
+		battle_node.queue_free()
+		battle_node = null
+	
+	activate_main_menu.emit()
+	
 func order_arrays():
 	var sort_function := Callable(self, "sort_node")
 	teams_array.sort_custom(sort_function)

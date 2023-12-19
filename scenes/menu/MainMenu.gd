@@ -8,6 +8,7 @@ var labels				:Array
 var options_count		:int
 var selected_option 	:int
 var input_enabled		:bool
+var tournament_node		:TournamentBoard
 
 func _ready():
 	labels 			= options_container.get_children()
@@ -54,11 +55,20 @@ func load_game():
 	var tournament_scene := load("res://scenes/menu/TournamentBoard.tscn")
 	
 	if tournament_scene:
-		var tournament_instance = tournament_scene.instantiate()
-		get_tree().root.add_child(tournament_instance)
+		tournament_node = tournament_scene.instantiate()
+		tournament_node.connect("activate_main_menu", Callable(self, "exit_tournament"))
+		get_tree().root.add_child(tournament_node)
 
 func hide_main_menu():
 	menu_canvas.hide()
+
+func exit_tournament():
+	if tournament_node:
+		tournament_node.queue_free()
+		tournament_node = null
+	
+	menu_canvas.show()
+	input_enabled = true
 
 func load_tutorial_menu():
 	input_enabled = true
