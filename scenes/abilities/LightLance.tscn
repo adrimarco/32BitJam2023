@@ -10,5 +10,4 @@ cost = 40
 target_enemy_team = true
 
 [node name="Sprite" parent="." index="0"]
-frame = 0
 frame_progress = 0.0

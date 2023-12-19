@@ -213,7 +213,7 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 			add_ability_effects_to_character(characterTarget, abl.effects_target)
 			
 			#Play ability animation at the target position
-			abl.play_ability_animation(characterTarget)
+			abl.play_ability_animation(characterTarget, (grid == battlefield.player_grid))
 			
 			# Selection abilities can only affect one target
 			if abl.target_type == Ability.TargetTypes.Selection:
