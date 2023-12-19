@@ -12,5 +12,4 @@ target_type = 1
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_v1qeh")
-frame = 0
 frame_progress = 0.0

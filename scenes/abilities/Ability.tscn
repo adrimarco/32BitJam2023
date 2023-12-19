@@ -14,6 +14,4 @@ billboard = 2
 texture_filter = 0
 sprite_frames = ExtResource("2_kyhjw")
 animation = &"attack"
-autoplay = "attack"
-frame = 4
 frame_progress = 1.0

@@ -13,5 +13,4 @@ target_type = 1
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_sc8sx")
-frame = 0
-frame_progress = 0.0
+frame_progress = 0.527898

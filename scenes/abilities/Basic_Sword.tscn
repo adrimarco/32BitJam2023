@@ -10,3 +10,6 @@ target_enemy_team = true
 target_type = 2
 ability_range_name = &"tiles_at_two_or_less"
 priority_func_name = &"closest_character_from_front"
+
+[node name="Sprite" parent="." index="0"]
+frame_progress = 0.0

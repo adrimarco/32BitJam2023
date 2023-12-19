@@ -8,3 +8,6 @@ description = "Summon a lance of sacred light that pierces through all enemies i
 dmg_multiplier = 1.3
 cost = 40
 target_enemy_team = true
+
+[node name="Sprite" parent="." index="0"]
+frame_progress = 0.0
