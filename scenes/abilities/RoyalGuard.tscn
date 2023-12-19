@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnjkyqudyndvx"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_iyljy"]
+[ext_resource type="SpriteFrames" uid="uid://bcfnj7cnodi8b" path="res://resources/spriteFrames/abilitiesFrames/fireballAttack.tres" id="2_17xdi"]
+
+[node name="Ability" instance=ExtResource("1_iyljy")]
+ability_name = "Royal guard"
+description = "With your power, no one can defeat you. The most advanced enemy is pushed back, receiving a lot of damage. In addition, you increase your defense."
+dmg_multiplier = 1.3
+cost = 30
+target_enemy_team = true
+target_type = 2
+ability_range_name = &"all_tiles"
+priority_func_name = &"closest_character_from_front"
+cast_effc_type = Array[int]([1])
+cast_effc_value = Array[float]([60.0])
+cast_effc_dur = Array[float]([7.0])
+target_effc_type = Array[int]([11])
+target_effc_value = Array[float]([1.0])
+target_effc_dur = Array[float]([1.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_17xdi")
+frame = 0
+frame_progress = 0.0

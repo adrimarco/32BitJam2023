@@ -40,11 +40,11 @@ func _ready():
 	connect("resume_preparing_attacks", Callable(enemy_grid, "unpause_lucky_timer"))
 	
 	# Load characters
-	var player = load_character(preload("res://scenes/characters/MalletMan.tscn"), true)
+	var player = load_character(preload("res://scenes/characters/Knight.tscn"), true)
 	if player != null:
 		set_character_tile(player, 1, 1, true)
 		
-	var player1 = load_character(preload("res://scenes/characters/Archer.tscn"), true)
+	var player1 = load_character(preload("res://scenes/characters/Squeleton.tscn"), true)
 	if player1 != null:
 		set_character_tile(player1, 0, 1, true)
 	

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dms13mn31p8ao"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_8t2f4"]
+
+[node name="Ability" instance=ExtResource("1_8t2f4")]
+ability_name = "Healing prayer"
+description = "Recite a sacred litany to bless an ally. The target of the prayer recovers some health and purifies negative states."
+cost = 30
+target_type = 1
+ability_range_name = &"all_other_tiles"
+target_effc_type = Array[int]([6, 13])
+target_effc_value = Array[float]([20.0, 1.0])
+target_effc_dur = Array[float]([1.0, 1.0])

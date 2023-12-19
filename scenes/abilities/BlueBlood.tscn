@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnhucdux08ghe"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_3bn5d"]
+
+[node name="Ability" instance=ExtResource("1_3bn5d")]
+ability_name = "Blue blood"
+description = "Your wounds heal and your power remains intact. You recover a small amount of health and increase your attack."
+cost = 35
+target_type = 1
+ability_range_name = &"only_character_tile"
+target_effc_type = Array[int]([6, 0])
+target_effc_value = Array[float]([10.0, 30.0])
+target_effc_dur = Array[float]([1.0, 2.0])

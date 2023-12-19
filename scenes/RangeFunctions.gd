@@ -174,6 +174,16 @@ func column_at_three(grid:Array[Array], character_tile:Vector2i) -> TileCollecti
 	
 	return tiles_in_same_column(grid, tile.tiles[0])
 
+func character_and_adjacent_rows(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+	var surrounding_tiles := adjacent_tiles_in_column(grid, character_tile)
+	
+	var tiles := tiles_in_same_row(grid, character_tile)
+	# Get all tiles from characters row and adjacent ones
+	for t in surrounding_tiles.tiles:
+		tiles.tiles.append_array(tiles_in_same_row(grid, t).tiles)
+	
+	return tiles
+
 func _surrounding_tiles_at_n_or_less(grid:Array[Array], character_tile:Vector2i, n:int) -> TileCollection:
 	var surrounding_tiles := adjacent_tiles_in_column(grid, character_tile)
 	
@@ -271,6 +281,29 @@ func closest_character_from_back(grid:Array[Array], tiles_checked:Array[Vector2i
 	var tiles :Array[Vector2i] = []
 	for t in tiles_checked:
 		if t.x == closest_column and grid[t.x][t.y] != null:
+			tiles.append(t)
+			
+	return tiles
+
+func closest_character_from_back_on_each_row(grid:Array[Array], tiles_checked:Array[Vector2i]) -> Array[Vector2i]:
+	if tiles_checked.is_empty():
+		return tiles_checked
+	
+	var closest_column := Array()
+	if grid.size() > 0:
+		for row in grid[0].size():
+			closest_column.append(grid.size())
+	else:
+		closest_column.append(grid.size())
+		
+	for t in tiles_checked:
+		if grid[t.x][t.y] != null and t.x < closest_column[t.y]:
+			closest_column[t.y] = t.x
+	
+	# Get closest tiles from each row
+	var tiles :Array[Vector2i] = []
+	for t in tiles_checked:
+		if t.x == closest_column[t.y] and grid[t.x][t.y] != null:
 			tiles.append(t)
 			
 	return tiles

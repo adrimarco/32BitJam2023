@@ -1,0 +1,54 @@
+[gd_scene load_steps=18 format=3 uid="uid://cb5s1nbqk6few"]
+
+[ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_sw2u5"]
+[ext_resource type="PackedScene" uid="uid://b3eslhu1uttey" path="res://scenes/abilities/Basic_Ray.tscn" id="2_2w44p"]
+[ext_resource type="PackedScene" uid="uid://bjn6u57vc5fok" path="res://scenes/abilities/HealthRitual.tscn" id="3_qe3rg"]
+[ext_resource type="PackedScene" uid="uid://dms13mn31p8ao" path="res://scenes/abilities/HealingPrayer.tscn" id="4_qsod4"]
+[ext_resource type="PackedScene" uid="uid://be87og7ow28fi" path="res://scenes/abilities/BlasphemousCourse.tscn" id="5_iejj4"]
+[ext_resource type="PackedScene" uid="uid://5s4sj0uacjei" path="res://scenes/abilities/LightLance.tscn" id="6_1w8mb"]
+[ext_resource type="SpriteFrames" uid="uid://bc3k0atq62oes" path="res://resources/spriteFrames/priestess.tres" id="7_6bctu"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="8_5g07p"]
+[ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="9_dhmpi"]
+[ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="10_ivsmf"]
+[ext_resource type="PackedScene" uid="uid://b848vs0dv2bqe" path="res://resources/beheviourTreeNodes/actions/DecideMovementNode.tscn" id="11_v7lv2"]
+[ext_resource type="PackedScene" uid="uid://d2qly3p66itq2" path="res://resources/beheviourTreeNodes/conditions/HasStunEffect.tscn" id="12_og4ci"]
+[ext_resource type="PackedScene" uid="uid://cpmw2px1fg1ep" path="res://resources/beheviourTreeNodes/actions/RequestAttackRangeNode.tscn" id="13_oi6ie"]
+[ext_resource type="PackedScene" uid="uid://bj36arykxxnji" path="res://resources/beheviourTreeNodes/actions/RequestAbilityRangeNode.tscn" id="14_ly4i4"]
+[ext_resource type="PackedScene" uid="uid://cggpfcm6thpsd" path="res://resources/beheviourTreeNodes/actions/TargetEnemyByLowerHealth.tscn" id="15_agla7"]
+[ext_resource type="PackedScene" uid="uid://jb6ng7cfgb68" path="res://resources/beheviourTreeNodes/actions/DecideAttackNode.tscn" id="16_uxd67"]
+[ext_resource type="PackedScene" uid="uid://rdonwj73ufb6" path="res://resources/beheviourTreeNodes/actions/DoAIDecision.tscn" id="17_ss8qu"]
+
+[node name="Character" instance=ExtResource("1_sw2u5")]
+maxhp = 230
+maxmp = 160
+atk = 29
+dfn = 14
+spd = 9.0
+character_name = "INDIGO NUN"
+basicAttackScene = ExtResource("2_2w44p")
+abilitiesScene = Array[PackedScene]([ExtResource("3_qe3rg"), ExtResource("4_qsod4"), ExtResource("5_iejj4"), ExtResource("6_1w8mb")])
+aggressivity = 10
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("7_6bctu")
+
+[node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
+script = ExtResource("8_5g07p")
+
+[node name="InitBlackboardVariables" parent="BeheviourTree/SequenceStarComposite" index="0" instance=ExtResource("9_dhmpi")]
+
+[node name="RequestMovementRangeNode" parent="BeheviourTree/SequenceStarComposite" index="1" instance=ExtResource("10_ivsmf")]
+
+[node name="DecideMovementNode" parent="BeheviourTree/SequenceStarComposite" index="2" instance=ExtResource("11_v7lv2")]
+
+[node name="HasStunEffect" parent="BeheviourTree/SequenceStarComposite" index="3" instance=ExtResource("12_og4ci")]
+
+[node name="RequestAttackRangeNode" parent="BeheviourTree/SequenceStarComposite" index="4" instance=ExtResource("13_oi6ie")]
+
+[node name="RequestAbilityRangeNode" parent="BeheviourTree/SequenceStarComposite" index="5" instance=ExtResource("14_ly4i4")]
+
+[node name="TargetEnemyByLowerHealth" parent="BeheviourTree/SequenceStarComposite" index="6" instance=ExtResource("15_agla7")]
+
+[node name="DecideAttackNode" parent="BeheviourTree/SequenceStarComposite" index="7" instance=ExtResource("16_uxd67")]
+
+[node name="DoAIDecision" parent="BeheviourTree/SequenceStarComposite" index="8" instance=ExtResource("17_ss8qu")]

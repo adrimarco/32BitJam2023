@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjn6u57vc5fok"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_d576o"]
+
+[node name="Ability" instance=ExtResource("1_d576o")]
+ability_name = "Health ritual"
+description = "Perform a quick ritual that heals you and adjacent allies."
+cost = 40
+ability_range_name = &"character_tile_and_adjacent"
+target_effc_type = Array[int]([6])
+target_effc_value = Array[float]([15.0])
+target_effc_dur = Array[float]([1.0])
