@@ -6,6 +6,7 @@ static var NORMAL_COLOR			:Color = Color(1.0, 1.0, 1.0)
 static var DEAD_COLOR			:Color = Color(0.3, 0.3, 0.3)
 static var TURNBAR_NORMAL_COLOR :Color = Color(1.0, 1.0, 1.0)
 static var TURNBAR_FULL_COLOR 	:Color = Color(0.97, 0.51, 0.79)
+static var ABILITY_BLOCK_COLOR  :Color = Color(0.2, 0.2, 0.2)
 
 var cDisplay:PackedScene = preload("res://scenes/menu/characterDisplay.tscn")
 var characterScene = preload("res://scenes/characters/Character.tscn")
@@ -153,6 +154,7 @@ func optionSelected():
 		characterAttack.emit(characterRefAttacking)
 	elif selected == 2:
 		showAbilityMenu(true)
+		check_abilities_cost()
 		hoverAbility()
 	elif selected == 3:
 		characterRest.emit()
@@ -193,6 +195,13 @@ func showAbilityMenu(newVisibility:bool):
 	$ColorRect/MainActionMenu.visible = not newVisibility
 	abilityTabActive = newVisibility
 	changeNodeVisibility(fightOptionsMenu, not newVisibility)
+
+func check_abilities_cost():
+	for cAbIndex in characterRefAttacking.abilities.size():
+		if characterRefAttacking.get_ability_cost_from_character(characterRefAttacking.abilities[cAbIndex]) > characterRefAttacking.mp:
+			abilityNameList.get_child(cAbIndex).modulate = ABILITY_BLOCK_COLOR
+		else:
+			abilityNameList.get_child(cAbIndex).modulate = NORMAL_COLOR
 
 func _storeCharacterAttacking(ch:Character) -> void:
 	resetTimerBarColor = true
