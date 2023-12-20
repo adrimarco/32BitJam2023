@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn8sxqfa3bikb"]
+
+[ext_resource type="Script" path="res://scenes/menu/CharSelectorOption.gd" id="1_qeru5"]
+[ext_resource type="Texture2D" uid="uid://6337cs8pyhv7" path="res://assets/borders/13.png" id="2_xjhbn"]
+[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_jyoj4"]
+
+[sub_resource type="Animation" id="Animation_ekyis"]
+resource_name = "focus"
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0],
+"method": &"set_background_x"
+}, {
+"args": [3],
+"method": &"set_background_x"
+}, {
+"args": [6],
+"method": &"set_background_x"
+}, {
+"args": [9],
+"method": &"set_background_x"
+}, {
+"args": [6],
+"method": &"set_background_x"
+}, {
+"args": [3],
+"method": &"set_background_x"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfwyu"]
+_data = {
+"focus": SubResource("Animation_ekyis")
+}
+
+[node name="CharSelectorOption" type="Control"]
+custom_minimum_size = Vector2(200, 34)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 200.0
+offset_bottom = 50.0
+script = ExtResource("1_qeru5")
+
+[node name="Background" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(151, 33)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -33.0
+offset_right = 160.0
+grow_vertical = 0
+texture = ExtResource("2_xjhbn")
+region_rect = Rect2(80, 84, 64, 25)
+patch_margin_left = 49
+patch_margin_right = 55
+
+[node name="CharacterName" type="Label" parent="Background"]
+clip_contents = true
+custom_minimum_size = Vector2(152, 8)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -11.5
+offset_right = 160.0
+offset_bottom = 13.5
+grow_vertical = 2
+theme = ExtResource("3_jyoj4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Merequetengue"
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lfwyu")
+}

@@ -31,6 +31,6 @@ func get_team_by_id(id:int) -> Array[int]:
 	if id < 0 or id >= teams_count:
 		return []
 	
-	var team :Array[int]
+	var team :Array[int] = []
 	team.append_array(teams[id])
 	return team

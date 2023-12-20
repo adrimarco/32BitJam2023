@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/menu/actionMenu.gd" id="1_hdtqw"]
 [ext_resource type="PackedScene" uid="uid://bsr1gjomei63r" path="res://scenes/menu/fightOptionsMenu.tscn" id="2_1k4k4"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_7cp2m"]
-[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="4_3y62b"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="4_3y62b"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_5kiqq"]
 [ext_resource type="Texture2D" uid="uid://v36bljnf66pv" path="res://assets/menu/spritesMenu.png" id="5_65ii2"]
 
