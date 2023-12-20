@@ -33,6 +33,7 @@ func update_sprite(ch:Character):
 		sprite.play("idle")
 	else:
 		sprite.stop()
+	sprite.offset.y = -sprite.sprite_frames.get_frame_texture(sprite.animation, 0).get_height()/2
 
 func update_character_name(ch:Character):
 	if not ch:

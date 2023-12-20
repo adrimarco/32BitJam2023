@@ -1,9 +1,13 @@
 extends ActionLeaf
 
-@onready var battleManager = get_tree().get_root().get_node("BattleManager")
-@onready var aiManager = battleManager.get_node("%aiManager")
+var battleManager 	= null
+var aiManager 		= null
 
 func tick(_actor: Node, blackboard: Blackboard) -> int:
+	if battleManager == null:
+		battleManager = get_tree().get_root().get_node("BattleManager")
+		aiManager = battleManager.get_node("%aiManager")
+		
 	#blackboard.set_value("enemyMoved", false)
 	blackboard.set_value("battleManager", battleManager)
 	blackboard.set_value("aiManager", aiManager)

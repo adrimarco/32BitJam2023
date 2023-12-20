@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="4_wtdqi"]
 
 [node name="CharacterViewer" type="Control"]
-custom_minimum_size = Vector2(460, 200)
+custom_minimum_size = Vector2(520, 220)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 460.0
@@ -14,7 +14,7 @@ offset_bottom = 200.0
 script = ExtResource("1_be571")
 
 [node name="Border" type="NinePatchRect" parent="."]
-custom_minimum_size = Vector2(460, 200)
+custom_minimum_size = Vector2(520, 220)
 layout_mode = 0
 offset_right = 460.0
 offset_bottom = 200.0
@@ -30,16 +30,16 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Border/CharacterData"]
-position = Vector2(78, 119)
+position = Vector2(87, 190)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("3_lexyy")
 animation = &"idle"
 
 [node name="StatsLabel" type="Label" parent="Border/CharacterData"]
 layout_mode = 0
-offset_left = 161.0
+offset_left = 191.0
 offset_top = 30.0
-offset_right = 221.0
+offset_right = 251.0
 offset_bottom = 50.0
 theme = ExtResource("4_wtdqi")
 text = "STATS"
@@ -47,9 +47,9 @@ text = "STATS"
 [node name="CharacterName" type="Label" parent="Border/CharacterData"]
 custom_minimum_size = Vector2(140, 20)
 layout_mode = 0
-offset_left = 10.0
+offset_left = 25.0
 offset_top = 30.0
-offset_right = 156.0
+offset_right = 171.0
 offset_bottom = 50.0
 theme = ExtResource("4_wtdqi")
 text = "MEREQUETENGUE
@@ -58,18 +58,18 @@ horizontal_alignment = 1
 
 [node name="AbilitiesLabel" type="Label" parent="Border/CharacterData"]
 layout_mode = 0
-offset_left = 291.0
+offset_left = 321.0
 offset_top = 30.0
-offset_right = 377.0
+offset_right = 407.0
 offset_bottom = 50.0
 theme = ExtResource("4_wtdqi")
 text = "ABILITIES"
 
 [node name="StatsName" type="Label" parent="Border/CharacterData"]
 layout_mode = 0
-offset_left = 151.0
+offset_left = 181.0
 offset_top = 60.0
-offset_right = 191.0
+offset_right = 221.0
 offset_bottom = 159.0
 theme = ExtResource("4_wtdqi")
 text = "HP:
@@ -84,9 +84,9 @@ SPD:"
 
 [node name="StatsValues" type="Label" parent="Border/CharacterData"]
 layout_mode = 0
-offset_left = 201.0
+offset_left = 231.0
 offset_top = 60.0
-offset_right = 241.0
+offset_right = 271.0
 offset_bottom = 159.0
 theme = ExtResource("4_wtdqi")
 text = "10
@@ -101,9 +101,9 @@ text = "10
 
 [node name="AbilitiesValues" type="Label" parent="Border/CharacterData"]
 layout_mode = 0
-offset_left = 266.0
+offset_left = 296.0
 offset_top = 60.0
-offset_right = 446.0
+offset_right = 476.0
 offset_bottom = 159.0
 theme = ExtResource("4_wtdqi")
 text = "10
