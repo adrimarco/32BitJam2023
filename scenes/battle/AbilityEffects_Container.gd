@@ -1,6 +1,20 @@
 class_name AbilityEffectsContainer
 extends Node
 
+var EffectSprites:Array[Rect2] = [
+	Rect2(0 , 0 , 32, 32),
+	Rect2(32, 0 , 32, 32),
+	Rect2(64, 0 , 32, 32),
+	Rect2(96, 0 , 32, 32),
+	Rect2(0 , 32, 32, 32),
+	Rect2(32, 32, 32, 32),
+	Rect2(64, 32, 32, 32),
+	Rect2(96, 32, 32, 32),
+	Rect2(0 , 64, 32, 32),
+	Rect2(32, 64, 32, 32),
+	Rect2(64, 64, 32, 32)
+]
+
 var negative_effects := [	AbilityEffect.EffectType.DecAtk, AbilityEffect.EffectType.DecDef,
 							AbilityEffect.EffectType.DecSpd, AbilityEffect.EffectType.IncMpCost,
 							AbilityEffect.EffectType.Stun	]

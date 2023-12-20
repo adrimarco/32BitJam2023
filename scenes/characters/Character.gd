@@ -50,6 +50,11 @@ var mp						:int	= 1:
 		mp = new_value
 		energy_changed.emit(mp)
 var current_effects			:Array[AbilityEffect]
+@onready var effectListNode 		= $EffectList
+@onready var effectListSpriteBase 	= $EffectList/SpriteBase
+@onready var effectListBG 			= $EffectList/SpriteBG
+var effect_icons:Array[Sprite3D] 	= [] 
+
 
 func _ready():
 	# Init character values
@@ -314,6 +319,7 @@ func add_special_effect(new_effect:AbilityEffect):
 			return
 	
 	current_effects.append(EffectsContainer.duplicate_effect(new_effect))
+	show_effects_icons()
 
 func remove_negative_effects():
 	var i := 0
@@ -344,7 +350,52 @@ func update_effects_duration(duration_type:AbilityEffect.DurationType, value:flo
 			current_effects[i].duration -= value
 			if current_effects[i].duration <= 0.0:
 				current_effects.remove_at(i)
+				show_effects_icons()
 				continue
 			
 		i += 1
 	
+func show_effects_icons():
+	for eff in current_effects:
+		var rectSprite = EffectsContainer.EffectSprites[eff.type]
+#		var texture_atlas = AtlasTexture.new()
+#		texture_atlas.atlas  = preload("res://assets/characters/effects.png")
+#		texture_atlas.region = rectSprite
+		for effIcon in effect_icons:
+			effIcon.queue_free()
+			effect_icons.erase(effIcon)
+
+		var new_sprite = effectListSpriteBase.duplicate()
+		new_sprite.visible = true
+		new_sprite.texture.region = rectSprite
+		effect_icons.append(new_sprite)
+		var bg_width = effectListBG.texture.width
+		
+		# Increase background size to fit all icons
+		if effect_icons.size() - bg_width / 32 > 0:
+			effectListBG.texture.width = effect_icons.size() * 32
+		
+		bg_width = effectListBG.texture.width
+		# Change icon sprites position to the bg center
+		
+		if effect_icons.size() % 2 != 0:
+			# odd
+			var center_index:int = floor(effect_icons.size() / 2.0)
+			for sIndex in effect_icons.size():
+				print(Vector3(-0.16*(center_index - sIndex), 0, 0).x)
+				new_sprite.position += Vector3(-0.16*(center_index - sIndex), 0, 0)
+				
+		else:
+			# even
+			var left_index:int  = floor(effect_icons.size() / 2.0)
+			var right_index:int = ceil(effect_icons.size() / 2.0)
+			for sIndex in effect_icons.size():
+				if sIndex < left_index:
+					new_sprite.position += Vector3(-0.08 -0.16 * (left_index - sIndex), 0, 0)
+				elif right_index < sIndex:
+					new_sprite.position += Vector3(+0.08 +0.16 * (right_index - sIndex), 0, 0)
+					
+		# Add sprite to the scene
+		effectListNode.add_child(new_sprite)
+		
+		
