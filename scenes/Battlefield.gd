@@ -42,7 +42,8 @@ func _ready():
 	return
 
 func start_battle():
-	resume_preparing_attacks.emit()
+	if not check_game_over():
+		resume_preparing_attacks.emit()
 
 func _process(_delta):
 	return
@@ -139,7 +140,7 @@ func character_died(ch:Character):
 	ch.queue_free()
 	check_game_over()
 
-func check_game_over():
+func check_game_over() -> bool:
 	var player_alive 	:= false
 	var enemy_alive 	:= false
 	
@@ -152,8 +153,12 @@ func check_game_over():
 	# Check if one of the teams has been defeated
 	if not player_alive:
 		battle_finished.emit(false)
+		return true
 	elif not enemy_alive:
 		battle_finished.emit(true)
+		return true
+	
+	return false
 
 func remove_from_attack_cue(ch:Character):
 	attack_cue.erase(ch)

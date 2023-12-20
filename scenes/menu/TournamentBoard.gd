@@ -17,6 +17,7 @@ static var ENEMY_TEAM_COLOR	:= Color(0.41, 0.41, 0.41)
 var battle_scene			:= preload("res://scenes/BattleManager.tscn")
 var battle_node				:BattleManager = null
 var tournament_round		:int
+var player_characters		:Array[int]
 var player_team				:int
 var teams_array				:Array[Node]
 var teams_playing			:Array[bool]
@@ -64,6 +65,12 @@ func reset_camera_position_and_zoom():
 	camera.position = Vector2(322, 576)
 	camera.zoom		= Vector2(1, 1)
 	pass
+
+
+func set_player_characters(characters:Array[int]):
+	player_characters.clear()
+	player_characters = characters
+
 
 func load_battle():
 	# Get random team to fight against
