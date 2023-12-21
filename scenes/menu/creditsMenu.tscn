@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]
 
 [node name="creditsMenu" type="Control"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

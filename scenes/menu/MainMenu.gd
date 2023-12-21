@@ -53,7 +53,6 @@ func execute_menu_action():
 		load_tutorial_menu()
 	elif selected_option == 2:
 		load_credits()
-		hide_main_menu()
 	else:
 		input_enabled = true
 	
@@ -85,7 +84,7 @@ func load_credits():
 	if credits_scene:
 		credits_node = credits_scene.instantiate()
 		credits_node.connect("exit_credits", Callable(self, "exit_credits"))
-		get_tree().root.add_child(credits_node)
+		menu_canvas.add_child(credits_node)
 	pass
 
 func exit_credits():
@@ -93,5 +92,4 @@ func exit_credits():
 		credits_node.queue_free()
 		credits_node = null
 	
-	menu_canvas.show()
 	input_enabled = true
