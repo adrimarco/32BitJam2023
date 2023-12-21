@@ -7,6 +7,7 @@ extends Control
 
 var credits_scene 		:= preload("res://scenes/menu/creditsMenu.tscn")
 var tournament_scene 	:= preload("res://scenes/menu/TournamentBoard.tscn")
+var tutorial_scene 		:= preload("res://scenes/menu/tutorialMenu.tscn")
 
 var labels				:Array
 var options_count		:int
@@ -14,7 +15,7 @@ var selected_option 	:int
 var input_enabled		:bool
 var tournament_node		:TournamentBoard
 var credits_node		:CreditsMenu
-
+var tutorial_node		:TutorialMenu
 
 var cursor_position		:= Vector2(465, 244)
 var cursor_offset		:int = 44
@@ -76,8 +77,11 @@ func exit_tournament():
 	input_enabled = true
 
 func load_tutorial_menu():
-	input_enabled = true
-	pass
+	input_enabled = false
+	if tutorial_scene:
+		tutorial_node = tutorial_scene.instantiate()
+		tutorial_node.connect("exit_tutorial", Callable(self, "exit_tutorial"))
+		menu_canvas.add_child(tutorial_node)
 
 func load_credits():
 	input_enabled = false
@@ -85,11 +89,17 @@ func load_credits():
 		credits_node = credits_scene.instantiate()
 		credits_node.connect("exit_credits", Callable(self, "exit_credits"))
 		menu_canvas.add_child(credits_node)
-	pass
+
 
 func exit_credits():
 	if credits_node:
 		credits_node.queue_free()
 		credits_node = null
 	
+	input_enabled = true
+
+func exit_tutorial():
+	if tutorial_node:
+		tutorial_node.queue_free()
+		tutorial_node = null
 	input_enabled = true

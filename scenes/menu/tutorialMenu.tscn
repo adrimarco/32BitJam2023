@@ -1,0 +1,664 @@
+[gd_scene load_steps=29 format=3 uid="uid://dn71qavv4fgvm"]
+
+[ext_resource type="Script" path="res://scenes/menu/tutorialMenu.gd" id="1_ftbxm"]
+[ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="2_godni"]
+[ext_resource type="Texture2D" uid="uid://4fj4hj1h03bp" path="res://assets/menu/TournamentBoard.png" id="3_nl57n"]
+[ext_resource type="Texture2D" uid="uid://bvqwlu6j8atvt" path="res://assets/borders/09.png" id="4_p5mr5"]
+[ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="5_oiw05"]
+[ext_resource type="PackedScene" uid="uid://csmnqols32khu" path="res://scenes/menu/menuOptionBox.tscn" id="6_6ynae"]
+[ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="7_7ycdn"]
+[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="8_y7jmu"]
+[ext_resource type="Texture2D" uid="uid://6dygkf4qv21c" path="res://assets/menu/tilemap.png" id="9_68bpf"]
+[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="9_ycxka"]
+[ext_resource type="Texture2D" uid="uid://dl7rm4bua6ojf" path="res://assets/environment/GridBasic.png" id="10_5ibri"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq6bo"]
+atlas = ExtResource("3_nl57n")
+region = Rect2(10, 2, 300, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgecn"]
+atlas = ExtResource("4_p5mr5")
+region = Rect2(48, 160, 112, 32)
+
+[sub_resource type="Animation" id="Animation_kxn0v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(285, 31)]
+}
+
+[sub_resource type="Animation" id="Animation_e7pcv"]
+resource_name = "crown_idle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(285, 31), Vector2(285, 25), Vector2(285, 31)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfg8m"]
+_data = {
+"RESET": SubResource("Animation_kxn0v"),
+"crown_idle": SubResource("Animation_e7pcv")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jenf"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(102, 153, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxyik"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(85, 153, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1q2wf"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(0, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lg08"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(255, 102, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwskr"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(306, 34, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t60si"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(323, 68, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7vev"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(340, 68, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbkmd"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(510, 68, 67, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0dal8"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(306, 51, 50, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw8yr"]
+atlas = ExtResource("10_5ibri")
+region = Rect2(0, 56, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iegq0"]
+atlas = ExtResource("10_5ibri")
+region = Rect2(0, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jxv1"]
+atlas = ExtResource("10_5ibri")
+region = Rect2(0, 168, 56, 56)
+
+[node name="TutorialMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ftbxm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WoodBackground" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(360, 290)
+texture = ExtResource("2_godni")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 31.0
+offset_right = 225.0
+offset_bottom = 216.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_qq6bo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -200.0
+offset_right = -80.0
+offset_bottom = -168.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.5, 3.5)
+texture = SubResource("AtlasTexture_pgecn")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.7143
+offset_top = -3.14283
+offset_right = 340.286
+offset_bottom = 73.8572
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.227451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("5_oiw05")
+theme_override_font_sizes/font_size = 60
+text = "CONTENDERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TutorialOptionsContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -64.0
+offset_right = 117.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionBorder" parent="CanvasLayer/TutorialOptionsContainer" instance=ExtResource("6_6ynae")]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+
+[node name="OptionText" parent="CanvasLayer/TutorialOptionsContainer/OptionBorder" index="0"]
+text = "controls"
+
+[node name="OptionBorder2" parent="CanvasLayer/TutorialOptionsContainer" instance=ExtResource("6_6ynae")]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+
+[node name="OptionText" parent="CanvasLayer/TutorialOptionsContainer/OptionBorder2" index="0"]
+text = "Tournament"
+
+[node name="OptionBorder3" parent="CanvasLayer/TutorialOptionsContainer" instance=ExtResource("6_6ynae")]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+
+[node name="OptionText" parent="CanvasLayer/TutorialOptionsContainer/OptionBorder3" index="0"]
+text = "Combat"
+
+[node name="OptionBorder4" parent="CanvasLayer/TutorialOptionsContainer" instance=ExtResource("6_6ynae")]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+
+[node name="OptionText" parent="CanvasLayer/TutorialOptionsContainer/OptionBorder4" index="0"]
+text = "Abilities"
+
+[node name="OptionBorder5" parent="CanvasLayer/TutorialOptionsContainer" instance=ExtResource("6_6ynae")]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+
+[node name="OptionText" parent="CanvasLayer/TutorialOptionsContainer/OptionBorder5" index="0"]
+text = "Terrain"
+
+[node name="CursorNode" parent="CanvasLayer" instance=ExtResource("7_7ycdn")]
+position = Vector2(465, 244)
+scale = Vector2(3, 3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+autoplay = "crown_idle"
+libraries = {
+"": SubResource("AnimationLibrary_lfg8m")
+}
+
+[node name="TutorialPages" type="NinePatchRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -360.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("8_y7jmu")
+patch_margin_left = 26
+patch_margin_top = 26
+patch_margin_right = 26
+patch_margin_bottom = 26
+
+[node name="ControlsPage" type="Control" parent="CanvasLayer/TutorialPages"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 360.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 23.0
+offset_right = 40.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_oiw05")
+theme_override_font_sizes/font_size = 33
+text = "Controls"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -304.0
+offset_top = 174.0
+offset_right = -110.0
+offset_bottom = 218.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_font_sizes/font_size = 33
+text = "Move"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.5
+offset_top = 147.0
+offset_right = 260.5
+offset_bottom = 191.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_font_sizes/font_size = 33
+text = "Accept"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -5.0
+offset_top = 299.0
+offset_right = 258.0
+offset_bottom = 343.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_font_sizes/font_size = 33
+text = "Back"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 219.0
+offset_right = 472.0
+offset_bottom = 259.0
+texture = SubResource("AtlasTexture_7jenf")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 363.0
+offset_right = 472.0
+offset_bottom = 403.0
+texture = SubResource("AtlasTexture_qxyik")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 350.0
+offset_right = 128.0
+offset_bottom = 390.0
+texture = SubResource("AtlasTexture_1q2wf")
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 350.0
+offset_right = 216.0
+offset_bottom = 390.0
+texture = SubResource("AtlasTexture_2lg08")
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 294.0
+offset_right = 104.0
+offset_bottom = 334.0
+texture = SubResource("AtlasTexture_mwskr")
+
+[node name="TextureRect8" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 219.0
+offset_right = 552.0
+offset_bottom = 259.0
+texture = SubResource("AtlasTexture_t60si")
+
+[node name="TextureRect9" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 363.0
+offset_right = 552.0
+offset_bottom = 403.0
+texture = SubResource("AtlasTexture_o7vev")
+
+[node name="TextureRect7" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 238.0
+offset_right = 248.0
+offset_bottom = 278.0
+texture = SubResource("AtlasTexture_xbkmd")
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 294.0
+offset_right = 248.0
+offset_bottom = 334.0
+texture = SubResource("AtlasTexture_0dal8")
+
+[node name="TournamentPage" type="Control" parent="CanvasLayer/TutorialPages"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 360.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="CanvasLayer/TutorialPages/TournamentPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 23.0
+offset_right = 40.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_oiw05")
+theme_override_font_sizes/font_size = 33
+text = "Tournament"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="CanvasLayer/TutorialPages/TournamentPage"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 64.0
+offset_top = 125.0
+offset_right = -80.0
+offset_bottom = 256.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 10
+text = "In tournament mode, you must form a team of 3 characters and face off in multiple battles to win. In each fight you will face different enemies. If you are defeated, you will have to start from the beginning. The winner of the tournament will become part of the royal squadron of the kingdom, enjoying a life of riches and privileges. May your luck be with you!"
+
+[node name="CombatPage" type="Control" parent="CanvasLayer/TutorialPages"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 360.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="CanvasLayer/TutorialPages/CombatPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 23.0
+offset_right = 40.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_oiw05")
+theme_override_font_sizes/font_size = 33
+text = "Combat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="CanvasLayer/TutorialPages/CombatPage"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 48.0
+offset_top = 98.0
+offset_right = -32.0
+offset_bottom = 512.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 10
+text = "In combat, the objective is to defeat all enemies by reducing their health to 0. Characters will take turns attacking. When the attack meter of one of the characters is completely full, their turn will begin. During their turn, characters can perform the following actions:
+
+- Move: The character can move to an adjacent empty square.
+
+- Attack: The character can attack an enemy within range. Reduces the enemy's health.
+
+- Abilities: The character can use an ability. Skills require energy to use and can have different effects.
+
+- Rest: The player ends his turn and regains some energy.
+
+When the player attacks, uses an ability or rests, his turn ends immediately. If he takes a move action, he may use a second action, after which his turn ends. 
+
+When all the characters of one of the teams are defeated, the battle ends."
+
+[node name="AbilitiesPage" type="Control" parent="CanvasLayer/TutorialPages"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 360.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 23.0
+offset_right = 40.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_oiw05")
+theme_override_font_sizes/font_size = 33
+text = "Abilities"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 48.0
+offset_top = 98.0
+offset_right = -32.0
+offset_bottom = 512.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 10
+text = "Abilities change from character to character and each has a purpose. To use an ability, an amount of energy is required and will be consumed when using it. Energy is recovered passively over time or by resting.
+Each skill has a range and can only be used on targets within the range. In addition, some abilities allow you to select the target of the ability, while others act on predetermined targets or all targets within range.
+Skills generally deal damage to the target. The damage will depend on the power of the ability and the attack of the character using it. However, they can also produce special effects. 
+This special effects are:
+- Increase / Decrease Attack
+- Increase / Decrease defense
+- Increase / Decrease Speed
+- Recover Health
+- Recover energy
+- Increase / Decrease Energy cost
+- Stun: The character can't move
+- Push an enemy to another position
+- Purify negative effects from characters
+"
+
+[node name="TerrainPage" type="Control" parent="CanvasLayer/TutorialPages"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 360.0
+offset_bottom = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.5
+offset_top = 23.0
+offset_right = 40.5
+offset_bottom = 57.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_oiw05")
+theme_override_font_sizes/font_size = 33
+text = "Terrain"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="RichTextLabel" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 48.0
+offset_top = 98.0
+offset_right = -32.0
+offset_bottom = 440.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("9_ycxka")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_separation = 10
+text = "Knowing how to take advantage of the combat terrain is key to winning battles. The position of each character determines the range of their abilities, so positioning them properly will allow you to attack the enemies you want.
+In addition, the column in which characters are placed alters their stats. The closer the character is to the enemy camp, the higher their attack power but the lower their defensive ability.
+During combat, some squares will change colour and become lucky squares. Characters that step on these squares will acquire special effects that they will keep until they move or the lucky square disappears. 
+
+The possible effects of these squares are:
+- Heart: The character gains some heatlh at the end of the turn
+- Thunder:
+- Clover: The character gains 50% chance of a critical hit"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -144.0
+offset_right = -88.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_qw8yr")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -144.0
+offset_right = 40.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_iegq0")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 88.0
+offset_top = -144.0
+offset_right = 168.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_1jxv1")
+
+[editable path="CanvasLayer/TutorialOptionsContainer/OptionBorder"]
+[editable path="CanvasLayer/TutorialOptionsContainer/OptionBorder2"]
+[editable path="CanvasLayer/TutorialOptionsContainer/OptionBorder3"]
+[editable path="CanvasLayer/TutorialOptionsContainer/OptionBorder4"]
+[editable path="CanvasLayer/TutorialOptionsContainer/OptionBorder5"]
