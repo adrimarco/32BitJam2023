@@ -2,17 +2,17 @@ class_name AbilityEffectsContainer
 extends Node
 
 var EffectSprites:Array[Rect2] = [
-	Rect2(0 , 0 , 32, 32),
-	Rect2(32, 0 , 32, 32),
-	Rect2(64, 0 , 32, 32),
-	Rect2(96, 0 , 32, 32),
-	Rect2(0 , 32, 32, 32),
-	Rect2(32, 32, 32, 32),
-	Rect2(64, 32, 32, 32),
-	Rect2(96, 32, 32, 32),
-	Rect2(0 , 64, 32, 32),
-	Rect2(32, 64, 32, 32),
-	Rect2(64, 64, 32, 32)
+	Rect2(0 , 0 , 32, 32), # Inc Attk
+	Rect2(0 , 32, 32, 32), # Inc Def
+	Rect2(64, 0 , 32, 32), # Inc Spd
+	Rect2(32, 0 , 32, 32), # Dec Atk
+	Rect2(32, 32, 32, 32), # Dec Def
+	Rect2(96, 0 , 32, 32), # Dec Spd
+	Rect2(0 , 64, 32, 32), # Inc MP cost
+	Rect2(32, 64, 32, 32), # Dec MP cost
+	Rect2(96, 32, 32, 32), # Stun
+	Rect2(64, 32, 32, 32), # Luck
+	Rect2(64, 64, 32, 32)  # Steal hp
 ]
 
 var negative_effects := [	AbilityEffect.EffectType.DecAtk, AbilityEffect.EffectType.DecDef,

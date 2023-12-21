@@ -356,18 +356,23 @@ func update_effects_duration(duration_type:AbilityEffect.DurationType, value:flo
 		i += 1
 	
 func show_effects_icons():
+	if current_effects.size() > 0:
+		effectListBG.visible = true
+	else:
+		effectListBG.visible = false
+	
 	for eff in current_effects:
 		var rectSprite = EffectsContainer.EffectSprites[eff.type]
-#		var texture_atlas = AtlasTexture.new()
-#		texture_atlas.atlas  = preload("res://assets/characters/effects.png")
-#		texture_atlas.region = rectSprite
 		for effIcon in effect_icons:
 			effIcon.queue_free()
 			effect_icons.erase(effIcon)
 
 		var new_sprite = effectListSpriteBase.duplicate()
 		new_sprite.visible = true
-		new_sprite.texture.region = rectSprite
+		var texture_atlas = AtlasTexture.new()
+		texture_atlas.atlas  = preload("res://assets/characters/effects.png")
+		texture_atlas.region = rectSprite
+		new_sprite.texture = texture_atlas
 		effect_icons.append(new_sprite)
 		var bg_width = effectListBG.texture.width
 		
