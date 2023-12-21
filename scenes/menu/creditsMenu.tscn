@@ -1,0 +1,337 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvgmibqj8yduk"]
+
+[ext_resource type="Script" path="res://scenes/menu/creditsMenu.gd" id="1_d0s24"]
+[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
+[ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="2_06qs2"]
+[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_24jn4"]
+[ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]
+
+[node name="creditsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d0s24")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -360.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("1_mlf4r")
+patch_margin_left = 26
+patch_margin_top = 26
+patch_margin_right = 26
+patch_margin_bottom = 26
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 10.5
+offset_right = 41.0
+offset_bottom = 44.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_06qs2")
+theme_override_font_sizes/font_size = 25
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EATitle" type="Label" parent="NinePatchRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.5
+offset_top = 47.5
+offset_right = 80.5
+offset_bottom = 64.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+text = "External assets"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CursorNodeLeft" parent="NinePatchRect" instance=ExtResource("5_you28")]
+visible = false
+position = Vector2(44, 256)
+scale = Vector2(2, 2)
+
+[node name="CursorNodeRight" parent="NinePatchRect" instance=ExtResource("5_you28")]
+visible = false
+position = Vector2(316, 256)
+scale = Vector2(-2, -2)
+
+[node name="FirstPage" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -75.0
+offset_right = 1.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Label2" type="Label" parent="FirstPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.5
+offset_right = 52.5
+offset_bottom = 17.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+text = "Created by"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="FirstPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.5
+offset_top = 20.0
+offset_right = 63.5
+offset_bottom = 37.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 8
+text = "Angel Robles"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="FirstPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_top = 35.0
+offset_right = 66.0
+offset_bottom = 52.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 8
+text = "Adrian marco"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="FirstPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = 65.0
+offset_right = 80.0
+offset_bottom = 82.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 8
+text = "made with godot"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SecondPage" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -102.0
+offset_right = 20.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label8" type="Label" parent="SecondPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.5
+offset_top = -40.0
+offset_right = 86.5
+offset_bottom = -8.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Music
+from Itch.io"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label10" type="Label" parent="SecondPage/Label8"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.5
+offset_top = 40.5
+offset_right = 68.5
+offset_bottom = 62.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "alkakrab"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label9" type="Label" parent="SecondPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -119.5
+offset_top = 47.0
+offset_right = 119.5
+offset_bottom = 79.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Fonts
+from dafont.com"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label10" type="Label" parent="SecondPage/Label9"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -283.5
+offset_top = 40.5
+offset_right = 292.5
+offset_bottom = 72.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Medieval Sharp by Wojciech Kalinowski
+Marietta Seven by Steve Cochrane"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="SecondPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -85.0
+offset_top = 154.0
+offset_right = 88.0
+offset_bottom = 186.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Models
+from Itch.io"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label10" type="Label" parent="SecondPage/Label7"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -217.5
+offset_top = 40.0
+offset_right = 214.5
+offset_bottom = 76.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Medieval Voxel Assets 
+by Felix Munoz (felixstrefter)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThirdPage" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -106.0
+offset_right = 20.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label6" type="Label" parent="ThirdPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -85.0
+offset_top = -5.0
+offset_right = 88.0
+offset_bottom = 27.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Textures 
+from Itch.io"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label10" type="Label" parent="ThirdPage/Label6"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = 26.0
+offset_right = 310.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "oco
+chierit
+bdragon1727
+Kyrise's Free 16x16 RPG Icon Pack by Kyrise"
+horizontal_alignment = 1
+vertical_alignment = 1

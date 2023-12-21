@@ -1,9 +1,58 @@
-[gd_scene load_steps=5 format=3 uid="uid://v4mgg56d867k"]
+[gd_scene load_steps=13 format=3 uid="uid://v4mgg56d867k"]
 
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="1_b046y"]
 [ext_resource type="Script" path="res://scenes/menu/MainMenu.gd" id="1_jornw"]
-[ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="2_lpg4m"]
-[ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="2_xn7ja"]
+[ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="2_lpg4m"]
+[ext_resource type="Texture2D" uid="uid://4fj4hj1h03bp" path="res://assets/menu/TournamentBoard.png" id="3_bcavr"]
+[ext_resource type="Texture2D" uid="uid://bvqwlu6j8atvt" path="res://assets/borders/09.png" id="3_cw87i"]
+[ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_pk1y7"]
+[ext_resource type="PackedScene" uid="uid://csmnqols32khu" path="res://scenes/menu/menuOptionBox.tscn" id="5_tt44t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qq6bo"]
+atlas = ExtResource("3_bcavr")
+region = Rect2(10, 2, 300, 185)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgecn"]
+atlas = ExtResource("3_cw87i")
+region = Rect2(48, 160, 112, 32)
+
+[sub_resource type="Animation" id="Animation_e7pcv"]
+resource_name = "crown_idle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(285, 31), Vector2(285, 25), Vector2(285, 31)]
+}
+
+[sub_resource type="Animation" id="Animation_kxn0v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(285, 31)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lfg8m"]
+_data = {
+"RESET": SubResource("Animation_kxn0v"),
+"crown_idle": SubResource("Animation_e7pcv")
+}
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -20,20 +69,57 @@ script = ExtResource("1_jornw")
 position = Vector2(361, 291)
 texture = ExtResource("2_lpg4m")
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -189.0
-offset_top = 80.0
-offset_right = 189.0
-offset_bottom = 157.0
+offset_left = 285.0
+offset_top = 31.0
+offset_right = 585.0
+offset_bottom = 216.0
 grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_qq6bo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -200.0
+offset_right = -80.0
+offset_bottom = -168.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.5, 3.5)
+texture = SubResource("AtlasTexture_pgecn")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.7143
+offset_top = -3.14283
+offset_right = 340.286
+offset_bottom = 73.8572
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.960784, 0.784314, 0.227451, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_b046y")
 theme_override_font_sizes/font_size = 60
 text = "CONTENDERS"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionsContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
@@ -48,20 +134,37 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TournamentOption" type="Label" parent="CanvasLayer/OptionsContainer"]
+[node name="OptionBorder" parent="CanvasLayer/OptionsContainer" instance=ExtResource("5_tt44t")]
+custom_minimum_size = Vector2(90, 40)
 layout_mode = 2
-theme = ExtResource("2_xn7ja")
-theme_override_font_sizes/font_size = 16
-text = "TOURNAMENT"
 
-[node name="TutorialOption" type="Label" parent="CanvasLayer/OptionsContainer"]
-layout_mode = 2
-theme = ExtResource("2_xn7ja")
-theme_override_font_sizes/font_size = 16
-text = "TUTORIAL"
+[node name="OptionText" parent="CanvasLayer/OptionsContainer/OptionBorder" index="0"]
+text = "Tournament"
 
-[node name="CreditsOption" type="Label" parent="CanvasLayer/OptionsContainer"]
+[node name="OptionBorder2" parent="CanvasLayer/OptionsContainer" instance=ExtResource("5_tt44t")]
+custom_minimum_size = Vector2(90, 40)
 layout_mode = 2
-theme = ExtResource("2_xn7ja")
-theme_override_font_sizes/font_size = 16
-text = "CREDITS"
+
+[node name="OptionText" parent="CanvasLayer/OptionsContainer/OptionBorder2" index="0"]
+text = "Tutorial"
+
+[node name="OptionBorder3" parent="CanvasLayer/OptionsContainer" instance=ExtResource("5_tt44t")]
+custom_minimum_size = Vector2(90, 40)
+layout_mode = 2
+
+[node name="OptionText" parent="CanvasLayer/OptionsContainer/OptionBorder3" index="0"]
+text = "Credits"
+
+[node name="CursorNode" parent="CanvasLayer" instance=ExtResource("5_pk1y7")]
+position = Vector2(465, 244)
+scale = Vector2(3, 3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+autoplay = "crown_idle"
+libraries = {
+"": SubResource("AnimationLibrary_lfg8m")
+}
+
+[editable path="CanvasLayer/OptionsContainer/OptionBorder"]
+[editable path="CanvasLayer/OptionsContainer/OptionBorder2"]
+[editable path="CanvasLayer/OptionsContainer/OptionBorder3"]
