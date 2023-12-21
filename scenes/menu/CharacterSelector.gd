@@ -1,13 +1,18 @@
 class_name CharacterSelector
 extends Control
 
+signal team_selected(characters_names:Array[String])
+signal exit_character_selector
+
+static var TEAM_SIZE				= 3
+
 @onready var options_container		:= $CanvasLayer/OptionsContainer
 @onready var character_viewer		:= $CanvasLayer/CharacterViewer
 
 var option_scene			:= preload("res://scenes/menu/CharSelectorOption.tscn")
 
 var characters_available	:Array[Character]
-var characters_selected		:Array[Character]
+var characters_selected		:Array[int]
 var focus_index				:int
 var container_columns		:int
 
@@ -57,7 +62,35 @@ func _process(_delta):
 			select_previous_vertical()
 		elif Input.is_action_just_pressed("move_down"):
 			select_next_vertical()
-	pass
+		elif Input.is_action_just_pressed("action_back"):
+			if characters_selected.is_empty():
+				exit_character_selector.emit()
+			else:
+				unselect_last_character()
+		elif Input.is_action_just_pressed("action_accept"):
+			if characters_selected.size() >= TEAM_SIZE:
+				team_selection_finished()
+			else:
+				select_current_character()
+		
+
+func select_current_character():
+	if focus_index < 0 or focus_index >= options_container.get_child_count():
+		return
+	
+	var option_selected := options_container.get_child(focus_index)
+
+	if not option_selected.option_value in characters_selected:
+		characters_selected.append(option_selected.option_value)
+		update_focus()
+	
+
+func unselect_last_character():
+	if characters_selected.is_empty():
+		return
+	
+	characters_selected.pop_back()
+	update_focus()
 
 func select_next_horizontal():
 	if (focus_index+1) % container_columns == 0 or (focus_index + 1) >= characters_available.size():
@@ -86,3 +119,17 @@ func select_previous_vertical():
 	
 	focus_index -= container_columns
 	update_focus()
+
+func team_selection_finished():
+	if characters_selected.is_empty():
+		return
+	
+	var characters_names :Array[String] = []
+	for ch_index in characters_selected:
+		if ch_index >= 0 and ch_index < options_container.get_child_count():
+			# Get the character from the list and save their name
+			var option 	:= options_container.get_child(ch_index)
+			var ch 		:= characters_available[option.option_value]
+			characters_names.append(ch.character_name)
+		
+	team_selected.emit(characters_names)
