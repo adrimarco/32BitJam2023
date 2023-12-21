@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c07o6mghq1f6f"]
+
+[ext_resource type="Script" path="res://scenes/AudioPlayer.gd" id="1_pbmk0"]
+
+[sub_resource type="Animation" id="Animation_vyfsy"]
+resource_name = "fade"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ky0qf"]
+_data = {
+"fade": SubResource("Animation_vyfsy")
+}
+
+[node name="AudioPlayer" type="Node"]
+script = ExtResource("1_pbmk0")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Music")
+libraries = {
+"": SubResource("AnimationLibrary_ky0qf")
+}
+
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

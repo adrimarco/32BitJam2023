@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://b5oy4gw680ee7"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_rf8fs"]
-[ext_resource type="PackedScene" uid="uid://qp0jsmgmgjdf" path="res://scenes/abilities/Basic_Sword.tscn" id="2_1hldd"]
+[ext_resource type="PackedScene" uid="uid://b3eslhu1uttey" path="res://scenes/abilities/Basic_Ray.tscn" id="2_srexr"]
 [ext_resource type="PackedScene" uid="uid://n12n4rl5u6ij" path="res://scenes/abilities/Judgment.tscn" id="3_eft06"]
 [ext_resource type="PackedScene" uid="uid://wdwxqal655pd" path="res://scenes/abilities/Oath.tscn" id="4_vpbbe"]
 [ext_resource type="PackedScene" uid="uid://bnjkyqudyndvx" path="res://scenes/abilities/RoyalGuard.tscn" id="5_hohjo"]
@@ -24,7 +24,7 @@ atk = 30
 dfn = 18
 spd = 9.0
 character_name = "THE KING"
-basicAttackScene = ExtResource("2_1hldd")
+basicAttackScene = ExtResource("2_srexr")
 abilitiesScene = Array[PackedScene]([ExtResource("3_eft06"), ExtResource("4_vpbbe"), ExtResource("5_hohjo"), ExtResource("6_jt6fv")])
 aggressivity = 60
 

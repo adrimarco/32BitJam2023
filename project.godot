@@ -22,6 +22,7 @@ BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 EffectsContainer="*res://scenes/battle/AbilityEffects_Container.gd"
 CharactersContainer="*res://scenes/characters/CharacterContainer.gd"
+AudioPlayerInstance="*res://scenes/AudioPlayer.tscn"
 
 [display]
 

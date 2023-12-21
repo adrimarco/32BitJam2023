@@ -11,6 +11,8 @@ static var CHARACTERS_PER_TEAM			:= 3
 @onready var aiManager:AIManager		= $SubViewportContainer/SubViewport/aiManager
 @onready var timer						:= $SubViewportContainer/SubViewport/Timer
 
+var sfx					:Array = [	preload("res://assets/music_sfx/Victory.ogg"),
+									preload("res://assets/music_sfx/Death.ogg")]
 var attacking_character	:Character
 var player_character	:bool
 var actions_remaining 	:int
@@ -59,7 +61,6 @@ func _ready():
 	movement_ability.target_type = Ability.TargetTypes.Selection
 	movement_ability.target_enemy_team = false
 	############################
-	
 
 func bind_characters_signals():
 	var characters := battlefield.get_all_characters()
@@ -73,6 +74,7 @@ func start_battle():
 	aiManager.initCharacterList()
 	
 	battlefield.start_battle()
+	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.BATTLE_MUSIC)
 
 func set_battle_teams(player_team:Array[int], enemy_team:Array[int]):
 	# Load characters into battlefield
@@ -294,7 +296,14 @@ func resolve_immediate_effect(ch:Character, effect:AbilityEffect):
 		ch.remove_negative_effects()
 
 func end_battle(player_win:bool):
+	battlefield.stop_battle()
+	actionMenu.hideActionMenu()
+	actionMenu.disable_input()
+	AudioPlayerInstance.stop_music()
+	
 	if player_win:
+		await AudioPlayerInstance.play_sound_effet(sfx[0]).finished
 		player_win_battle.emit()
 	else:
+		await AudioPlayerInstance.play_sound_effet(sfx[1]).finished
 		player_loose_battle.emit()

@@ -112,6 +112,11 @@ func attack_finished():
 	
 	return
 
+func stop_battle():
+	attack_cue.clear()
+	character_attacking = true
+	stop_preparing_attacks.emit()
+
 func character_died(ch:Character):
 	var character_data	:CharacterData = null
 	

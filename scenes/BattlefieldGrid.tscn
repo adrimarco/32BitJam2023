@@ -13,6 +13,5 @@ texture = ExtResource("2_tisgx")
 
 [node name="LuckyTimer" type="Timer" parent="."]
 wait_time = 8.0
-autostart = true
 
 [connection signal="timeout" from="LuckyTimer" to="." method="change_lucky_tiles"]
