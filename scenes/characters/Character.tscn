@@ -49,6 +49,7 @@ transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0.0306174)
 
 [node name="SpriteBG" type="Sprite3D" parent="EffectList"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+visible = false
 texture = SubResource("GradientTexture2D_rs5lg")
 
 [node name="SpriteBase" type="Sprite3D" parent="EffectList"]
