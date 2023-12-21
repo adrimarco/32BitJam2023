@@ -51,6 +51,7 @@ func _ready():
 	
 
 func play_tournament_board_animation():
+	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.MENU_MUSIC)
 	anim_player.play("show_board")
 	await anim_player.animation_finished
 	
