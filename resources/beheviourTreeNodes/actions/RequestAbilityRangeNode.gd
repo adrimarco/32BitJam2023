@@ -7,6 +7,12 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 	var moveTiles:RangeFunctions.TileCollection = blackboard.get_value("tilesMovement")
 	var decisionWeightsAttack:Array = blackboard.get_value("decisionWeightsAttack")
 	
+	#########################
+#	var attackTiles1 = battleManager.request_attack_range_for_enemy(actor, actor.grid_position, actor.abilities[1])
+#	decisionWeightsAttack.append([actor.abilities[1], attackTiles1.tiles.size(), actor.grid_position])
+#	return SUCCESS
+	#########################
+	
 	for ab in actor.abilities:
 		# check all movements for each ability
 		if !moveTiles:

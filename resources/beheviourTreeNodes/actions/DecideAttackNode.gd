@@ -59,7 +59,7 @@ func selectRandomAbility(actor:Character, decisionWeightsAttack):
 	if possibleAbilities.size() > 0:
 		var rIdx = rng.randi_range(0, possibleAbilities.size()-1)
 		return possibleAbilities[rIdx]
-	
+		
 	# Check enemy basic attack
 	var weightAtt = searchAbilityDecisionWeights(actor.basic_attack, decisionWeightsAttack)
 	if weightAtt.size() <= 0:
