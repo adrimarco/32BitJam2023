@@ -1,17 +1,17 @@
 [gd_scene load_steps=43 format=3 uid="uid://dn71qavv4fgvm"]
 
 [ext_resource type="Script" path="res://scenes/menu/tutorialMenu.gd" id="1_ftbxm"]
-[ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="2_godni"]
-[ext_resource type="Texture2D" uid="uid://4fj4hj1h03bp" path="res://assets/menu/TournamentBoard.png" id="3_nl57n"]
-[ext_resource type="Texture2D" uid="uid://bvqwlu6j8atvt" path="res://assets/borders/09.png" id="4_p5mr5"]
+[ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="2_godni"]
+[ext_resource type="Texture2D" uid="uid://b0lowrmrk8uco" path="res://assets/menu/TournamentBoard.png" id="3_nl57n"]
+[ext_resource type="Texture2D" uid="uid://bkisaw1ge0anw" path="res://assets/borders/09.png" id="4_p5mr5"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="5_oiw05"]
 [ext_resource type="PackedScene" uid="uid://csmnqols32khu" path="res://scenes/menu/menuOptionBox.tscn" id="6_6ynae"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="7_7ycdn"]
-[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="8_y7jmu"]
-[ext_resource type="Texture2D" uid="uid://6dygkf4qv21c" path="res://assets/menu/tilemap.png" id="9_68bpf"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="8_y7jmu"]
+[ext_resource type="Texture2D" uid="uid://bm4ivrkhtmmei" path="res://assets/menu/tilemap.png" id="9_68bpf"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="9_ycxka"]
 [ext_resource type="Texture2D" uid="uid://dl7rm4bua6ojf" path="res://assets/environment/GridBasic.png" id="10_5ibri"]
-[ext_resource type="Texture2D" uid="uid://ngt1glemrab2" path="res://assets/characters/effects.png" id="11_yrhvp"]
+[ext_resource type="Texture2D" uid="uid://colbfrpomybp0" path="res://assets/characters/effects.png" id="11_yrhvp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qq6bo"]
 atlas = ExtResource("3_nl57n")
@@ -648,7 +648,7 @@ This special effects are:
 		Increase / Decrease Attack
 		Increase / Decrease defense
 		Increase / Decrease Speed
-		Stun: The character can not move
+		Stun: The character cannot move
 		Increase ability cost
 		Recover Health
 		Recover energy

@@ -2,9 +2,9 @@
 
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="1_b046y"]
 [ext_resource type="Script" path="res://scenes/menu/MainMenu.gd" id="1_jornw"]
-[ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="2_lpg4m"]
-[ext_resource type="Texture2D" uid="uid://4fj4hj1h03bp" path="res://assets/menu/TournamentBoard.png" id="3_bcavr"]
-[ext_resource type="Texture2D" uid="uid://bvqwlu6j8atvt" path="res://assets/borders/09.png" id="3_cw87i"]
+[ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="2_lpg4m"]
+[ext_resource type="Texture2D" uid="uid://b0lowrmrk8uco" path="res://assets/menu/TournamentBoard.png" id="3_bcavr"]
+[ext_resource type="Texture2D" uid="uid://bkisaw1ge0anw" path="res://assets/borders/09.png" id="3_cw87i"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_pk1y7"]
 [ext_resource type="PackedScene" uid="uid://csmnqols32khu" path="res://scenes/menu/menuOptionBox.tscn" id="5_tt44t"]
 
@@ -73,9 +73,9 @@ texture = ExtResource("2_lpg4m")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 285.0
+offset_left = -75.0
 offset_top = 31.0
-offset_right = 585.0
+offset_right = 225.0
 offset_bottom = 216.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)

@@ -100,7 +100,7 @@ func load_battle():
 		
 		camera.enabled = false
 		get_tree().get_root().add_child(battle_node)
-		battle_node.set_battle_teams([1, 1, 1], enemy_team)
+		battle_node.set_battle_teams(player_characters, enemy_team)
 		fade_screen(false)
 		battle_node.start_battle()
 	
