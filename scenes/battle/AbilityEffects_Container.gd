@@ -15,6 +15,7 @@ var EffectSprites:Array[Rect2] = [
 	Rect2(96, 32, 32, 32), # Stun
 	Rect2(0 , 0 , 0 , 0 ), # push back
 	Rect2(0 , 0 , 0 , 0 ), # push front
+	Rect2(0 , 0 , 0 , 0 ), # Purify
 	Rect2(64, 32, 32, 32), # Luck
 	Rect2(64, 64, 32, 32)  # Steal hp
 ]

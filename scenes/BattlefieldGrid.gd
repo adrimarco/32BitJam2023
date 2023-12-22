@@ -30,6 +30,10 @@ func _ready():
 	# Destroy sample texture
 	$Sample.queue_free()
 	
+	# Init timer
+	lucky_timer.start()
+	pause_lucky_timer()
+	
 	rows = maxi(rows, 1)
 	columns = maxi(columns, 1)
 	
@@ -253,4 +257,4 @@ func pause_lucky_timer():
 	lucky_timer.set_paused(true)
 
 func unpause_lucky_timer():
-	lucky_timer.set_paused(false)	
+	lucky_timer.set_paused(false)

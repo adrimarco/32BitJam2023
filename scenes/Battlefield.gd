@@ -45,10 +45,6 @@ func start_battle():
 	if not check_game_over():
 		resume_preparing_attacks.emit()
 
-func _process(_delta):
-	return
-	
-
 func character_ready_to_attack(ready_character:Character):
 	# Stop attack meters
 	stop_preparing_attacks.emit()

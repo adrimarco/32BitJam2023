@@ -369,8 +369,8 @@ func show_effects_icons():
 		effectListBG.visible = false
 	
 	for effIcon in effect_icons:
-			effIcon.queue_free()
-			effect_icons.erase(effIcon)
+		effIcon.queue_free()
+	effect_icons.clear()
 	
 	for eff in current_effects:
 		var rectSprite:Rect2 = EffectsContainer.EffectSprites[eff.type]
@@ -385,32 +385,19 @@ func show_effects_icons():
 		texture_atlas.region = rectSprite
 		new_sprite.texture = texture_atlas
 		effect_icons.append(new_sprite)
-		var bg_width = effectListBG.texture.width
 		
-		# Increase background size to fit all icons
-		if effect_icons.size() - bg_width / 32 > 0:
-			effectListBG.texture.width = effect_icons.size() * 32
-		
-		bg_width = effectListBG.texture.width
-		# Change icon sprites position to the bg center
-		
-		if effect_icons.size() % 2 != 0:
-			# odd
-			var center_index:int = floor(effect_icons.size() / 2.0)
-			for sIndex in effect_icons.size():
-				print(Vector3(-0.16*(center_index - sIndex), 0, 0).x)
-				new_sprite.position += Vector3(-0.16*(center_index - sIndex), 0, 0)
-				
-		else:
-			# even
-			var left_index:int  = floor(effect_icons.size() / 2.0)
-			var right_index:int = ceil(effect_icons.size() / 2.0)
-			for sIndex in effect_icons.size():
-				if sIndex < left_index:
-					new_sprite.position += Vector3(-0.08 -0.16 * (left_index - sIndex), 0, 0)
-				elif right_index < sIndex:
-					new_sprite.position += Vector3(+0.08 +0.16 * (right_index - sIndex), 0, 0)
-					
+	# Increase background size to fit all icons
+	effectListBG.scale.x = effect_icons.size() + 0.4
+	
+	# Calculate first icon position
+	var x_pos:float = (effect_icons.size()/2) * -0.32
+	if effect_icons.size() % 2 != 0:
+		x_pos -= 0.16
+	
+	for icon in effect_icons:
 		# Add sprite to the scene
-		effectListNode.add_child(new_sprite)
+		icon.position += Vector3(x_pos, 0, 0)
+		effectListNode.add_child(icon)
+		
+		x_pos += 0.32
 	
