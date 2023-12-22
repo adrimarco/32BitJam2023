@@ -180,6 +180,7 @@ func check_remaining_actions(actions_consumed:int):
 	if player_character:
 		actionMenu._storeCharacterAttacking(attacking_character)
 		actionMenu.disable_input()
+		actionMenu.hide_action_info_text()
 	else:
 		ai_limit_timer.stop()
 	

@@ -22,16 +22,17 @@ var selected:int 	= 0
 var cursorPosition:Vector2 = Vector2(150, 16)
 var cursorPositionOffset:int = 36
 var fightOptionsCount:int = 4
-@onready var cursorActionMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode
-@onready var cursorAbilityMenu = $ColorRect/AbilityTab/CursorNode
-@onready var fightOptionsMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu
-@onready var movementOption = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/VBoxContainer/OptionBorder
+@onready var actionInfoText 	= $actionInfoText
+@onready var cursorActionMenu 	= $ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode
+@onready var cursorAbilityMenu 	= $ColorRect/AbilityTab/CursorNode
+@onready var fightOptionsMenu 	= $ColorRect/MainActionMenu/Border2/fightOptionsMenu
+@onready var movementOption 	= $ColorRect/MainActionMenu/Border2/fightOptionsMenu/VBoxContainer/OptionBorder
 
-@onready var abilityDescText = $ColorRect/AbilityTab/AbilityDescBorder/AbilityDesc
-@onready var abilityPowerValue = $ColorRect/AbilityTab/AbilityDescBorder/AbilityPowerBorder/AbilityPowerValue
-@onready var abilityPMValue = $ColorRect/AbilityTab/AbilityDescBorder/AbilityPMBorder/AbilityPMValue
-@onready var abilityTab = $ColorRect/AbilityTab
-@onready var abilityNameList = $ColorRect/AbilityTab/AbilityNameBorder/AbilityNameList
+@onready var abilityDescText 	= $ColorRect/AbilityTab/AbilityDescBorder/AbilityDesc
+@onready var abilityPowerValue 	= $ColorRect/AbilityTab/AbilityDescBorder/AbilityPowerBorder/AbilityPowerValue
+@onready var abilityPMValue 	= $ColorRect/AbilityTab/AbilityDescBorder/AbilityPMBorder/AbilityPMValue
+@onready var abilityTab 		= $ColorRect/AbilityTab
+@onready var abilityNameList 	= $ColorRect/AbilityTab/AbilityNameBorder/AbilityNameList
 var optionBox = preload("res://scenes/menu/menuOptionBox.tscn")
 
 #const MAX_ABILITIES:int = 7
@@ -87,6 +88,7 @@ func _process(_delta):
 	# Update UI data
 	for index in range(characterDisplays.size()):
 		if resetTimerBarColor && !characterRefAttacking:
+			hide_action_info_text()
 			characterDisplays[index].changeModulateColor(TURNBAR_NORMAL_COLOR)
 			resetTimerBarColor = false
 		if characterRefAttacking != playerCharacters[index]:
@@ -127,12 +129,14 @@ func checkAbilityTabInput():
 			requestUnmarkRange.emit()
 	elif Input.is_action_just_pressed("action_accept"):
 		disable_input()
+		show_action_info_text(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 		characterAbility.emit(characterRefAttacking, getAbilityFromIndex(characterRefAttacking, abilitySelection))
 
 func hideActionMenu():
 	changeNodeVisibility(fightOptionsMenu, false)
 
 func hoverAbility():
+	hide_action_info_text()
 	if not abilityTabActive:
 		return
 	
@@ -149,9 +153,11 @@ func hoverAbility():
 func optionSelected():
 	if   selected == 0:
 		disable_input()
+		show_action_info_text(null)
 		characterMove.emit(characterRefAttacking)
 	elif selected == 1:
 		disable_input()
+		show_action_info_text(characterRefAttacking.basic_attack)
 		characterAttack.emit(characterRefAttacking)
 	elif selected == 2:
 		showAbilityMenu(true)
@@ -160,6 +166,18 @@ func optionSelected():
 	elif selected == 3:
 		characterRest.emit()
 		
+
+func show_action_info_text(ab:Ability):
+	if !ab:
+		actionInfoText.set_text_info(actionInfoText.InfoActionIndex.SELECT_TARGET)
+	elif ab.target_type == Ability.TargetTypes.Selection:
+		actionInfoText.set_text_info(actionInfoText.InfoActionIndex.SELECT_TARGET)
+	else:
+		actionInfoText.set_text_info(actionInfoText.InfoActionIndex.CONFIRM_ACTION)
+	actionInfoText.show()
+
+func hide_action_info_text():
+	actionInfoText.hide()
 
 func printcharacterAbilities(ch:Character) -> void:
 	# Store abilities count in characterAbilitiesCount
@@ -220,6 +238,7 @@ func _storeCharacterAttacking(ch:Character) -> void:
 		movementOption.modulate = ABILITY_BLOCK_COLOR
 	else:
 		movementOption.modulate = NORMAL_COLOR
+		
 	set_input_enabled()
 	showAbilityMenu(false)
 

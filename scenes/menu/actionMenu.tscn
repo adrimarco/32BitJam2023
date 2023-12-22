@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://22fxpqk40s2a"]
+[gd_scene load_steps=8 format=3 uid="uid://22fxpqk40s2a"]
 
 [ext_resource type="Script" path="res://scenes/menu/actionMenu.gd" id="1_hdtqw"]
 [ext_resource type="PackedScene" uid="uid://bsr1gjomei63r" path="res://scenes/menu/fightOptionsMenu.tscn" id="2_1k4k4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="4_3y62b"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_5kiqq"]
 [ext_resource type="Texture2D" uid="uid://v36bljnf66pv" path="res://assets/menu/spritesMenu.png" id="5_65ii2"]
+[ext_resource type="PackedScene" uid="uid://bb7t6c0ujgx2o" path="res://scenes/menu/actionInfoText.tscn" id="7_qmtsu"]
 
 [node name="actionMenu" type="Control"]
 layout_mode = 3
@@ -263,3 +264,6 @@ vertical_alignment = 1
 [node name="CursorNode" parent="ColorRect/AbilityTab" instance=ExtResource("5_5kiqq")]
 position = Vector2(229, 41)
 scale = Vector2(1.9, 1.9)
+
+[node name="actionInfoText" parent="." instance=ExtResource("7_qmtsu")]
+layout_mode = 1
