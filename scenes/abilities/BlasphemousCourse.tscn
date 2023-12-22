@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://be87og7ow28fi"]
+[gd_scene load_steps=3 format=3 uid="uid://be87og7ow28fi"]
 
 [ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_80nr3"]
+[ext_resource type="SpriteFrames" uid="uid://co7igwj16u0do" path="res://resources/spriteFrames/abilitiesFrames/shadowCast.tres" id="2_etj0k"]
 
 [node name="Ability" instance=ExtResource("1_80nr3")]
 ability_name = "Blasphemous curse"
@@ -14,3 +15,7 @@ priority_func_name = &"closest_character_from_back_on_each_row"
 target_effc_type = Array[int]([3, 8])
 target_effc_value = Array[float]([30.0, 40.0])
 target_effc_dur = Array[float]([2.0, 2.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_etj0k")
+frame = 20

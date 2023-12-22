@@ -1,0 +1,60 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://2nvouj3i2d5t"]
+
+[ext_resource type="Texture2D" uid="uid://df4api8dfdrxo" path="res://assets/abilities/Air Burst.png" id="1_kxbib"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtp5c"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndo7l"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgmbp"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8icd"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l73lg"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai6sy"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7ct5"]
+atlas = ExtResource("1_kxbib")
+region = Rect2(0, 96, 48, 48)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtp5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndo7l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgmbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8icd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l73lg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ai6sy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7ct5")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}]
