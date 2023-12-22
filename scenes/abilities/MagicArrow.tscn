@@ -11,6 +11,9 @@ cost = 30
 target_enemy_team = true
 target_type = 1
 ability_range_name = &"surrounding_tiles_at_three_or_less"
+target_effc_type = Array[int]([8])
+target_effc_value = Array[float]([30.0])
+target_effc_dur = Array[float]([2.0])
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_xige7")

@@ -5,15 +5,15 @@
 [ext_resource type="SpriteFrames" uid="uid://3pg5717b1xwl" path="res://resources/spriteFrames/dude.tres" id="2_yfpe4"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="4_15rmt"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="5_3hqlp"]
-[ext_resource type="Texture2D" uid="uid://colbfrpomybp0" path="res://assets/characters/effects.png" id="6_4qrr4"]
+[ext_resource type="Texture2D" uid="uid://ngt1glemrab2" path="res://assets/characters/effects.png" id="6_4qrr4"]
 
 [sub_resource type="Gradient" id="Gradient_vyn0c"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 0.462745)
+colors = PackedColorArray(0, 0, 0, 0.67451)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_rs5lg"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yeshv"]
 gradient = SubResource("Gradient_vyn0c")
-width = 128
+width = 32
 height = 32
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_alvk1"]
@@ -68,14 +68,15 @@ script = ExtResource("5_3hqlp")
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0.0306174)
 
 [node name="SpriteBG" type="Sprite3D" parent="EffectList"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 0.2, 0)
 visible = false
-texture = SubResource("GradientTexture2D_rs5lg")
+billboard = 1
+texture = SubResource("GradientTexture2D_yeshv")
 
 [node name="SpriteBase" type="Sprite3D" parent="EffectList"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.0226145)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, 0.22, 0.1)
 visible = false
-billboard = 2
+billboard = 1
 texture_filter = 0
 texture = SubResource("AtlasTexture_alvk1")
 
