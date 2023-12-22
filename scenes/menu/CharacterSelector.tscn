@@ -1,9 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://1bk6q3aq6c34"]
+[gd_scene load_steps=9 format=3 uid="uid://1bk6q3aq6c34"]
 
 [ext_resource type="Script" path="res://scenes/menu/CharacterSelector.gd" id="1_cc8wa"]
 [ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="2_4ohwx"]
 [ext_resource type="PackedScene" uid="uid://ud1gq47n7cng" path="res://scenes/menu/CharacterViewer.tscn" id="3_60dfy"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_aubh0"]
+[ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="4_6qu0w"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="4_17teu"]
+
+[sub_resource type="Animation" id="Animation_2cjtw"]
+resource_name = "focus_start"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.627451, 0.627451, 0.627451, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mmb6u"]
+_data = {
+"focus_start": SubResource("Animation_2cjtw")
+}
 
 [node name="CharacterSelector" type="Control"]
 layout_mode = 3
@@ -21,11 +45,11 @@ texture = ExtResource("2_4ohwx")
 centered = false
 
 [node name="OptionsContainer" type="GridContainer" parent="CanvasLayer"]
-custom_minimum_size = Vector2(600, 220)
+custom_minimum_size = Vector2(600, 200)
 offset_left = 60.0
-offset_top = 290.0
+offset_top = 300.0
 offset_right = 660.0
-offset_bottom = 510.0
+offset_bottom = 500.0
 columns = 3
 
 [node name="SelectorLabel" type="Label" parent="CanvasLayer"]
@@ -41,11 +65,47 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_aubh0")
-theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 16
+theme_override_fonts/font = ExtResource("4_6qu0w")
+theme_override_font_sizes/font_size = 33
 text = "CHARACTERS"
+
+[node name="StartButton" type="NinePatchRect" parent="CanvasLayer"]
+custom_minimum_size = Vector2(150, 40)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -76.0
+offset_right = -30.0
+offset_bottom = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_17teu")
+region_rect = Rect2(-0.0397186, -0.480766, 127.356, 128.29)
+patch_margin_left = 26
+patch_margin_top = 27
+patch_margin_right = 25
+patch_margin_bottom = 26
+
+[node name="Label" type="Label" parent="CanvasLayer/StartButton"]
+custom_minimum_size = Vector2(150, 53)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("3_aubh0")
+theme_override_font_sizes/font_size = 16
+text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/StartButton"]
+libraries = {
+"": SubResource("AnimationLibrary_mmb6u")
+}
 
 [node name="CharacterViewer" parent="CanvasLayer" instance=ExtResource("3_60dfy")]
 anchors_preset = 5

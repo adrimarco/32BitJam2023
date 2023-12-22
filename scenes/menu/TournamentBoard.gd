@@ -13,6 +13,7 @@ signal activate_main_menu
 
 static var PLAYER_TEAM_COLOR:= Color(0.35, 0.36, 0.72)
 static var ENEMY_TEAM_COLOR	:= Color(0.41, 0.41, 0.41)
+static var FINAL_ROUND		:= 3
 
 var battle_scene			:= preload("res://scenes/BattleManager.tscn")
 var battle_node				:BattleManager = null
@@ -52,13 +53,14 @@ func _ready():
 
 func play_tournament_board_animation():
 	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.MENU_MUSIC)
-	anim_player.play("show_board")
+	anim_player.play("show_board" if tournament_round < FINAL_ROUND else "final_battle")
 	await anim_player.animation_finished
 	
-	await fade_screen(true)
-	move_camera_to_player_battle()
-	fade_screen(false)
-	await get_tree().create_timer(3.0).timeout
+	if tournament_round < FINAL_ROUND:
+		await fade_screen(true)
+		move_camera_to_player_battle()
+		fade_screen(false)
+		await get_tree().create_timer(3.0).timeout
 	
 	load_battle()
 
@@ -74,13 +76,19 @@ func set_player_characters(characters:Array[int]):
 
 
 func load_battle():
-	# Get random team to fight against
-	var enemy_team_index := randi() % CharactersContainer.teams_count
-	
-	while enemy_team_index in teams_fought:
-		enemy_team_index = (enemy_team_index + 1) % CharactersContainer.teams_count
-	
-	teams_fought.append(enemy_team_index)
+	var enemy_team :Array[int]
+	if tournament_round < FINAL_ROUND:
+		# Get random team to fight against
+		var enemy_team_index := randi() % CharactersContainer.teams_count
+		
+		while enemy_team_index in teams_fought:
+			enemy_team_index = (enemy_team_index + 1) % CharactersContainer.teams_count
+		
+		teams_fought.append(enemy_team_index)
+		enemy_team = CharactersContainer.get_team_by_id(enemy_team_index)
+	else:
+		# Get boss
+		enemy_team = CharactersContainer.get_boss_team()
 	
 	# Load battle manager
 	battle_node = battle_scene.instantiate()
@@ -92,7 +100,7 @@ func load_battle():
 		
 		camera.enabled = false
 		get_tree().get_root().add_child(battle_node)
-		battle_node.set_battle_teams([0, 0, 0], CharactersContainer.get_team_by_id(enemy_team_index))
+		battle_node.set_battle_teams(player_characters, enemy_team)
 		fade_screen(false)
 		battle_node.start_battle()
 	
@@ -202,7 +210,8 @@ func next_round():
 	# Update tournament board
 	eliminate_teams()
 	tournament_round += 1
-	place_papers(true)
+	if tournament_round < FINAL_ROUND:
+		place_papers(true)
 	
 	await fade_screen(false)
 	play_tournament_board_animation()

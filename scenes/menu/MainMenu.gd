@@ -1,12 +1,15 @@
 class_name MainMenu
 extends Control
 
+signal player_selected_team(team:Array[int])
+
 @onready var options_container 	:= $CanvasLayer/OptionsContainer
 @onready var menu_canvas		:= $CanvasLayer
 @onready var cursor				:=$CanvasLayer/CursorNode
 
 var credits_scene 		:= preload("res://scenes/menu/creditsMenu.tscn")
 var tournament_scene 	:= preload("res://scenes/menu/TournamentBoard.tscn")
+var char_selector_scene	:= preload("res://scenes/menu/CharacterSelector.tscn")
 var tutorial_scene 		:= preload("res://scenes/menu/tutorialMenu.tscn")
 
 var labels				:Array
@@ -16,6 +19,7 @@ var input_enabled		:bool
 var tournament_node		:TournamentBoard
 var credits_node		:CreditsMenu
 var tutorial_node		:TutorialMenu
+var char_selector_node	:CharacterSelector
 
 var cursor_position		:= Vector2(465, 244)
 var cursor_offset		:int = 44
@@ -28,6 +32,7 @@ func _ready():
 	input_enabled 	= true
 	
 	update_labels()
+	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.MENU_MUSIC)
 
 func _process(_delta):
 	if Input.is_anything_pressed() and input_enabled:
@@ -48,7 +53,7 @@ func update_labels():
 
 func execute_menu_action():
 	if selected_option == 0:
-		load_game()
+		open_character_selector()
 		hide_main_menu()
 	elif selected_option == 1:
 		load_tutorial_menu()
@@ -58,11 +63,31 @@ func execute_menu_action():
 		input_enabled = true
 	
 
-func load_game():
+func open_character_selector():
+	if char_selector_scene:
+		char_selector_node = char_selector_scene.instantiate()
+		char_selector_node.connect("team_selected", Callable(self, "load_game"))
+		char_selector_node.connect("exit_character_selector", Callable(self, "close_character_selector"))
+		get_tree().root.add_child(char_selector_node)
+
+func close_character_selector():
+	if char_selector_node:
+		char_selector_node.queue_free()
+		char_selector_node = null
+	
+	menu_canvas.show()
+	input_enabled = true
+
+func load_game(player_team:Array[int]):
+	if char_selector_node:
+		char_selector_node.queue_free()
+		char_selector_node = null
 	
 	if tournament_scene:
+		AudioPlayerInstance.stop_music(false)
 		tournament_node = tournament_scene.instantiate()
 		tournament_node.connect("activate_main_menu", Callable(self, "exit_tournament"))
+		tournament_node.set_player_characters(player_team)
 		get_tree().root.add_child(tournament_node)
 
 func hide_main_menu():
@@ -75,6 +100,7 @@ func exit_tournament():
 	
 	menu_canvas.show()
 	input_enabled = true
+	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.MENU_MUSIC)
 
 func load_tutorial_menu():
 	input_enabled = false

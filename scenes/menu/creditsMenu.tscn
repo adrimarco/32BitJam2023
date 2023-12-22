@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvgmibqj8yduk"]
 
 [ext_resource type="Script" path="res://scenes/menu/creditsMenu.gd" id="1_d0s24"]
-[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="2_06qs2"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_24jn4"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]
@@ -32,24 +32,6 @@ patch_margin_top = 26
 patch_margin_right = 26
 patch_margin_bottom = 26
 
-[node name="Label" type="Label" parent="NinePatchRect"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -40.0
-offset_top = 10.5
-offset_right = 41.0
-offset_bottom = 44.5
-grow_horizontal = 2
-size_flags_horizontal = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_06qs2")
-theme_override_font_sizes/font_size = 25
-text = "Credits"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="EATitle" type="Label" parent="NinePatchRect"]
 visible = false
 layout_mode = 1
@@ -76,6 +58,24 @@ scale = Vector2(2, 2)
 visible = false
 position = Vector2(316, 256)
 scale = Vector2(-2, -2)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -52.5
+offset_top = 40.0
+offset_right = 52.5
+offset_bottom = 84.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_06qs2")
+theme_override_font_sizes/font_size = 33
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FirstPage" type="Control" parent="."]
 visible = false

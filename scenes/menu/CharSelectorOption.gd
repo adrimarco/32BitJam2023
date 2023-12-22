@@ -6,6 +6,7 @@ extends Control
 @onready var anim_player		:= $AnimationPlayer
 
 var option_value				:= -1
+var option_index				:= -1
 var selected					:bool
 
 func _ready():
@@ -13,6 +14,9 @@ func _ready():
 
 func set_option_value(new_value:int):
 	option_value = new_value
+
+func set_option_index(new_value:int):
+	option_index = new_value
 
 func set_character_name(n:String):
 	if label:
