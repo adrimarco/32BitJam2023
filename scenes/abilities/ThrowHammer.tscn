@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cu3tcqpcsdygv"]
+[gd_scene load_steps=3 format=3 uid="uid://cu3tcqpcsdygv"]
 
 [ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_fo8jr"]
+[ext_resource type="SpriteFrames" uid="uid://ddm3dcrn0b2b8" path="res://resources/spriteFrames/abilitiesFrames/spark.tres" id="2_6nikh"]
 
 [node name="Ability" instance=ExtResource("1_fo8jr")]
 ability_name = "Hammer Throw"
@@ -13,3 +14,7 @@ priority_func_name = &"closest_character_from_front"
 target_effc_type = Array[int]([5])
 target_effc_value = Array[float]([30.0])
 target_effc_dur = Array[float]([3.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_6nikh")
+frame_progress = 0.0

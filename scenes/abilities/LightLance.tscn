@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://5s4sj0uacjei"]
+[gd_scene load_steps=3 format=3 uid="uid://5s4sj0uacjei"]
 
 [ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_u0lmb"]
+[ext_resource type="SpriteFrames" uid="uid://bbhp2r7v1fna2" path="res://resources/spriteFrames/abilitiesFrames/holyLance.tres" id="2_ym8yr"]
 
 [node name="Ability" instance=ExtResource("1_u0lmb")]
 ability_name = "Lance of light"
@@ -10,4 +11,5 @@ cost = 40
 target_enemy_team = true
 
 [node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_ym8yr")
 frame_progress = 0.0

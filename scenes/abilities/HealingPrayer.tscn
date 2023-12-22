@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dms13mn31p8ao"]
+[gd_scene load_steps=3 format=3 uid="uid://dms13mn31p8ao"]
 
 [ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_8t2f4"]
+[ext_resource type="SpriteFrames" uid="uid://cf04fpmp034y5" path="res://resources/spriteFrames/abilitiesFrames/healPulse.tres" id="2_tipnl"]
 
 [node name="Ability" instance=ExtResource("1_8t2f4")]
 ability_name = "Healing prayer"
@@ -11,3 +12,7 @@ ability_range_name = &"all_other_tiles"
 target_effc_type = Array[int]([6, 13])
 target_effc_value = Array[float]([20.0, 1.0])
 target_effc_dur = Array[float]([1.0, 1.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_tipnl")
+frame_progress = 0.0

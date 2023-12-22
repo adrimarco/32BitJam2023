@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvgmibqj8yduk"]
 
 [ext_resource type="Script" path="res://scenes/menu/creditsMenu.gd" id="1_d0s24"]
-[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
+[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="2_06qs2"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_24jn4"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]
@@ -320,20 +320,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -310.0
-offset_top = 28.0
-offset_right = 310.0
-offset_bottom = 124.0
+offset_left = -337.5
+offset_top = 23.0
+offset_right = 334.5
+offset_bottom = 221.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_24jn4")
+theme_override_constants/line_spacing = 5
 theme_override_font_sizes/font_size = 12
 text = "oco
 chierit
 bdragon1727
 pimen
 xyezawr
-Kyrise's Free 16x16 RPG Icon Pack by Kyrise"
+ansimuz
+ppeldo
+kenney
+Kyrise's Free 16x16 RPG Icon Pack by Kyrise
+Asset VFX Pixel Art 
+by Leonardo Zavala Cuevas (sangoro)"
 horizontal_alignment = 1
-vertical_alignment = 1

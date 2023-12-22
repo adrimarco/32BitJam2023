@@ -1,0 +1,88 @@
+[gd_resource type="SpriteFrames" load_steps=13 format=3 uid="uid://bbhp2r7v1fna2"]
+
+[ext_resource type="Texture2D" uid="uid://bply5au0bggs5" path="res://assets/abilities/holyLance.png" id="1_5pmb8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rv8o5"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7w56"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7sfm"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gopw0"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08pli"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12pni"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4ceh"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80s1n"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85cg8"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvcmc"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybfxq"]
+atlas = ExtResource("1_5pmb8")
+region = Rect2(256, 64, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rv8o5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7w56")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7sfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gopw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08pli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12pni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4ceh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80s1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85cg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvcmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybfxq")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}]

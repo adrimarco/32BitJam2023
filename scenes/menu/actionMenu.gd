@@ -25,6 +25,7 @@ var fightOptionsCount:int = 4
 @onready var cursorActionMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/CursorNode
 @onready var cursorAbilityMenu = $ColorRect/AbilityTab/CursorNode
 @onready var fightOptionsMenu = $ColorRect/MainActionMenu/Border2/fightOptionsMenu
+@onready var movementOption = $ColorRect/MainActionMenu/Border2/fightOptionsMenu/VBoxContainer/OptionBorder
 
 @onready var abilityDescText = $ColorRect/AbilityTab/AbilityDescBorder/AbilityDesc
 @onready var abilityPowerValue = $ColorRect/AbilityTab/AbilityDescBorder/AbilityPowerBorder/AbilityPowerValue
@@ -215,6 +216,10 @@ func _storeCharacterAttacking(ch:Character) -> void:
 	printcharacterAbilities(characterRefAttacking)
 	printCharacterAbilityDescription(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 	
+	if ch.has_effects([AbilityEffect.EffectType.Stun]):
+		movementOption.modulate = ABILITY_BLOCK_COLOR
+	else:
+		movementOption.modulate = NORMAL_COLOR
 	set_input_enabled()
 	showAbilityMenu(false)
 
