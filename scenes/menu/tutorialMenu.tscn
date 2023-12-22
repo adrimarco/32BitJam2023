@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dn71qavv4fgvm"]
+[gd_scene load_steps=43 format=3 uid="uid://dn71qavv4fgvm"]
 
 [ext_resource type="Script" path="res://scenes/menu/tutorialMenu.gd" id="1_ftbxm"]
 [ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="2_godni"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://6dygkf4qv21c" path="res://assets/menu/tilemap.png" id="9_68bpf"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="9_ycxka"]
 [ext_resource type="Texture2D" uid="uid://dl7rm4bua6ojf" path="res://assets/environment/GridBasic.png" id="10_5ibri"]
+[ext_resource type="Texture2D" uid="uid://ngt1glemrab2" path="res://assets/characters/effects.png" id="11_yrhvp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qq6bo"]
 atlas = ExtResource("3_nl57n")
@@ -82,9 +83,29 @@ region = Rect2(306, 34, 16, 16)
 atlas = ExtResource("9_68bpf")
 region = Rect2(323, 68, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_s670w"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(527, 102, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqbiu"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(544, 102, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63mj0"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(561, 102, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7vev"]
 atlas = ExtResource("9_68bpf")
 region = Rect2(340, 68, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a8w0"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(544, 17, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8845w"]
+atlas = ExtResource("9_68bpf")
+region = Rect2(561, 17, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xbkmd"]
 atlas = ExtResource("9_68bpf")
@@ -94,6 +115,26 @@ region = Rect2(510, 68, 67, 16)
 atlas = ExtResource("9_68bpf")
 region = Rect2(306, 51, 50, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7g3h"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iuoai"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjcjv"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxw1s"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dagln"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(0, 64, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_qw8yr"]
 atlas = ExtResource("10_5ibri")
 region = Rect2(0, 56, 56, 56)
@@ -101,6 +142,18 @@ region = Rect2(0, 56, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_iegq0"]
 atlas = ExtResource("10_5ibri")
 region = Rect2(0, 112, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2v4h"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hom2u"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sugxd"]
+atlas = ExtResource("11_yrhvp")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jxv1"]
 atlas = ExtResource("10_5ibri")
@@ -125,9 +178,9 @@ texture = ExtResource("2_godni")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -75.0
+offset_left = 285.0
 offset_top = 31.0
-offset_right = 225.0
+offset_right = 585.0
 offset_bottom = 216.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)
@@ -330,18 +383,18 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
 layout_mode = 0
-offset_left = 432.0
-offset_top = 219.0
-offset_right = 472.0
-offset_bottom = 259.0
+offset_left = 376.0
+offset_top = 224.0
+offset_right = 416.0
+offset_bottom = 264.0
 texture = SubResource("AtlasTexture_7jenf")
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
 layout_mode = 0
-offset_left = 432.0
-offset_top = 363.0
-offset_right = 472.0
-offset_bottom = 403.0
+offset_left = 400.0
+offset_top = 360.0
+offset_right = 440.0
+offset_bottom = 400.0
 texture = SubResource("AtlasTexture_qxyik")
 
 [node name="TextureRect3" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
@@ -370,19 +423,59 @@ texture = SubResource("AtlasTexture_mwskr")
 
 [node name="TextureRect8" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
 layout_mode = 0
-offset_left = 512.0
-offset_top = 219.0
-offset_right = 552.0
-offset_bottom = 259.0
+offset_left = 424.0
+offset_top = 224.0
+offset_right = 464.0
+offset_bottom = 264.0
 texture = SubResource("AtlasTexture_t60si")
+
+[node name="TextureRect10" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 224.0
+offset_right = 511.0
+offset_bottom = 264.0
+texture = SubResource("AtlasTexture_s670w")
+
+[node name="TextureRect11" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 224.0
+offset_right = 551.0
+offset_bottom = 264.0
+texture = SubResource("AtlasTexture_bqbiu")
+
+[node name="TextureRect12" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 551.0
+offset_top = 224.0
+offset_right = 591.0
+offset_bottom = 264.0
+texture = SubResource("AtlasTexture_63mj0")
 
 [node name="TextureRect9" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
 layout_mode = 0
-offset_left = 512.0
-offset_top = 363.0
-offset_right = 552.0
-offset_bottom = 403.0
+offset_left = 448.0
+offset_top = 360.0
+offset_right = 488.0
+offset_bottom = 400.0
 texture = SubResource("AtlasTexture_o7vev")
+
+[node name="TextureRect13" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 360.0
+offset_right = 536.0
+offset_bottom = 400.0
+texture = SubResource("AtlasTexture_7a8w0")
+
+[node name="TextureRect14" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 360.0
+offset_right = 576.0
+offset_bottom = 400.0
+texture = SubResource("AtlasTexture_8845w")
 
 [node name="TextureRect7" type="TextureRect" parent="CanvasLayer/TutorialPages/ControlsPage"]
 layout_mode = 0
@@ -435,15 +528,17 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 64.0
-offset_top = 125.0
+offset_top = 98.0
 offset_right = -80.0
-offset_bottom = 256.0
+offset_bottom = 261.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("9_ycxka")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 10
-text = "In tournament mode, you must form a team of 3 characters and face off in multiple battles to win. In each fight you will face different enemies. If you are defeated, you will have to start from the beginning. The winner of the tournament will become part of the royal squadron of the kingdom, enjoying a life of riches and privileges. May your luck be with you!"
+text = "In tournament mode, you must form a team of 3 characters and face off in multiple battles to win. In each fight you will face different enemies. If you are defeated, you will have to start from the beginning. 
+
+The winner of the tournament will become part of the royal squadron of the kingdom, enjoying a life of riches and privileges."
 
 [node name="CombatPage" type="Control" parent="CanvasLayer/TutorialPages"]
 visible = false
@@ -482,23 +577,24 @@ anchor_right = 1.0
 offset_left = 48.0
 offset_top = 98.0
 offset_right = -32.0
-offset_bottom = 512.0
+offset_bottom = 520.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("9_ycxka")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 10
-text = "In combat, the objective is to defeat all enemies by reducing their health to 0. Characters will take turns attacking. When the attack meter of one of the characters is completely full, their turn will begin. During their turn, characters can perform the following actions:
+text = "In combat, the objective is to defeat all enemies by reducing their health to 0. Characters will take turns attacking. When the attack meter of one of the characters is completely full, their turn will begin. 
+During their turn, characters can perform the following actions:
 
-- Move: The character can move to an adjacent empty square.
+- Move: The character can move to an adjacent empty tiles.
 
 - Attack: The character can attack an enemy within range. Reduces the enemy's health.
 
 - Abilities: The character can use an ability. Skills require energy to use and can have different effects.
 
-- Rest: The player ends his turn and regains some energy.
+- Rest: The player ends their turn and regains some energy.
 
-When the player attacks, uses an ability or rests, his turn ends immediately. If he takes a move action, he may use a second action, after which his turn ends. 
+When the player attacks, uses an ability or rests, their turn ends immediately. If they take a move action, they may use a second action, after which their turn ends.
 
 When all the characters of one of the teams are defeated, the battle ends."
 
@@ -539,7 +635,7 @@ anchor_right = 1.0
 offset_left = 48.0
 offset_top = 98.0
 offset_right = -32.0
-offset_bottom = 512.0
+offset_bottom = 560.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("9_ycxka")
@@ -549,16 +645,61 @@ text = "Abilities change from character to character and each has a purpose. To 
 Each skill has a range and can only be used on targets within the range. In addition, some abilities allow you to select the target of the ability, while others act on predetermined targets or all targets within range.
 Skills generally deal damage to the target. The damage will depend on the power of the ability and the attack of the character using it. However, they can also produce special effects. 
 This special effects are:
-- Increase / Decrease Attack
-- Increase / Decrease defense
-- Increase / Decrease Speed
-- Recover Health
-- Recover energy
-- Increase / Decrease Energy cost
-- Stun: The character can't move
-- Push an enemy to another position
-- Purify negative effects from characters
+		Increase / Decrease Attack
+		Increase / Decrease defense
+		Increase / Decrease Speed
+		Stun: The character can not move
+		Increase ability cost
+		Recover Health
+		Recover energy
+		Push an enemy to another position
+		Purify negative effects from characters
 "
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 328.0
+offset_right = 128.0
+offset_bottom = 360.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_c7g3h")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 347.0
+offset_right = 128.0
+offset_bottom = 379.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_iuoai")
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 364.0
+offset_right = 128.0
+offset_bottom = 396.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_vjcjv")
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 381.0
+offset_right = 112.0
+offset_bottom = 413.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_rxw1s")
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/TutorialPages/AbilitiesPage"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 399.0
+offset_right = 112.0
+offset_bottom = 431.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_dagln")
 
 [node name="TerrainPage" type="Control" parent="CanvasLayer/TutorialPages"]
 visible = false
@@ -604,12 +745,12 @@ theme = ExtResource("9_ycxka")
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_separation = 10
 text = "Knowing how to take advantage of the combat terrain is key to winning battles. The position of each character determines the range of their abilities, so positioning them properly will allow you to attack the enemies you want.
-In addition, the column in which characters are placed alters their stats. The closer the character is to the enemy camp, the higher their attack power but the lower their defensive ability.
-During combat, some squares will change colour and become lucky squares. Characters that step on these squares will acquire special effects that they will keep until they move or the lucky square disappears. 
+In addition, the column in which characters are placed alters their stats. The closer the character is to the enemy field, the higher their attack power but the lower their defensive ability.
+During combat, some tiles will change colour and become lucky tiles. Characters that step on these tiles will acquire special effects that they will keep until they move or the lucky tiles disappears. 
 
 The possible effects of these squares are:
-- Heart: The character gains some heatlh at the end of the turn
-- Thunder:
+- Heart: The character gains some health by doing damage
+- Thunder: Reduces the ability cost
 - Clover: The character gains 50% chance of a critical hit"
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
@@ -641,6 +782,33 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = SubResource("AtlasTexture_iegq0")
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 520.0
+offset_right = 280.0
+offset_bottom = 584.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_l2v4h")
+
+[node name="TextureRect6" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 520.0
+offset_right = 536.0
+offset_bottom = 584.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_hom2u")
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 520.0
+offset_right = 408.0
+offset_bottom = 584.0
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_sugxd")
 
 [node name="TextureRect3" type="TextureRect" parent="CanvasLayer/TutorialPages/TerrainPage"]
 layout_mode = 1

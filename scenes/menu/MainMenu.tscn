@@ -66,16 +66,16 @@ script = ExtResource("1_jornw")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="WoodBackground" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(361, 291)
+position = Vector2(360, 290)
 texture = ExtResource("2_lpg4m")
 
 [node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -75.0
+offset_left = 285.0
 offset_top = 31.0
-offset_right = 225.0
+offset_right = 585.0
 offset_bottom = 216.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)
