@@ -123,7 +123,11 @@ func adjacent_tiles_in_column(grid:Array[Array], character_tile:Vector2i) -> Til
 		
 	return tiles
 
-
+func tiles_side_rows(grid:Array[Array], _character_tile:Vector2i) -> TileCollection:
+	var tiles:TileCollection = tiles_in_same_row(grid, Vector2i(0, 0))
+	tiles.tiles.append_array(tiles_in_same_row(grid, Vector2i(0, grid.size()-1)).tiles)
+	return tiles
+	
 func only_back_column(grid:Array[Array], _character_tile:Vector2i) -> TileCollection:
 	return tiles_in_same_column(grid, Vector2i(0, 0))
 
@@ -168,6 +172,22 @@ func tiles_at_two_or_less(grid:Array[Array], character_tile:Vector2i) -> TileCol
 
 func column_at_three(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
 	var tile := _tile_from_enemy_field_at_n_distance(grid, character_tile, 3)
+	
+	if tile.tiles.is_empty():
+		return tile
+	
+	return tiles_in_same_column(grid, tile.tiles[0])
+	
+func column_at_two(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+	var tile := _tile_from_enemy_field_at_n_distance(grid, character_tile, 2)
+	
+	if tile.tiles.is_empty():
+		return tile
+	
+	return tiles_in_same_column(grid, tile.tiles[0])
+
+func column_at_one(grid:Array[Array], character_tile:Vector2i) -> TileCollection:
+	var tile := _tile_from_enemy_field_at_n_distance(grid, character_tile, 1)
 	
 	if tile.tiles.is_empty():
 		return tile

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cff8hw7c8s0ln"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_g5w4v"]
+[ext_resource type="SpriteFrames" uid="uid://0ibrjcvih6p4" path="res://resources/spriteFrames/abilitiesFrames/doubleSlash.tres" id="2_614ue"]
+
+[node name="Ability" instance=ExtResource("1_g5w4v")]
+ability_name = "Desert Spada"
+description = "Transforms your weapon into a blade of sand that spreads across the ground, damaging enemies in the side rows."
+dmg_multiplier = 1.5
+cost = 65
+target_enemy_team = true
+ability_range_name = &"tiles_side_rows"
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_614ue")
+frame_progress = 0.0

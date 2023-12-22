@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ud1gq47n7cng"]
 
 [ext_resource type="Script" path="res://scenes/menu/CharacterViewer.gd" id="1_be571"]
-[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="2_ntnau"]
+[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="2_ntnau"]
 [ext_resource type="SpriteFrames" uid="uid://3pg5717b1xwl" path="res://resources/spriteFrames/dude.tres" id="3_lexyy"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="4_wtdqi"]
 

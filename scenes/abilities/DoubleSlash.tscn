@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://6orgohs4edta"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_ts1xh"]
+[ext_resource type="SpriteFrames" uid="uid://0ibrjcvih6p4" path="res://resources/spriteFrames/abilitiesFrames/doubleSlash.tres" id="2_1phf5"]
+
+[node name="Ability" instance=ExtResource("1_ts1xh")]
+ability_name = "Double strike"
+description = "Hit an enemy with a double slash one column away."
+dmg_multiplier = 1.3
+cost = 30
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"column_at_one"
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_1phf5")
+frame_progress = 0.0

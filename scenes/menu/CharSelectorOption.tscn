@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cn8sxqfa3bikb"]
 
 [ext_resource type="Script" path="res://scenes/menu/CharSelectorOption.gd" id="1_qeru5"]
-[ext_resource type="Texture2D" uid="uid://6337cs8pyhv7" path="res://assets/borders/13.png" id="2_xjhbn"]
+[ext_resource type="Texture2D" uid="uid://dg2m50rhnpsmf" path="res://assets/borders/13.png" id="2_xjhbn"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_jyoj4"]
 
 [sub_resource type="Animation" id="Animation_ekyis"]
