@@ -22,6 +22,7 @@ var damage_counter_scene 		:= preload("res://scenes/battle/DamageCounter.tscn")
 
 # Nodes
 @onready var sprite		= $Sprite
+@onready var anim_player= $AnimationPlayer
 
 # Class variables
 @export var maxhp			:int	= 1
@@ -174,6 +175,12 @@ func reset_idle_animation():
 
 func play_attack_animation():
 	sprite.play("attack")
+
+func play_rest_animation():
+	anim_player.play("rest")
+
+func _on_animation_player_animation_finished(anim_name):
+	attack_animation_finished.emit(self)
 
 func initializeCharacterAbilities():
 	# Instantiate basic ability
@@ -402,5 +409,4 @@ func show_effects_icons():
 					
 		# Add sprite to the scene
 		effectListNode.add_child(new_sprite)
-		
-		
+	

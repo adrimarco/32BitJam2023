@@ -9,7 +9,8 @@ static var CHARACTERS_PER_TEAM			:= 3
 @onready var actionMenu:ActionMenu		= $SubViewportContainer/SubViewport/actionMenu
 @onready var tileSelector:TileSelector	= $SubViewportContainer/SubViewport/TileSelector
 @onready var aiManager:AIManager		= $SubViewportContainer/SubViewport/aiManager
-@onready var timer						:= $SubViewportContainer/SubViewport/Timer
+@onready var ai_limit_timer				:= $SubViewportContainer/SubViewport/AITimer
+@onready var timer						:= $SubViewportContainer/SubViewport/ActionTimer
 
 var sfx					:Array = [	preload("res://assets/music_sfx/Victory.ogg"),
 									preload("res://assets/music_sfx/Death.ogg")]
@@ -33,7 +34,7 @@ func _ready():
 	battlefield.connect("player_attack_turn", Callable(actionMenu, "_storeCharacterAttacking"))
 	battlefield.connect("player_attack_turn", Callable(self, "set_attacking_character"))
 	battlefield.connect("enemy_attack_turn", Callable(aiManager, "_storeCharacterAttacking"))
-	battlefield.connect("enemy_attack_turn", Callable(self, "set_attacking_character"))
+	battlefield.connect("enemy_attack_turn", Callable(self, "set_enemy_attacking_character"))
 	battlefield.connect("player_dead", Callable(actionMenu, "characterDead"))
 	battlefield.connect("resume_preparing_attacks", Callable(actionMenu, "resumePreparingAttacks"))
 	battlefield.connect("battle_finished", Callable(self, "end_battle"))
@@ -149,26 +150,29 @@ func do_action_movement(tiles_affected:Vector2i):
 		check_remaining_actions(0)
 		return
 	print("Character moving to tile (" + str(tiles_affected.x) + ", " + str(tiles_affected.y) + ")")
-	battlefield.set_character_tile(attacking_character, tiles_affected.x, tiles_affected.y)
-	
-	check_remaining_actions(1)
+	if actions_remaining > 0:
+		battlefield.set_character_tile(attacking_character, tiles_affected.x, tiles_affected.y)
+		
+		check_remaining_actions(1)
 
 func do_action_attack(tiles_affected:Array[Vector2i], casted_ability:Ability):
 	if attacking_character == null:
 		return
 	
-	character_use_ability(attacking_character, casted_ability, tiles_affected)
-	
-	check_remaining_actions(2)
+	if actions_remaining > 0:
+		character_use_ability(attacking_character, casted_ability, tiles_affected)
+		
+		check_remaining_actions(2)
 
 func do_action_rest():
 	if attacking_character == null:
 		return
 	
-	attacking_character.recover_energy()
-	attacking_character.play_attack_animation()
-	
-	check_remaining_actions(2)
+	if actions_remaining > 0:
+		attacking_character.recover_energy()
+		attacking_character.play_rest_animation()
+		
+		check_remaining_actions(2)
 
 func check_remaining_actions(actions_consumed:int):
 	actions_remaining -= actions_consumed
@@ -176,6 +180,8 @@ func check_remaining_actions(actions_consumed:int):
 	if player_character:
 		actionMenu._storeCharacterAttacking(attacking_character)
 		actionMenu.disable_input()
+	else:
+		ai_limit_timer.stop()
 	
 	waiting_for_action_animation = true
 	if actions_consumed > 0:
@@ -212,7 +218,15 @@ func resume_turn():
 		if player_character:
 			actionMenu.set_input_enabled()
 		else:
+			ai_limit_timer.start()
 			requestAIAction.emit()
+
+func ai_limit_time_reached():
+	do_action_rest()
+
+func set_enemy_attacking_character(ch:Character):
+	ai_limit_timer.start()
+	set_attacking_character(ch)
 
 func set_attacking_character(ch:Character):
 	if attacking_character == null or attacking_character != ch:

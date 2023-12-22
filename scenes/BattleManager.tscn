@@ -61,8 +61,13 @@ shadow_opacity = 0.9
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_k8crt")
 
-[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport"]
+[node name="ActionTimer" type="Timer" parent="SubViewportContainer/SubViewport"]
 wait_time = 5.0
 one_shot = true
 
-[connection signal="timeout" from="SubViewportContainer/SubViewport/Timer" to="." method="resume_turn"]
+[node name="AITimer" type="Timer" parent="SubViewportContainer/SubViewport"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="SubViewportContainer/SubViewport/ActionTimer" to="." method="resume_turn"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/AITimer" to="." method="ai_limit_time_reached"]
