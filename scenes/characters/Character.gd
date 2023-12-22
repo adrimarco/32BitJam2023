@@ -361,12 +361,16 @@ func show_effects_icons():
 	else:
 		effectListBG.visible = false
 	
-	for eff in current_effects:
-		var rectSprite = EffectsContainer.EffectSprites[eff.type]
-		for effIcon in effect_icons:
+	for effIcon in effect_icons:
 			effIcon.queue_free()
 			effect_icons.erase(effIcon)
-
+	
+	for eff in current_effects:
+		var rectSprite:Rect2 = EffectsContainer.EffectSprites[eff.type]
+		
+		if rectSprite.size.x == 0:
+			continue
+			
 		var new_sprite = effectListSpriteBase.duplicate()
 		new_sprite.visible = true
 		var texture_atlas = AtlasTexture.new()
