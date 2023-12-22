@@ -8,6 +8,7 @@ var movementAction:Vector2i
 var attackAction:Ability = null
 var attackRange:Array[Vector2i]
 var decisionCompleted:bool = false
+var AIenabled:bool = true
 
 
 signal executeMovementActionEnemy(tile:Vector2i)
@@ -16,6 +17,7 @@ signal executeRestActionEnemy
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AIenabled = true
 	pass # Replace with function body.
 	
 func initCharacterList():
@@ -37,6 +39,11 @@ func storeCharacterDecisionAITurn(movement, attack, attRange:Array[Vector2i]):
 func executeBehaviourTree(activateBT:bool):
 	characterRefAttacking.get_node("%BeheviourTree").enabled = activateBT
 
+func disable_ai():
+	AIenabled = false
+	characterAttacking = false
+	characterRefAttacking = null
+
 func endAITurn():
 	if characterRefAttacking:
 		executeBehaviourTree(false)
@@ -44,6 +51,9 @@ func endAITurn():
 	characterAttacking = false
 	
 func _storeCharacterAttacking(ch:Character) -> void:
+	if not AIenabled:
+		return
+	
 	print("Attacking " + ch.character_name)
 	characterAttacking = true
 	characterRefAttacking = ch
@@ -53,6 +63,9 @@ func _storeCharacterAttacking(ch:Character) -> void:
 	getNextAction()
 	
 func getNextAction():
+	if not AIenabled:
+		return
+	
 	if !decisionCompleted:
 		executeBehaviourTree(true)
 		

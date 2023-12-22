@@ -96,7 +96,7 @@ func load_battle():
 		await fade_screen(true)
 		# Bind signals
 		battle_node.connect("player_win_battle", Callable(self, "next_round"))
-		battle_node.connect("player_loose_battle", Callable(self, "back_to_main_menu"))
+		battle_node.connect("player_loose_battle", Callable(self, "tournament_lost"))
 		
 		camera.enabled = false
 		get_tree().get_root().add_child(battle_node)
@@ -210,15 +210,23 @@ func next_round():
 	# Update tournament board
 	eliminate_teams()
 	tournament_round += 1
-	if tournament_round < FINAL_ROUND:
-		place_papers(true)
-	
-	await fade_screen(false)
-	play_tournament_board_animation()
+	if tournament_round <= FINAL_ROUND:
+		if tournament_round < FINAL_ROUND:
+			place_papers(true)
+		
+		await fade_screen(false)
+		play_tournament_board_animation()
+	else:
+		await StoryScreen.create_story_screen(self, 1)
+		back_to_main_menu()
+
+func tournament_lost():
+	await fade_screen(true)
+	await StoryScreen.create_story_screen(self, 0)
+	back_to_main_menu()
 
 func back_to_main_menu():
-	# Fade screen and eliminate battle node
-	await fade_screen(true)
+	# Eliminate battle node
 	if battle_node:
 		battle_node.queue_free()
 		battle_node = null

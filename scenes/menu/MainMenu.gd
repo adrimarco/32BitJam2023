@@ -29,9 +29,12 @@ func _ready():
 	labels 			= options_container.get_children()
 	options_count 	= labels.size()
 	selected_option = 0
-	input_enabled 	= true
+	input_enabled 	= false
 	
 	update_labels()
+	
+	await StoryScreen.create_story_screen(self, 2)
+	input_enabled = true
 	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.MENU_MUSIC)
 
 func _process(_delta):
