@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbl1rtrk3822h"]
 
 [ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_2sply"]
-[ext_resource type="SpriteFrames" uid="uid://bcfnj7cnodi8b" path="res://resources/spriteFrames/abilitiesFrames/fireballAttack.tres" id="2_hnn62"]
+[ext_resource type="SpriteFrames" uid="uid://c0vnwlpj5hkfx" path="res://resources/spriteFrames/abilitiesFrames/magicArrow.tres" id="2_xige7"]
 
 [node name="Ability" instance=ExtResource("1_2sply")]
 ability_name = "Magic arrow"
@@ -13,6 +13,5 @@ target_type = 1
 ability_range_name = &"surrounding_tiles_at_three_or_less"
 
 [node name="Sprite" parent="." index="0"]
-sprite_frames = ExtResource("2_hnn62")
-frame = 0
+sprite_frames = ExtResource("2_xige7")
 frame_progress = 0.0
