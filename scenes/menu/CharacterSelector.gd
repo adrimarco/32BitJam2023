@@ -19,6 +19,9 @@ var focus_index				:int
 var container_columns		:int
 
 func _ready():
+	if CharactersContainer.characters.size() == 0:
+		$CanvasLayer/Background.modulate = Color(0.0, 0.0, 1.0)
+	
 	for index in CharactersContainer.characters.size():
 		var scene = CharactersContainer.characters[index]
 		if not scene:
@@ -37,6 +40,7 @@ func _ready():
 
 func create_banner(ch:Character, index:int, value:int):
 	if option_scene == null:
+		$CanvasLayer/Background.modulate = Color(1.0, 0.0, 0.0)
 		return
 	
 	var new_banner := option_scene.instantiate()
