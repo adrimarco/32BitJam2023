@@ -22,9 +22,12 @@ func _ready():
 	
 	bosses.append(load("res://scenes/characters/King.tscn"))
 	
-	teams.append([2, 1, 1])
-	teams.append([0, 1, 3])
-	teams.append([4, 1, 3])
+	teams.append([2, 1, 0])
+	teams.append([7, 4, 3])
+	teams.append([5, 1, 8])
+	teams.append([6, 4, 7])
+	teams.append([2, 6, 3])
+	teams.append([0, 6, 5])
 	teams_count = teams.size()
 	
 	boss_teams.append([BOSS_OFFSET])
