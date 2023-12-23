@@ -22,6 +22,7 @@ class CharacterData:
 var characters 				:Array[CharacterData]
 var attack_cue				:Array[Character]
 var character_attacking		:bool
+var block_battlefield		:bool
 
 @onready var player_grid	:BattlefieldGrid	= $PlayerGrid
 @onready var enemy_grid 	:BattlefieldGrid	= $EnemyGrid
@@ -31,6 +32,8 @@ func _init():
 	return
 	
 func _ready():
+	block_battlefield = false
+	
 	enemy_grid.set_mark_color(false)
 	player_grid.set_mark_color(true)
 	
@@ -70,7 +73,7 @@ func character_ready_to_attack(ready_character:Character):
 func check_attack_cue():
 	# Attack cue cannot be checked while character attacking,
 	# call attack_finished to enable it again and resume fight
-	if character_attacking:
+	if character_attacking or block_battlefield:
 		return
 		
 	if attack_cue.is_empty():
@@ -111,6 +114,7 @@ func attack_finished():
 func stop_battle():
 	attack_cue.clear()
 	character_attacking = true
+	block_battlefield = true
 	stop_preparing_attacks.emit()
 
 func character_died(ch:Character):
@@ -137,11 +141,14 @@ func character_died(ch:Character):
 	
 	# Delete character
 	ch.visible = false
-	await get_tree().create_timer(1.0).timeout
+	#await get_tree().create_timer(1.0).timeout
 	ch.queue_free()
 	check_game_over()
 
 func check_game_over() -> bool:
+	if block_battlefield:
+		return false
+	
 	var player_alive 	:= false
 	var enemy_alive 	:= false
 	
@@ -153,9 +160,11 @@ func check_game_over() -> bool:
 		
 	# Check if one of the teams has been defeated
 	if not player_alive:
+		stop_battle()
 		battle_finished.emit(false)
 		return true
 	elif not enemy_alive:
+		stop_battle()
 		battle_finished.emit(true)
 		return true
 	

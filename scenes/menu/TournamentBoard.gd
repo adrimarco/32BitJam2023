@@ -100,8 +100,10 @@ func load_battle():
 		
 		camera.enabled = false
 		get_tree().get_root().add_child(battle_node)
+		battle_node.set_boss_battle_music(tournament_round >= FINAL_ROUND)
 		battle_node.set_battle_teams(player_characters, enemy_team)
 		fade_screen(false)
+		
 		battle_node.start_battle()
 	
 
@@ -203,8 +205,9 @@ func next_round():
 	reset_camera_position_and_zoom()
 	# Fade screen and eliminate battle node
 	await fade_screen(true)
-	battle_node.queue_free()
-	battle_node = null
+	if battle_node:
+		battle_node.queue_free()
+		battle_node = null
 	camera.enabled = true
 	
 	# Update tournament board

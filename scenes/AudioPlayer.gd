@@ -4,15 +4,18 @@ extends Node
 signal fade_music_finished
 
 static var DB_FADE_PER_SECONDS	:= 30
+
 static var BATTLE_MUSIC			:= 0
 static var MENU_MUSIC			:= 1
+static var BOSS_BATTLE_MUSIC	:= 2
 
 @onready var music 	:= $Music
 @onready var sfx	:= $SFX
 
 var music_source 	:Array = [	preload("res://assets/music_sfx/Action 1 (Loop).ogg"),
-								preload("res://assets/music_sfx/Action 2 (Loop).ogg")]
-var music_db		:Array = [-6.0, -6.0]
+								preload("res://assets/music_sfx/Action 2 (Loop).ogg"),
+								preload("res://assets/music_sfx/Action 3 (Loop).ogg")]
+var music_db		:Array = [-6.0, -6.0, -6.0]
 var current_music	:int
 var current_db		:float
 var fading_music	:bool

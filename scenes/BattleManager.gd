@@ -18,6 +18,7 @@ var attacking_character	:Character
 var player_character	:bool
 var actions_remaining 	:int
 var waiting_for_action_animation	:bool
+var battle_music_index	:int = -1
 
 ##### TEMPORAL ? ########
 var movement_ability :Ability
@@ -70,12 +71,15 @@ func bind_characters_signals():
 		ch.connect("tile_movement_finished", Callable(self, "check_character_finished_action_animation"))
 		ch.connect("attack_animation_finished", Callable(self, "check_character_finished_action_animation"))
 
+func set_boss_battle_music(boss_music:bool):
+	battle_music_index = AudioPlayerInstance.BOSS_BATTLE_MUSIC if boss_music else AudioPlayerInstance.BATTLE_MUSIC
+
 func start_battle():
 	actionMenu.initCharacterList()
 	aiManager.initCharacterList()
 	
 	battlefield.start_battle()
-	AudioPlayerInstance.play_music_by_index(AudioPlayerInstance.BATTLE_MUSIC)
+	AudioPlayerInstance.play_music_by_index(battle_music_index)
 
 func set_battle_teams(player_team:Array[int], enemy_team:Array[int]):
 	# Load characters into battlefield
@@ -311,7 +315,6 @@ func resolve_immediate_effect(ch:Character, effect:AbilityEffect):
 		ch.remove_negative_effects()
 
 func end_battle(player_win:bool):
-	battlefield.stop_battle()
 	actionMenu.hideActionMenu()
 	actionMenu.disable_input()
 	AudioPlayerInstance.stop_music()
