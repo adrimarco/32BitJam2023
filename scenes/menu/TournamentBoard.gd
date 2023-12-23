@@ -94,8 +94,7 @@ func load_battle():
 	battle_node = battle_scene.instantiate()
 	if battle_node:
 		AudioPlayerInstance.stop_music(true)
-		fade_screen(true)
-		await get_tree().create_timer(2.5).timeout
+		await fade_screen(true)
 		
 		# Bind signals
 		battle_node.connect("player_win_battle", Callable(self, "next_round"))

@@ -4,7 +4,7 @@
 
 [node name="Ability" instance=ExtResource("1_d7x00")]
 ability_name = "Electro Incision"
-description = "Strikes with a powerful slash made of electricity that hits an enemy two squares ahead."
+description = "Strikes with a powerful slash made of electricity that inflict a lot of damage to an enemy up to two squares ahead. However, reduces attacker's speed."
 dmg_multiplier = 1.8
 cost = 45
 target_enemy_team = true
