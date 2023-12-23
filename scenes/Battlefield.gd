@@ -23,10 +23,14 @@ var characters 				:Array[CharacterData]
 var attack_cue				:Array[Character]
 var character_attacking		:bool
 var block_battlefield		:bool
+var camera_initial_position	:Vector3
+var camera_tween			:Tween
+var is_camera_in_init_pos	:bool
 
 @onready var player_grid	:BattlefieldGrid	= $PlayerGrid
 @onready var enemy_grid 	:BattlefieldGrid	= $EnemyGrid
 @onready var camera			:Camera3D			= $Camera3D
+@onready var camera_timer	:Timer				= $Timer
 
 func _init():
 	character_attacking = false
@@ -34,6 +38,8 @@ func _init():
 	
 func _ready():
 	block_battlefield = false
+	camera_initial_position = camera.position
+	is_camera_in_init_pos = true
 	
 	enemy_grid.set_mark_color(false)
 	player_grid.set_mark_color(true)
@@ -44,6 +50,40 @@ func _ready():
 	connect("resume_preparing_attacks", Callable(enemy_grid, "unpause_lucky_timer"))
 	
 	return
+
+func free_camera_tween():
+	if camera_tween != null and camera_tween.is_valid():
+		if camera_tween.is_running():
+			camera_tween.stop()
+		camera_tween.kill()
+	
+	camera_tween = get_tree().create_tween()
+
+func move_camera_to_field(to_player_field:bool):
+	var target_position:Vector3
+	if to_player_field:
+		target_position = camera_initial_position + Vector3(-0.6, -0.2, -0.4)
+	else:
+		target_position = camera_initial_position + Vector3(+0.6, -0.2, -0.4)
+	
+	free_camera_tween()
+	camera_tween.tween_property(camera, "position", target_position, 0.2).set_ease(Tween.EASE_OUT)
+	camera_tween.play()
+	
+	is_camera_in_init_pos = false
+	camera_timer.start()
+
+func reset_camera_position():
+	if is_camera_in_init_pos:
+		return
+	
+	camera_timer.stop()
+	
+	free_camera_tween()
+	camera_tween.tween_property(camera, "position", camera_initial_position, 0.2).set_ease(Tween.EASE_OUT)
+	camera_tween.play()
+	
+	is_camera_in_init_pos = true
 
 func start_battle():
 	if not check_game_over():

@@ -5,6 +5,7 @@ signal attack_ready(ch:Character)
 signal health_changed(new_health:int)
 signal energy_changed(new_energy:int)
 signal rest_animation_finished(ch:Character)
+signal damaged_animation_finished(ch:Character)
 signal attack_animation_finished(ch:Character)
 signal tile_movement_finished(ch:Character)
 signal character_dead(ch:Character)
@@ -186,6 +187,8 @@ func play_damaged_animation():
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "rest":
 		rest_animation_finished.emit(self)
+	elif anim_name == "damage":
+		damaged_animation_finished.emit(self)
 
 func initializeCharacterAbilities():
 	# Instantiate basic ability
