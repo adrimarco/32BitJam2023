@@ -178,6 +178,9 @@ func play_attack_animation():
 
 func play_rest_animation():
 	anim_player.play("rest")
+	
+func play_damaged_animation():
+	anim_player.play("damage")
 
 func _on_animation_player_animation_finished(anim_name):
 	attack_animation_finished.emit(self)
@@ -237,6 +240,7 @@ func damaged(attacker:Character, abl:Ability):
 	counter.position.y = 1
 	add_child(counter)
 	counter.display_number(damage, critic_damage > 0.001)
+	play_damaged_animation()
 	
 	print("Deal " + str(damage) + " damage -> Health: " + str(hp) + "/" + str(maxhp))
 	# If character dies, notify
