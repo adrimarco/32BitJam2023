@@ -71,22 +71,28 @@ func _process(_delta):
 	if Input.is_anything_pressed():
 		if Input.is_action_just_pressed("move_right"):
 			select_next_horizontal()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		elif Input.is_action_just_pressed("move_left"):
 			select_previous_horizontal()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		elif Input.is_action_just_pressed("move_up"):
 			select_previous_vertical()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		elif Input.is_action_just_pressed("move_down"):
 			select_next_vertical()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		elif Input.is_action_just_pressed("action_back"):
 			if characters_selected.is_empty():
 				exit_character_selector.emit()
 			else:
 				unselect_last_character()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_UNDO_SELECT)
 		elif Input.is_action_just_pressed("action_accept"):
 			if characters_selected.size() >= TEAM_SIZE:
 				team_selection_finished()
 			else:
 				select_current_character()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_MAKE_SELECT)			
 		
 
 func select_current_character():

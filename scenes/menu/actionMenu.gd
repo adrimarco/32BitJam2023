@@ -103,13 +103,16 @@ func _process(_delta):
 		if !abilityTabActive:
 			if Input.is_action_just_pressed("move_down"):
 				selected = (selected + 1) % fightOptionsCount
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 			elif Input.is_action_just_pressed("move_up"):
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 				selected = (selected - 1) % fightOptionsCount
 				if selected < 0:
 					selected += fightOptionsCount
 			cursorActionMenu.position = Vector2(cursorPosition.x, cursorPosition.y + cursorPositionOffset*selected)
 			# Option selected
 			if Input.is_action_just_pressed("action_accept"):
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_MAKE_SELECT)
 				optionSelected()
 		else:
 			checkAbilityTabInput()
@@ -119,15 +122,19 @@ func checkAbilityTabInput():
 	if Input.is_action_just_pressed("move_down"):
 		abilitySelection = (abilitySelection + 1) % characterAbilitiesCount
 		hoverAbility()
+		AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 	elif Input.is_action_just_pressed("move_up"):
 		abilitySelection = (abilitySelection - 1) % characterAbilitiesCount
 		if abilitySelection < 0:
 			abilitySelection += characterAbilitiesCount
 		hoverAbility()
+		AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 	elif Input.is_action_just_pressed("action_back"):
 			showAbilityMenu(false)
 			requestUnmarkRange.emit()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_UNDO_SELECT)
 	elif Input.is_action_just_pressed("action_accept"):
+		AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_MAKE_SELECT)
 		disable_input()
 		show_action_info_text(getAbilityFromIndex(characterRefAttacking, abilitySelection))
 		characterAbility.emit(characterRefAttacking, getAbilityFromIndex(characterRefAttacking, abilitySelection))

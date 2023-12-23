@@ -37,16 +37,20 @@ func _process(_delta):
 		if Input.is_action_just_pressed("action_accept"):
 			input_enabled = false
 			execute_menu_action()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_MAKE_SELECT)
 		elif Input.is_action_just_pressed("action_back") and main_page:
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_UNDO_SELECT)
 			exit_tutorial.emit()
 		elif Input.is_action_just_pressed("move_down"):
 			selected_option = (selected_option + 1) % options_count
 			update_labels()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		elif Input.is_action_just_pressed("move_up"):
 			selected_option -= 1
 			if selected_option < 0:
 				selected_option = options_count - 1
 			update_labels()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 	elif !input_enabled:
 		process_input_page()
 
@@ -58,6 +62,7 @@ func process_input_page():
 			tutorialPages[selected_option].hide()
 			tutorial_page.hide()
 			input_enabled = true
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_UNDO_SELECT)
 			
 func execute_menu_action():
 	tutorial_page.show()

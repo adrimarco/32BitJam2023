@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvgmibqj8yduk"]
 
 [ext_resource type="Script" path="res://scenes/menu/creditsMenu.gd" id="1_d0s24"]
-[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="2_06qs2"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_24jn4"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]

@@ -13,9 +13,12 @@ static var texts :Array[String] = [	"Your allies fell defeated in the battle. Yo
 									"In a distant kingdom, today the contenders tournament is celebrated. This event takes place once every ten years and gathers the most powerful warriors of the kingdom. The team that manages to overcome the rest of the opponents in the combats and surpasses the ultimate challenge, has the opportunity to join the royal squad of the kingdom and change their life forever. May luck be with you."]
 static var TEXT_NORMAL_SPEED	= 20
 static var TEXT_FAST_SPEED		= 60
+static var SOUNDS_INTERVAL		= 0.15
+static var FAST_SOUNDS_INTERVAL	= 0.07
 
 var normal_speed		:bool 	= true
 var characters_to_show	:float	= 0
+var sound_time			:float	= 0
 
 static func create_story_screen(node:Node, story_index:int, appear_smooth:bool = false) -> Signal:
 	var story_screen := story_scene.instantiate()
@@ -47,10 +50,17 @@ func _process(delta):
 	
 	if label.visible_ratio < 1.0:
 		characters_to_show += delta * (TEXT_NORMAL_SPEED if normal_speed else TEXT_FAST_SPEED)
+		sound_time += delta
+		
 		if floori(characters_to_show) > 0:
 			var visible_characters = label.visible_characters + floori(characters_to_show)
 			label.visible_characters = visible_characters
 			characters_to_show -= floorf(characters_to_show)
+		
+		if sound_time >= (SOUNDS_INTERVAL if normal_speed else FAST_SOUNDS_INTERVAL):
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_TEXT_APPEAR)
+			while sound_time >= (SOUNDS_INTERVAL if normal_speed else FAST_SOUNDS_INTERVAL):
+				sound_time -= (SOUNDS_INTERVAL if normal_speed else FAST_SOUNDS_INTERVAL)
 	else:
 		if timer.is_stopped():
 			if label.text.is_empty():

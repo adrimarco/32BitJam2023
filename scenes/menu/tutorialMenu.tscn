@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bm4ivrkhtmmei" path="res://assets/menu/tilemap.png" id="9_68bpf"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="9_ycxka"]
 [ext_resource type="Texture2D" uid="uid://dl7rm4bua6ojf" path="res://assets/environment/GridBasic.png" id="10_5ibri"]
-[ext_resource type="Texture2D" uid="uid://colbfrpomybp0" path="res://assets/characters/effects.png" id="11_yrhvp"]
+[ext_resource type="Texture2D" uid="uid://ngt1glemrab2" path="res://assets/characters/effects.png" id="11_yrhvp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qq6bo"]
 atlas = ExtResource("3_nl57n")
@@ -178,9 +178,9 @@ texture = ExtResource("2_godni")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 285.0
+offset_left = -75.0
 offset_top = 31.0
-offset_right = 585.0
+offset_right = 225.0
 offset_bottom = 216.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)
