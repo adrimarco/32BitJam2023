@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://derwiro5v40h3"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_e32qb"]
+[ext_resource type="SpriteFrames" uid="uid://crikssjrcypxq" path="res://resources/spriteFrames/abilitiesFrames/strongSlashAttack.tres" id="2_d13w1"]
+
+[node name="Ability" instance=ExtResource("1_e32qb")]
+ability_name = "Mountain shredder"
+description = "Throws a powerful kick that deals damage to an enemy at the front row. The target is pushed away."
+dmg_multiplier = 1.25
+cost = 35
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"only_front_column"
+target_effc_type = Array[int]([11])
+target_effc_value = Array[float]([1.0])
+target_effc_dur = Array[float]([1.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_d13w1")
+frame_progress = 0.0

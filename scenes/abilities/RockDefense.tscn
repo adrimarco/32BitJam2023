@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://iu0u5p0o4b6e"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_4ij2k"]
+[ext_resource type="SpriteFrames" uid="uid://c8lvsk2xldjct" path="res://resources/spriteFrames/abilitiesFrames/holyShield.tres" id="2_n0got"]
+
+[node name="Ability" instance=ExtResource("1_4ij2k")]
+ability_name = "Rocky Defense"
+description = "Invoque a rock that inflicts damage to an enemig at the back row. Increase your defense and decrease the target velocity."
+dmg_multiplier = 1.15
+cost = 30
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"only_back_column"
+cast_effc_type = Array[int]([1])
+cast_effc_value = Array[float]([25.0])
+cast_effc_dur = Array[float]([7.0])
+target_effc_type = Array[int]([5])
+target_effc_value = Array[float]([25.0])
+target_effc_dur = Array[float]([7.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_n0got")
+frame_progress = 0.0
