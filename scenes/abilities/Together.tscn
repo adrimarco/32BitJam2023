@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0kwic61n0gja"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_hs58l"]
+[ext_resource type="SpriteFrames" uid="uid://cf04fpmp034y5" path="res://resources/spriteFrames/abilitiesFrames/healPulse.tres" id="2_gqebn"]
+
+[node name="Ability" instance=ExtResource("1_hs58l")]
+ability_name = "Fight together"
+description = "Encourage another ally to fight together. Both increase your speed and restore some energy."
+cost = 30
+target_type = 1
+ability_range_name = &"all_other_tiles"
+cast_effc_type = Array[int]([7, 2])
+cast_effc_value = Array[float]([20.0, 50.0])
+cast_effc_dur = Array[float]([1.0, 4.0])
+target_effc_type = Array[int]([7, 2])
+target_effc_value = Array[float]([10.0, 50.0])
+target_effc_dur = Array[float]([1.0, 4.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_gqebn")
+frame_progress = 0.0

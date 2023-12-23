@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://rpdvixwj88ur"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_w5dqu"]
+[ext_resource type="SpriteFrames" uid="uid://d4n03io4lwsko" path="res://resources/spriteFrames/abilitiesFrames/combatRoll.tres" id="2_q8gxs"]
+
+[node name="Ability" instance=ExtResource("1_w5dqu")]
+ability_name = "Retreat"
+description = "Brace yourself for a looming strike. Go back one tile and greatly increase your defense."
+cost = 20
+target_type = 1
+ability_range_name = &"only_character_tile"
+target_effc_type = Array[int]([11, 1])
+target_effc_value = Array[float]([1.0, 70.0])
+target_effc_dur = Array[float]([1.0, 5.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_q8gxs")
+frame_progress = 0.0
