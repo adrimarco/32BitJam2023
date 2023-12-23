@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://3yva4yxcp1au"]
+[gd_scene load_steps=17 format=3 uid="uid://3yva4yxcp1au"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_ops4t"]
 [ext_resource type="PackedScene" uid="uid://qp0jsmgmgjdf" path="res://scenes/abilities/Basic_Sword.tscn" id="2_md3iu"]
 [ext_resource type="PackedScene" uid="uid://6orgohs4edta" path="res://scenes/abilities/DoubleSlash.tscn" id="3_se5m6"]
 [ext_resource type="PackedScene" uid="uid://bk1ieouok45af" path="res://scenes/abilities/Fury.tscn" id="4_xf54k"]
 [ext_resource type="PackedScene" uid="uid://cff8hw7c8s0ln" path="res://scenes/abilities/DesertSpada.tscn" id="5_sxbhy"]
+[ext_resource type="PackedScene" uid="uid://cedhagc002fdp" path="res://scenes/abilities/Vigilant.tscn" id="6_kyg1j"]
 [ext_resource type="SpriteFrames" uid="uid://wypic41pt0xn" path="res://resources/spriteFrames/assassin.tres" id="7_3tp2k"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="7_h5da1"]
 [ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="8_h7q6i"]
@@ -24,7 +25,7 @@ dfn = 16
 spd = 10.0
 character_name = "Sand Warrior"
 basicAttackScene = ExtResource("2_md3iu")
-abilitiesScene = Array[PackedScene]([ExtResource("3_se5m6"), ExtResource("4_xf54k"), ExtResource("5_sxbhy")])
+abilitiesScene = Array[PackedScene]([ExtResource("3_se5m6"), ExtResource("4_xf54k"), ExtResource("5_sxbhy"), ExtResource("6_kyg1j")])
 aggressivity = 90
 
 [node name="Sprite" parent="." index="0"]

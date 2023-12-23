@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cedhagc002fdp"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_8uuok"]
+[ext_resource type="SpriteFrames" uid="uid://c8lvsk2xldjct" path="res://resources/spriteFrames/abilitiesFrames/holyShield.tres" id="2_i6lbg"]
+
+[node name="Ability" instance=ExtResource("1_8uuok")]
+ability_name = "Vigilant"
+description = "You prepare for any setback. Increase your defense for a long period of time and increase the damage of your next attack."
+cost = 35
+ability_range_name = &"only_character_tile"
+target_effc_type = Array[int]([1, 0])
+target_effc_value = Array[float]([60.0, 40.0])
+target_effc_dur = Array[float]([12.0, 2.0])
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_i6lbg")
+frame_progress = 0.0

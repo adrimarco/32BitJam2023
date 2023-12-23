@@ -11,7 +11,7 @@ target_type = 1
 ability_range_name = &"only_character_tile"
 target_effc_type = Array[int]([6, 0])
 target_effc_value = Array[float]([10.0, 30.0])
-target_effc_dur = Array[float]([1.0, 2.0])
+target_effc_dur = Array[float]([1.0, 3.0])
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_ee31g")
