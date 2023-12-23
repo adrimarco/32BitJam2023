@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvgmibqj8yduk"]
 
 [ext_resource type="Script" path="res://scenes/menu/creditsMenu.gd" id="1_d0s24"]
-[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
+[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="2_06qs2"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_24jn4"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]
@@ -160,7 +160,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SecondPage" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -209,15 +208,50 @@ text = "alkakrab"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Label10" type="Label" parent="SecondPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.5
+offset_top = 39.0
+offset_right = 86.5
+offset_bottom = 71.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Sounds
+from Itch.io"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label10" type="Label" parent="SecondPage/Label10"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.5
+offset_top = 40.5
+offset_right = 68.5
+offset_bottom = 62.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "electropunkzero"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Label9" type="Label" parent="SecondPage"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -119.5
-offset_top = 47.0
+offset_top = 119.0
 offset_right = 119.5
-offset_bottom = 79.0
+offset_bottom = 151.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_24jn4")
@@ -251,9 +285,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -85.0
-offset_top = 154.0
+offset_top = 226.0
 offset_right = 88.0
-offset_bottom = 186.0
+offset_bottom = 258.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_24jn4")
@@ -282,6 +316,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ThirdPage" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
