@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://1bk6q3aq6c34"]
 
 [ext_resource type="Script" path="res://scenes/menu/CharacterSelector.gd" id="1_cc8wa"]
-[ext_resource type="Texture2D" uid="uid://c1r75un8cwgrh" path="res://assets/menu/WoodBackground.png" id="2_4ohwx"]
+[ext_resource type="Texture2D" uid="uid://bbh0pa5b2c310" path="res://assets/menu/WoodBackground.png" id="2_4ohwx"]
 [ext_resource type="PackedScene" uid="uid://ud1gq47n7cng" path="res://scenes/menu/CharacterViewer.tscn" id="3_60dfy"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_aubh0"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="4_6qu0w"]
-[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="4_17teu"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="4_17teu"]
 
 [sub_resource type="Animation" id="Animation_2cjtw"]
 resource_name = "focus_start"

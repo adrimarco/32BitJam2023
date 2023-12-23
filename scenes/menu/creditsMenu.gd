@@ -17,13 +17,16 @@ func _process(_delta):
 	if Input.is_action_just_pressed("move_left"):
 		if current_page > 0:
 			current_page -= 1
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		show_page()
 	elif Input.is_action_just_pressed("move_right"):
 		if current_page < pages.size()-1:
 			current_page += 1
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 		show_page()
 	elif Input.is_action_just_pressed("action_back"):
 		exit_credits.emit()
+		AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_UNDO_SELECT)
 	
 	if current_page != 0:
 		external_title.show()

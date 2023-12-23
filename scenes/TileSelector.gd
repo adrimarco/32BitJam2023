@@ -86,28 +86,34 @@ func _process(_delta):
 			# Player can choose target
 			if Input.is_action_just_pressed("move_up"):
 				select_next_tile_up()
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 			elif Input.is_action_just_pressed("move_down"):
 				select_next_tile_down()
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 			elif Input.is_action_just_pressed("move_right"):
 				if player_field_active:
 					select_next_tile_right()
 				else:
 					select_next_tile_left()
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 			elif Input.is_action_just_pressed("move_left"):
 				if player_field_active:
 					select_next_tile_left()
 				else:
 					select_next_tile_right()
+				AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_CHANGE_SELECT)
 	
 	if Input.is_action_just_pressed("action_back"):
 		selector_enabled = false
 		active_grid.unmark_all_tiles()
 		selection_canceled.emit()
+		AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_UNDO_SELECT)
 		
 	elif Input.is_action_just_pressed("action_accept"):
 		if not current_selection.is_empty() and current_selection[0].x > -1:
 			selector_enabled = false
 			active_grid.unmark_all_tiles()
+			AudioPlayerInstance.play_ui_sound_by_index(AudioPlayerInstance.UI_MAKE_SELECT)
 			
 			if selected_action == BattleManager.CharacterAction.Move:
 				movement_confirmed.emit(current_selection[0])
