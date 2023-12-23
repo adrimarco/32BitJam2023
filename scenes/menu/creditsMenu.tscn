@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvgmibqj8yduk"]
 
 [ext_resource type="Script" path="res://scenes/menu/creditsMenu.gd" id="1_d0s24"]
-[ext_resource type="Texture2D" uid="uid://b3tnodjs4oysm" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
+[ext_resource type="Texture2D" uid="uid://bdwa7bo5uyir3" path="res://assets/borders/borderWood.png" id="1_mlf4r"]
 [ext_resource type="FontFile" uid="uid://cycavnjmhrsk2" path="res://assets/fonts/MedievalSharp-Bold.ttf" id="2_06qs2"]
 [ext_resource type="Theme" uid="uid://dr1rrqqcsrtxk" path="res://resources/menuTheme.tres" id="3_24jn4"]
 [ext_resource type="PackedScene" uid="uid://bgboeuk20d22c" path="res://scenes/menu/cursorMenu.tscn" id="5_you28"]
@@ -78,7 +78,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FirstPage" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -312,11 +311,12 @@ size_flags_horizontal = 4
 theme = ExtResource("3_24jn4")
 theme_override_font_sizes/font_size = 12
 text = "Medieval Voxel Assets 
-by Felix Munoz (felixstrefter)"
+by Felix Munoz (felixstrefter) (license cc4.0)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ThirdPage" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -335,10 +335,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -85.0
-offset_top = -5.0
-offset_right = 88.0
-offset_bottom = 27.0
+offset_left = -84.0
+offset_top = -37.0
+offset_right = 89.0
+offset_bottom = -5.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_24jn4")
@@ -373,7 +373,47 @@ xyezawr
 ansimuz
 ppeldo
 kenney
-Kyrise's Free 16x16 RPG Icon Pack by Kyrise
+Kyrise's Free 16x16 RPG Icon Pack 
+by Kyrise (license cc4.0) 
 Asset VFX Pixel Art 
-by Leonardo Zavala Cuevas (sangoro)"
+by Leonardo 
+Zavala Cuevas (sangoro) (license cc4.0)"
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="ThirdPage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_top = 233.0
+offset_right = 149.0
+offset_bottom = 265.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_font_sizes/font_size = 12
+text = "Shaders
+from godot shaders"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label10" type="Label" parent="ThirdPage/Label7"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -337.5
+offset_top = 23.0
+offset_right = 334.5
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_24jn4")
+theme_override_constants/line_spacing = 5
+theme_override_font_sizes/font_size = 12
+text = "PS1/PSX PostProcessing by grau"
 horizontal_alignment = 1

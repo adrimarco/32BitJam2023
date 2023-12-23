@@ -157,8 +157,9 @@ func request_ability_range_for_player(ch:Character, abl:Ability):
 		return
 	
 	var affected_tiles := battlefield.get_range_from_character_and_ability(ch, abl, false, true)
+	var affect_player_field := (not battlefield.searchCharacterIsPlayer(ch)) == abl.target_enemy_team
 	
-	tileSelector.enable_tile_selector(battlefield.get_grid_affected_by_ability(ch, abl), affected_tiles, abl, false, CharacterAction.Attack)
+	tileSelector.enable_tile_selector(battlefield.get_grid_affected_by_ability(ch, abl), affected_tiles, abl, affect_player_field, CharacterAction.Attack)
 
 func do_action_movement(tiles_affected:Vector2i):
 	if attacking_character == null or attacking_character.has_effects([AbilityEffect.EffectType.Stun]):
