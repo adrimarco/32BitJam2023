@@ -26,7 +26,7 @@ spd = 10.0
 character_name = "Sand Warrior"
 basicAttackScene = ExtResource("2_md3iu")
 abilitiesScene = Array[PackedScene]([ExtResource("3_se5m6"), ExtResource("4_xf54k"), ExtResource("5_sxbhy"), ExtResource("6_kyg1j")])
-aggressivity = 90
+aggressivity = 80
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("7_3tp2k")

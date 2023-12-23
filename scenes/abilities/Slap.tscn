@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://ciqqihtpi2ovj"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_nl8vb"]
+
+[node name="Ability" instance=ExtResource("1_nl8vb")]
+ability_name = "Slap"
+description = "Hit a nearby enemy. The unexpected slap greatly reduce enemy's speed for a moment."
+dmg_multiplier = 1.0
+cost = 30
+target_enemy_team = true
+target_type = 1
+ability_range_name = &"surrounding_tiles_at_three_or_less"
+target_effc_type = Array[int]([5])
+target_effc_value = Array[float]([90.0])
+target_effc_dur = Array[float]([1.0])

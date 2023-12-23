@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://5kqa7qb024n6" path="res://scenes/abilities/Stab.tscn" id="3_yjciw"]
 [ext_resource type="PackedScene" uid="uid://rpdvixwj88ur" path="res://scenes/abilities/Retreat.tscn" id="5_kn6of"]
 [ext_resource type="PackedScene" uid="uid://d0kwic61n0gja" path="res://scenes/abilities/Together.tscn" id="6_ef2af"]
-[ext_resource type="SpriteFrames" uid="uid://xupwtv1kv1aq" path="res://resources/spriteFrames/samurai.tres" id="7_0wds5"]
+[ext_resource type="SpriteFrames" uid="uid://cqst2hvuevgpr" path="res://resources/spriteFrames/killergirl.tres" id="7_asiaa"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="8_5hfac"]
 [ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="9_hi52g"]
 [ext_resource type="PackedScene" uid="uid://dfoykot4kvgxe" path="res://resources/beheviourTreeNodes/actions/RequestMovementRangeNode.tscn" id="10_1tftq"]
@@ -26,10 +26,11 @@ spd = 10.0
 character_name = "REBEL"
 basicAttackScene = ExtResource("2_jd7yh")
 abilitiesScene = Array[PackedScene]([ExtResource("3_yjciw"), ExtResource("3_qf1r7"), ExtResource("5_kn6of"), ExtResource("6_ef2af")])
-aggressivity = 90
+aggressivity = 70
 
 [node name="Sprite" parent="." index="0"]
-sprite_frames = ExtResource("7_0wds5")
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 0, 0, 0)
+sprite_frames = ExtResource("7_asiaa")
 
 [node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
 script = ExtResource("8_5hfac")

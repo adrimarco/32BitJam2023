@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bf6j52eh2jiqv"]
+[gd_scene load_steps=17 format=3 uid="uid://bf6j52eh2jiqv"]
 
 [ext_resource type="PackedScene" uid="uid://b4p83pan2i0yt" path="res://scenes/characters/Character.tscn" id="1_vyrdi"]
 [ext_resource type="PackedScene" uid="uid://b3eslhu1uttey" path="res://scenes/abilities/Basic_Ray.tscn" id="2_8tsbt"]
 [ext_resource type="PackedScene" uid="uid://derwiro5v40h3" path="res://scenes/abilities/Kick.tscn" id="3_hcmw3"]
 [ext_resource type="PackedScene" uid="uid://dms13mn31p8ao" path="res://scenes/abilities/HealingPrayer.tscn" id="3_xgj7b"]
 [ext_resource type="PackedScene" uid="uid://iu0u5p0o4b6e" path="res://scenes/abilities/RockDefense.tscn" id="5_gkfyq"]
+[ext_resource type="PackedScene" uid="uid://ciqqihtpi2ovj" path="res://scenes/abilities/Slap.tscn" id="6_q1ma1"]
 [ext_resource type="SpriteFrames" uid="uid://cgrrgd8e4wpxs" path="res://resources/spriteFrames/monk.tres" id="7_pj2sk"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="7_xow36"]
 [ext_resource type="PackedScene" uid="uid://co6rcv1yu0vag" path="res://resources/beheviourTreeNodes/InitBlackboardVariables.tscn" id="8_ddhuf"]
@@ -22,15 +23,13 @@ maxmp = 150
 atk = 26
 dfn = 24
 spd = 8.0
-character_name = "MONK"
+character_name = "DESERT MONK"
 basicAttackScene = ExtResource("2_8tsbt")
-abilitiesScene = Array[PackedScene]([ExtResource("3_hcmw3"), ExtResource("3_xgj7b"), ExtResource("5_gkfyq")])
-aggressivity = 90
+abilitiesScene = Array[PackedScene]([ExtResource("3_hcmw3"), ExtResource("3_xgj7b"), ExtResource("5_gkfyq"), ExtResource("6_q1ma1")])
+aggressivity = 70
 
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("7_pj2sk")
-animation = &"attack"
-frame_progress = 1.0
 
 [node name="SequenceStarComposite" type="Node" parent="BeheviourTree" index="0"]
 script = ExtResource("7_xow36")

@@ -232,7 +232,7 @@ func damaged(attacker:Character, abl:Ability):
 	var defense_power :float = dfn * (1 - DEFENSE_DEC_PER_TILE * grid_position.x) * get_defense_multiplier_by_effects(self)
 	
 	var damage :int = maxi(1, floori(attack_power - defense_power))
-	hp -= damage
+	hp -= damage*1000
 	
 	# If attacker has steal health effect, they recover hp
 	if attacker.has_effects([AbilityEffect.EffectType.StealHp]):
