@@ -321,8 +321,9 @@ func get_effect(effect_searched:AbilityEffect.EffectType) -> AbilityEffect:
 func add_special_effect(new_effect:AbilityEffect):
 	for e in current_effects:
 		if e.type == new_effect.type:
-			e.duration 	= new_effect.duration
-			e.value		= new_effect.value
+			if new_effect.duration > e.duration or new_effect.value > e.value:
+				e.duration 	= new_effect.duration
+				e.value		= new_effect.value
 			return
 	
 	current_effects.append(EffectsContainer.duplicate_effect(new_effect))
