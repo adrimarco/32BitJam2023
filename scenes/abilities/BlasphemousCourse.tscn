@@ -19,3 +19,4 @@ target_effc_dur = Array[float]([2.0, 2.0])
 [node name="Sprite" parent="." index="0"]
 sprite_frames = ExtResource("2_etj0k")
 frame = 20
+frame_progress = 0.0

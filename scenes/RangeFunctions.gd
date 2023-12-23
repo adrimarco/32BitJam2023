@@ -327,3 +327,27 @@ func closest_character_from_back_on_each_row(grid:Array[Array], tiles_checked:Ar
 			tiles.append(t)
 			
 	return tiles
+
+
+func closest_character_from_front_on_each_row(grid:Array[Array], tiles_checked:Array[Vector2i]) -> Array[Vector2i]:
+	if tiles_checked.is_empty():
+		return tiles_checked
+	
+	var closest_column := Array()
+	if grid.size() > 0:
+		for row in grid[0].size():
+			closest_column.append(-1)
+	else:
+		closest_column.append(-1)
+		
+	for t in tiles_checked:
+		if grid[t.x][t.y] != null and t.x > closest_column[t.y]:
+			closest_column[t.y] = t.x
+	
+	# Get closest tiles from each row
+	var tiles :Array[Vector2i] = []
+	for t in tiles_checked:
+		if t.x == closest_column[t.y] and grid[t.x][t.y] != null:
+			tiles.append(t)
+			
+	return tiles

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://vd5w5x0lakkt"]
+
+[ext_resource type="PackedScene" uid="uid://njbt37dv6jf3" path="res://scenes/abilities/Ability.tscn" id="1_e3ler"]
+[ext_resource type="SpriteFrames" uid="uid://ddm3dcrn0b2b8" path="res://resources/spriteFrames/abilitiesFrames/spark.tres" id="2_nv5ks"]
+
+[node name="Ability" instance=ExtResource("1_e3ler")]
+ability_name = "Blinking shuriken"
+description = "Throws three shurikens imbued with electricity that damages the first enemy of nearby rows."
+dmg_multiplier = 1.2
+cost = 35
+target_enemy_team = true
+target_type = 2
+ability_range_name = &"character_and_adjacent_rows"
+priority_func_name = &"closest_character_from_front_on_each_row"
+
+[node name="Sprite" parent="." index="0"]
+sprite_frames = ExtResource("2_nv5ks")
+frame_progress = 0.0
