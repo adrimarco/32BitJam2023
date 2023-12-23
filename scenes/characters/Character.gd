@@ -337,12 +337,14 @@ func remove_negative_effects():
 		else:
 			i += 1
 		
+	show_effects_icons()
 
 func remove_tile_effects():
 	var i := 0
 	while i < current_effects.size():
 		if current_effects[i].type in BattlefieldGrid.LUCKY_TILE_EFFECTS:
 			current_effects.remove_at(i)
+			show_effects_icons()
 		else:
 			i += 1
 	

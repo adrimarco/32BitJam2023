@@ -26,6 +26,7 @@ var block_battlefield		:bool
 
 @onready var player_grid	:BattlefieldGrid	= $PlayerGrid
 @onready var enemy_grid 	:BattlefieldGrid	= $EnemyGrid
+@onready var camera			:Camera3D			= $Camera3D
 
 func _init():
 	character_attacking = false
@@ -46,6 +47,7 @@ func _ready():
 
 func start_battle():
 	if not check_game_over():
+		camera.make_current()
 		resume_preparing_attacks.emit()
 
 func character_ready_to_attack(ready_character:Character):

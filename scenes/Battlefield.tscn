@@ -8,7 +8,6 @@ script = ExtResource("1_66x0w")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.854912, 0.518773, 0, -0.518773, 0.854912, 1.6, 1.2804, 3.09899)
-current = true
 
 [node name="PlayerGrid" parent="." instance=ExtResource("2_5j7ok")]
 

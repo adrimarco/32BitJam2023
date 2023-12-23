@@ -93,7 +93,10 @@ func load_battle():
 	# Load battle manager
 	battle_node = battle_scene.instantiate()
 	if battle_node:
-		await fade_screen(true)
+		AudioPlayerInstance.stop_music(true)
+		fade_screen(true)
+		await get_tree().create_timer(2.5).timeout
+		
 		# Bind signals
 		battle_node.connect("player_win_battle", Callable(self, "next_round"))
 		battle_node.connect("player_loose_battle", Callable(self, "tournament_lost"))

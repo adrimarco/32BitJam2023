@@ -11,6 +11,7 @@ static var CHARACTERS_PER_TEAM			:= 3
 @onready var aiManager:AIManager		= $SubViewportContainer/SubViewport/aiManager
 @onready var ai_limit_timer				:= $SubViewportContainer/SubViewport/AITimer
 @onready var timer						:= $SubViewportContainer/SubViewport/ActionTimer
+@onready var cinematic_player			:= $SubViewportContainer/SubViewport/AnimationPlayer
 
 var sfx					:Array = [	preload("res://assets/music_sfx/Victory.ogg"),
 									preload("res://assets/music_sfx/Death.ogg")]
@@ -29,6 +30,7 @@ signal player_win_battle
 signal player_loose_battle
 
 func _ready():
+	actionMenu.visible = false
 	connect("requestAIAction", Callable(aiManager, "getNextAction"))
 	
 	# Connect children signal
@@ -78,8 +80,16 @@ func start_battle():
 	actionMenu.initCharacterList()
 	aiManager.initCharacterList()
 	
-	battlefield.start_battle()
 	AudioPlayerInstance.play_music_by_index(battle_music_index)
+	cinematic_player.play("start_battle_animation")
+	await cinematic_player.animation_finished
+	cinematic_player.play("start_battle_animation_2")
+	await cinematic_player.animation_finished
+	cinematic_player.play("start_battle_animation_3")
+	await cinematic_player.animation_finished
+	
+	battlefield.start_battle()
+	actionMenu.visible = true
 
 func set_battle_teams(player_team:Array[int], enemy_team:Array[int]):
 	# Load characters into battlefield
