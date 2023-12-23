@@ -157,7 +157,7 @@ libraries = {
 }
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.999989, -0.000469194, 0.00470654, -2.91038e-11, 0.995068, 0.0991982, -0.00472987, -0.0991971, 0.995057, 1.46792, 1.0449, 4.60832)
+transform = Transform3D(0.768139, 0, -0.640284, 0, 1, 0, 0.640283, 0, 0.768139, -0.00426877, 0.973433, -3.2364)
 current = true
 
 [connection signal="timeout" from="SubViewportContainer/SubViewport/ActionTimer" to="." method="resume_turn"]

@@ -71,7 +71,8 @@ func bind_characters_signals():
 	
 	for ch in characters:
 		ch.connect("tile_movement_finished", Callable(self, "check_character_finished_action_animation"))
-		ch.connect("attack_animation_finished", Callable(self, "check_character_finished_action_animation"))
+		ch.connect("rest_animation_finished", Callable(self, "check_character_finished_action_animation"))
+		ch.connect("damaged_animation_finished", Callable(self, "damaged_animation_finished"))
 
 func set_boss_battle_music(boss_music:bool):
 	battle_music_index = AudioPlayerInstance.BOSS_BATTLE_MUSIC if boss_music else AudioPlayerInstance.BATTLE_MUSIC
@@ -183,6 +184,7 @@ func do_action_rest():
 		return
 	
 	if actions_remaining > 0:
+		battlefield.move_camera_to_field(battlefield.searchCharacterIsPlayer(attacking_character))
 		attacking_character.recover_energy()
 		attacking_character.play_rest_animation()
 		
@@ -200,13 +202,16 @@ func check_remaining_actions(actions_consumed:int):
 	
 	waiting_for_action_animation = true
 	if actions_consumed > 0:
-		timer.start(5.0)
+		timer.start(4.0)
 	else:
 		timer.start(0.5)
 
 func check_character_finished_action_animation(ch:Character):
 	if ch == attacking_character && waiting_for_action_animation:
 		resume_turn()
+
+func damaged_animation_finished(ch:Character):
+	resume_turn()
 
 func resume_turn():
 	if not waiting_for_action_animation:
@@ -216,6 +221,7 @@ func resume_turn():
 	if not timer.is_stopped():
 		timer.stop()
 	
+	battlefield.reset_camera_position()
 	# If character did all their actions, battle continues
 	if actions_remaining <= 0:
 		# Update effects when character turn's end
@@ -255,8 +261,12 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	if caster == null or abl == null or caster.mp < caster.get_ability_cost_from_character(abl):
 		return
 	
-	caster.play_attack_animation()
+	var ability_targets 	:= targets.duplicate(true)
+	var caster_is_player	:= battlefield.searchCharacterIsPlayer(caster)
 	
+	battlefield.move_camera_to_field(caster_is_player)
+	caster.play_attack_animation()
+	await caster.attack_animation_finished
 	
 	var grid:BattlefieldGrid
 	# Get target grid
@@ -266,7 +276,8 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 		grid = battlefield.get_character_grid_from_character(caster)
 	
 	# Damage all targets
-	for target in targets:
+	battlefield.move_camera_to_field(not caster_is_player == abl.target_enemy_team)
+	for target in ability_targets:
 		var characterTarget:Character = grid.grid_tiles[target.x][target.y]
 		if characterTarget != null:
 			if abl.dmg_multiplier > 0.001:
