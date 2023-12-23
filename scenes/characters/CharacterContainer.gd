@@ -16,6 +16,7 @@ func _ready():
 	characters.append(load("res://scenes/characters/Priestess.tscn"))
 	characters.append(load("res://scenes/characters/Squeleton.tscn"))
 	characters.append(load("res://scenes/characters/Assassin.tscn"))
+	characters.append(load("res://scenes/characters/Samurai.tscn"))
 	
 	bosses.append(load("res://scenes/characters/King.tscn"))
 	

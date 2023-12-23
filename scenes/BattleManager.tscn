@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfiu1i7gfyx6m"]
+[gd_scene load_steps=14 format=3 uid="uid://dfiu1i7gfyx6m"]
 
 [ext_resource type="Script" path="res://scenes/BattleManager.gd" id="1_em4oq"]
 [ext_resource type="PackedScene" uid="uid://c71nvbb5j0pfu" path="res://scenes/Battlefield.tscn" id="2_sd8bj"]
@@ -17,7 +17,27 @@ uv1_scale = Vector3(35, 35, 35)
 material = SubResource("StandardMaterial3D_58a7v")
 size = Vector2(50, 50)
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_nxo0a"]
+rayleigh_color = Color(0.239216, 0.439216, 0.647059, 1)
+turbidity = 18.93
+sun_disk_scale = 89.8
+ground_color = Color(0.698039, 0.572549, 0.427451, 1)
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_a4hwq"]
+sky_material = SubResource("PhysicalSkyMaterial_nxo0a")
+
 [sub_resource type="Environment" id="Environment_k8crt"]
+background_mode = 2
+sky = SubResource("Sky_a4hwq")
+sky_custom_fov = 58.5
+ambient_light_color = Color(0.227451, 0.184314, 0.145098, 1)
+glow_enabled = true
+fog_light_energy = 0.47
+fog_sun_scatter = 0.26
+volumetric_fog_density = 1.0
+volumetric_fog_albedo = Color(0.545098, 0.545098, 0.545098, 1)
+volumetric_fog_emission = Color(0.572549, 0.572549, 0.572549, 1)
 
 [node name="BattleManager" type="Node3D"]
 script = ExtResource("1_em4oq")
