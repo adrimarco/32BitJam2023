@@ -4,6 +4,7 @@ extends Node3D
 signal attack_ready(ch:Character)
 signal health_changed(new_health:int)
 signal energy_changed(new_energy:int)
+signal rest_animation_finished(ch:Character)
 signal attack_animation_finished(ch:Character)
 signal tile_movement_finished(ch:Character)
 signal character_dead(ch:Character)
@@ -183,7 +184,8 @@ func play_damaged_animation():
 	anim_player.play("damage")
 
 func _on_animation_player_animation_finished(anim_name):
-	attack_animation_finished.emit(self)
+	if anim_name == "rest":
+		rest_animation_finished.emit(self)
 
 func initializeCharacterAbilities():
 	# Instantiate basic ability

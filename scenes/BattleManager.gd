@@ -71,7 +71,7 @@ func bind_characters_signals():
 	
 	for ch in characters:
 		ch.connect("tile_movement_finished", Callable(self, "check_character_finished_action_animation"))
-		ch.connect("attack_animation_finished", Callable(self, "check_character_finished_action_animation"))
+		ch.connect("rest_animation_finished", Callable(self, "check_character_finished_action_animation"))
 
 func set_boss_battle_music(boss_music:bool):
 	battle_music_index = AudioPlayerInstance.BOSS_BATTLE_MUSIC if boss_music else AudioPlayerInstance.BATTLE_MUSIC
@@ -200,7 +200,7 @@ func check_remaining_actions(actions_consumed:int):
 	
 	waiting_for_action_animation = true
 	if actions_consumed > 0:
-		timer.start(5.0)
+		timer.start(3.0)
 	else:
 		timer.start(0.5)
 
@@ -255,8 +255,10 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 	if caster == null or abl == null or caster.mp < caster.get_ability_cost_from_character(abl):
 		return
 	
-	caster.play_attack_animation()
+	var ability_targets := targets.duplicate(true)
 	
+	caster.play_attack_animation()
+	await caster.attack_animation_finished
 	
 	var grid:BattlefieldGrid
 	# Get target grid
@@ -266,7 +268,7 @@ func character_use_ability(caster:Character, abl:Ability, targets:Array[Vector2i
 		grid = battlefield.get_character_grid_from_character(caster)
 	
 	# Damage all targets
-	for target in targets:
+	for target in ability_targets:
 		var characterTarget:Character = grid.grid_tiles[target.x][target.y]
 		if characterTarget != null:
 			if abl.dmg_multiplier > 0.001:
